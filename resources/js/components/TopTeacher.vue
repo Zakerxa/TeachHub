@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <div class="container-fluid" id="secondSection">
-            <div class="row m-0 p-0 pt-5 content-header justify-content-center text-center">
+    <div class="mb-5" style="border-bottom: 2px solid #8642DE;background: #F9F5FF;padding-bottom: 8%">
+        <div class="container-fluid pt-5" id="secondSection">
+            <div class="row m-0 p-0 mt-5 pt-5 content-header justify-content-center text-center">
                 <div class="col-1 col-sm-1">
                     <img class="left-effect" src="/images/effect.png" alt="">
                 </div>
-                <div class="col-10 col-sm-10 col-md-10">
+                <div class="col-10 pt-5 pb-5 col-sm-10 col-md-10">
                     <h3 class="content-title">Top Teacher On Teach<span>Hub</span>
                         <img class="content-title-image" src="/images/Particle.png" alt="">
                     </h3>
@@ -18,11 +18,13 @@
 
         <div class="container">
             <div class="row pt-5">
-                <div class="col-3 mt-2 mb-2" v-for="p in 6">
-                    <div class="card border-0">
-                        <img src="/images/hero.png" class="card-img-top teacher-image" alt="...">
-                        <div class="card-body">
-                            <div class="specialist mb-2">
+                <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" v-for="p in 4">
+                    <div class="row border-0">
+                        <div class="col-6 col-md-12">
+                            <img src="/images/hero.png" class="card-img-top teacher-image" alt="...">
+                        </div>
+                        <div class="col-6 col-md-12 pr-0">
+                            <div class="specialist mt-2 mb-2">
                                 <span class="badge">Mathematics</span>
                             </div>
                             <p class="teacher-name">Kay Thi Kyine Myint</p>
@@ -35,6 +37,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 </template>
 <script>
@@ -42,7 +46,7 @@ export default {
 
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .left-effect,
 .right-effect {
     width: 30px;
@@ -100,6 +104,9 @@ export default {
     font-weight: 700;
     color: #141414;
     margin-bottom: 5px;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflowed text */
+    text-overflow: ellipsis; /* Show ellipsis for overflowed text */
 }
 
 .teacher-image{

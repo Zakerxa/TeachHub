@@ -1,0 +1,54 @@
+<template>
+    <div class="trial">
+        <div class="trial container">
+            <div class="row d-flex pt-4 pb-4 align-items-center justify-content-center" style="min-height:70vh">
+                <div class="col-12 col-md-4">
+                    <img class="trial-img" src="/images/trialimg.png" alt="">
+                </div>
+                <div class="col-12 col-md-7">
+                    <p class="trial-text">Enjoy A Complimentary <span>1-hour Trial</span> With Our <span>Top Teachers</span>
+                    </p>
+
+                    <button class="trial-btn fw-bold">Content Us <font-awesome-icon icon="fa-solid fa-angle-right"
+                            style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+
+}
+</script>
+<style lang="scss" scoped>
+.trial {
+    background-image: url('/images/trial.png');
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.trial-img {
+    width: 80%;
+    height: 100%;
+}
+
+.trial-text {
+    color: #fff;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 60.9px;
+
+    >span {
+        color: #FFD32B;
+    }
+}
+
+.trial-btn {
+    background-color: #FFD32B;
+    padding: 13px 16px;
+    border: none;
+}
+</style>

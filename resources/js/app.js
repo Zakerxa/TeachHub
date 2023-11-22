@@ -1,9 +1,12 @@
 require('bootstrap');
+window.$ = window.jQuery = require('jquery');
 import { createApp } from 'vue';
 // import Router
 import router from './router';
 // import Authorization api
 import authorize from './authorize';
+// import Vuetify
+import vuetify from './vuetify';
 // import Store Vuex
 import store from './store';
 // import Cookie
@@ -27,7 +30,8 @@ import { faHistory } from '@fortawesome/free-solid-svg-icons';
 library.add(faBars, faAngleDown, faAngleRight, faSignOut, faHistory, faCheckCircle, faEye, faEyeSlash, faPersonRunning, faGraduationCap, faIdCardClip, faSearch, faShieldHalved, faMapLocationDot, faMobileScreen, faDesktop)
 
 import App from "./App.vue";
-const app = createApp(App).use(router).use(store);
+const app = createApp(App).use(router).use(store)
+    .use(vuetify);
 // Create Global Vue Property
 const global = app.config.globalProperties;
 // Define Global CSRFTOKEN

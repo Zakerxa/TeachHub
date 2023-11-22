@@ -29,8 +29,12 @@
         "@fortawesome/free-regular-svg-icons": "^6.4.2",
         "@fortawesome/free-solid-svg-icons": "^6.4.2",
         "@fortawesome/vue-fontawesome": "^3.0.5",
+        "@zakerxa/vue-laravel-pagination": "^0.0.3",
+        "jquery": "^3.6.1",
+        "owl.carousel": "^2.3.4",
         "vue-loader": "^17.3.1",
         "vue-router": "^4.2.5",
-        "vuex": "^4.1.0"
+        "vuex": "^4.1.0",
+        "vuetify": "^3.1.2"
     }
 }

@@ -53,15 +53,15 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['authUser'])
+        // ...mapGetters(['authUser'])
     },
     watch: {
         $route(to, from) {
-            this.$store.dispatch('gettingAuthUser').then(() => {
-                if (!this.authUser) this.$store.commit('removeAuthorize');
-            }).catch(() => {
-                if (!this.authUser) this.$store.commit('removeAuthorize');
-            })
+            // this.$store.dispatch('gettingAuthUser').then(() => {
+            //     if (!this.authUser) this.$store.commit('removeAuthorize');
+            // }).catch(() => {
+            //     if (!this.authUser) this.$store.commit('removeAuthorize');
+            // })
         }
     },
     mounted() {

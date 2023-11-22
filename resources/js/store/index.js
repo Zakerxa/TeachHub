@@ -1,25 +1,18 @@
 import { createStore } from 'vuex';
-
-
+import Review from './modules/review';
 const store = createStore({
-
+    modules: { Review },
     state() {
         return {
             auth: localStorage.getItem('auth') || null,
-            globalNoti: '',
-            authUser: null
+            authUser: null,
+            reviews: null
         }
     },
     getters: {
-        auth(state) {
-            return state.auth;
-        },
-        authUser(state) {
-            return state.authUser;
-        },
-        globalNoti(state) {
-            return state.globalNoti;
-        }
+        auth: state => state.auth,
+        authUser: state => state.authUser,
+        reviews: state => state.reviews
     },
     mutations: {
         updateAuthorize(state, payload) {
@@ -33,6 +26,23 @@ const store = createStore({
         },
         globalMessage(state, payload) {
             state.globalNoti = payload
+        },
+        updateReviews(state, payload) {
+            console.log("Someone is updating my reviews");
+            state.reviews = payload
+        }
+    },
+    actions: {
+        csrf({ state, commit, rootState }) {
+            return new Promise((resolve, reject) => {
+                fetch('api/v1/csrf').then(res => res.json()).then(res => {
+                    if (res != state.csrf) {
+                        console.log("Generate CSRF => ", res)
+                        commit('updatecsrf', res)
+                        resolve(res);
+                    } else reject(state.csrf);
+                })
+            })
         }
     }
 });
