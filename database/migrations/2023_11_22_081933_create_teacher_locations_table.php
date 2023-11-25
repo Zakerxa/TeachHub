@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('teacher_locations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('teacher_id')->constrained();
-            $table->foreignId('location_id')->constrained();
-            $table->string('township'); // Add this line for township
+            $table->string('region_state');
+            $table->string('region_state_mm')->nullable();
+            $table->string('capital');
+            $table->string('capital_mm')->nullable();
+            $table->string('township');
+            $table->string('township_mm')->nullable();
             $table->timestamps();
         });
     }
