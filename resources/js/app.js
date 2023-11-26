@@ -16,22 +16,24 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
-import { faBars, faAngleRight, faSignOut, faMobileScreen, faDesktop, faMapLocationDot, faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { faIdCardClip } from '@fortawesome/free-solid-svg-icons';
-import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
-import { faPersonRunning } from '@fortawesome/free-solid-svg-icons';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { faHistory } from '@fortawesome/free-solid-svg-icons';
+import { faHistory, faCheckCircle, faEyeSlash, faEye, faSearch, faBars, faAngleRight, faSignOut, faMobileScreen, faDesktop, faMapLocationDot, faAngleDown, faGlobe } from '@fortawesome/free-solid-svg-icons';
 /* add icons to the library */
-library.add(faBars, faAngleDown, faAngleRight, faSignOut, faHistory, faCheckCircle, faEye, faEyeSlash, faPersonRunning, faGraduationCap, faIdCardClip, faSearch, faShieldHalved, faMapLocationDot, faMobileScreen, faDesktop)
+library.add(faGlobe, faBars, faAngleDown, faAngleRight, faSignOut, faHistory, faCheckCircle, faEye, faEyeSlash, faSearch, faMapLocationDot, faMobileScreen, faDesktop)
 
 import App from "./App.vue";
 const app = createApp(App).use(router).use(store)
     .use(vuetify);
+
+import { createI18n } from 'vue-i18n/dist/vue-i18n.esm-bundler.js';
+import messages from './lang';
+const i18n = createI18n({
+    locale: 'en', // set locale
+    fallbackLocale: 'en', // set fallback locale
+    messages
+});
+
+app.use(i18n);
+
 // Create Global Vue Property
 const global = app.config.globalProperties;
 // Define Global CSRFTOKEN

@@ -1,74 +1,64 @@
 <template>
     <!-- <div class="d-md-block" style="min-height: 5px;background-color: #232;"></div> -->
-    <nav class="navbar custom navbar-expand-md">
+    <nav class="navbar custom navbar-expand-md" style="background-color: #FFFFFF;">
 
-        <div class="container-fluid" style="background-color: #FFFFFF;">
+        <div class="container-fluid">
             <div class="d-none d-md-block m-2" style="width:50px;"></div>
             <a class="navbar-brand text-success fw-bold ml-5" style="font-size: 20px;" href="#">
                 <img style="width: 60px;" src="/TeachHub resources/logo.png" alt="">
             </a>
-            <font-awesome-icon class="navbar-toggler border-0 fw-bold" style="font-size: 29px;" icon="fas fa-bars"
-                data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll">
+
+            <font-awesome-icon @click="toggleCollapse" class="navbar-toggler border-0 fw-bold" style="font-size: 29px;"
+                icon="fas fa-bars" aria-controls="navbarScroll">
             </font-awesome-icon>
-            <div class="collapse navbar-collapse" id="navbarScroll">
+
+
+            <div class="d-none d-lg-block navbar-collapse" :style="{ zIndex: 9999 }">
                 <ul class="m-auto"> </ul>
                 <ul class="navbar-nav ml-auto my-2 my-md-0" style="--bs-scroll-height: 100px;">
-                    <router-link v-for="(route, i) in router" :key="i" class="nav-link p-4 pt-3 pb-3 pt-md-0 pb-md-0" tag="li"
-                        active-class="active" aria-current="page" :to="route.path">
+                    <router-link v-for="(route, i) in router" :key="i"
+                        class="nav-link p-4 pt-3 pb-3 pt-md-1 pb-md-0" tag="li" active-class="active" aria-current="page"
+                        :to="route.path">
                         {{ route.name }}
                     </router-link>
+
+                    <Language class="p-4 pt-3 pb-3 pt-md-1 pb-md-0" />
                 </ul>
-                <!-- <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                <ul class="navbar-nav my-2 my-md-0 pt-3 pb-3 pt-md-0 pb-md-0" style="--bs-scroll-height: 100px;">
+            </div>
+
+            <transition name="custom-collapse" @enter="enter" @before-enter="beforeEnter" @after-enter="afterEnter"
+                @after-leave="afterLeave">
+                <div v-if="isCollapseOpen" key="collapse" class="collapse navbar-collapse" :style="{ zIndex: 9999 }"
+                    id="navbarScroll" :class="{ show: isCollapseOpen }">
+                    <ul class="m-auto"> </ul>
+                    <ul class="navbar-nav ml-auto my-2 my-md-0" style="--bs-scroll-height: 100px;">
+                        <router-link @click="closeCollapse" v-for="(route, i) in router" :key="i"
+                            class="nav-link p-4 pt-3 pb-3 pt-md-1 pb-md-0" tag="li" active-class="active"
+                            aria-current="page" :to="route.path">
+                            {{ route.name }}
+                        </router-link>
+
+                        <Language class="p-4 pt-3 pb-3 pt-md-1 pb-md-0" />
+                    </ul>
+
+                    <!--  <ul class="navbar-nav my-2 my-md-0 pt-3 pb-3 pt-md-0 pb-md-0" style="--bs-scroll-height: 100px;">
                     <button  v-if="auth" @click="logout" class="btn border-0 p-4 pt-2 pb-2 fw-bold nav-link"  active-class="active" aria-current="page">Logout</button>
                     <router-link v-else class="nav-link p-4 pt-2 pb-2 fw-bold"  active-class="active" aria-current="page" to="/login">Login</router-link>
                 </ul> -->
-            </div>
+                </div>
+            </transition>
         </div>
     </nav>
-
-    <div class="offcanvas offcanvas-top h-100 bg-light" style="z-index: 19999;top: 49px;" tabindex="-1"
-        id="nav-small-device" aria-labelledby="offcanvasWithBackdropLabel">
-        <div class="offcanvas-body">
-            <div class="row pt-5 justify-content-center">
-                <div class="col-12 text-center pt-2">
-                    <li class="list-unstyled border-bottom pb-4">
-                        <a class="fw-bold text-dark text-decoration-none" aria-current="page" href="index.php">
-                            <h4>Home</h4>
-                        </a>
-                    </li>
-                    <li class="list-unstyled border-bottom pt-4 pb-4">
-                        <a class="fw-bold text-dark text-decoration-none" href="about.php">
-                            <h4>About Us</h4>
-                        </a>
-                    </li>
-                    <li class="list-unstyled border-bottom pt-4 pb-4">
-                        <a class="fw-bold text-dark text-decoration-none" href="contact.php">
-                            <h4>Contact Us</h4>
-                        </a>
-                    </li>
-                </div>
-                <div class="col-12 text-center position-fixed" style="bottom: 0;">
-                    <img class="pt-4" src="image/logoT.png" width="100 " alt=" ">
-                    <p class="fw-bold">THIDA AUTO CENTER </p>
-                    <p>Prestige Car Sourcing Specialist and Export Worldwide</p>
-                    <div class="col-12 small">
-                        <hr>
-                        <p>Read Our <a class="text-decoration-none" href="privacy.php">Privacy Policy</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </template>
 
 <script>
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/js/dist/collapse';
+import Language from '../settings/Language.vue'
 export default {
     data() {
         return {
+            isCollapseOpen: false,
             title: "<Zakerxa/>",
             navIcon: 'navbar-toggler-icon',
             navTran: 'transform: rotateZ(0deg);',
@@ -90,34 +80,62 @@ export default {
         }
     },
     methods: {
-        logout() {
-            this.$store.dispatch('logout')
-                .then(() => console.log("Log Out"))
-                .catch(() => console.log("Unauthorize User"));
+        toggleCollapse() {
+            // Toggle the collapse manually
+            $('#navbarScroll').collapse('toggle');
+            this.isCollapseOpen = !this.isCollapseOpen;
+        },
+        closeCollapse() {
+            $('#navbarScroll').collapse('hide');
+            // Update the state to reflect the current collapse status
+            this.isCollapseOpen = false;
+        },
+        beforeEnter(el) {
+            el.style.transition = 'height 0.3s ease-in';
+            el.style.height = (el.scrollHeight) + 'px';
+        },
+        enter(el) {
+            el.style.height = el.scrollHeight + 'px'; // Set height dynamically based on content height
+        },
+        afterEnter(el) {
+            console.log("afterEnter", el.scrollHeight)
+            el.style.transition = 'height 0.3s ease-out';
+            el.style.height = el.scrollHeight + 'px';
+        },
+        afterLeave(el) {
+            el.style.transition = '';
+            el.style.height = '0';
         }
     },
     computed: {
-        auth() {
-            return this.$store.state.auth
-        }
-    }
+
+    },
+    components: {
+        Language
+    },
 }
 </script>
 
 
 <style lang="scss" scoped>
-.navigation {
-    position: fixed;
-    background: #fff;
-    top: 0;
-    padding: 0;
-    z-index: 9999;
-    width: 100%;
+.custom-collapse-enter-active,
+.custom-collapse-leave-active {
+    transition: height 0.5s ease;
+    overflow: hidden;
 }
 
+.custom-collapse-enter,
+.custom-collapse-leave-to {
+    height: 0;
+    overflow: hidden;
+}
 
 .custom {
-    height: 75px
+
+    position: sticky;
+    z-index: 9999;
+    width: 100%;
+    top: 0px;
 }
 
 @media screen and (max-width:576px) {}
@@ -141,6 +159,7 @@ export default {
     .exact-active {
         font-weight: bold;
         cursor: pointer;
-        color: #7fb4ff !important;
+        color: #8642DE !important;
     }
-}</style>
+}
+</style>
