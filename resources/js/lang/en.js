@@ -1,25 +1,26 @@
 const en = {
     hello: 'Hello world!',
     hero: {
-        heroTitle: 'Achieve Your Business Goals with Our <span style="color:#F1DD2B">Top-Performing Websites</span>',
-        heroSubTitle: 'At our website agency, we don\'t just build websites – we create high-performance solutions that help businesses thrive in the digital age.'
+        heroTitle: 'Discover Exceptional Educators <span style="color: #8642DE;">In YourCity</span> <img class="hero-title-image" style="width: 15%;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
+        heroSubTitle: 'Discover qualified teachers in your city and give your child the gift of personalized learning.Connectwithus and let’s shape the future of education together'
+    },
+    divider: {
+        sec1: 'Active Learners',
+        sec2: 'Active Teachers',
+        sec3: 'Available Subjects',
+        sec4: 'Grades'
     },
     content: {
-        whoweareTitle: 'Who We Are ?',
-        whoweare: 'At CreativeCrus, we\'re more than just a website design and development agency - we \'re a team of passionate professionals who are dedicated to helping our clients succeed online.Our team is made up of experienced web developers,designers,and marketers who share a passionfor creating beautiful,functional websites that meet the unique needs of each client.',
-        whatwedoTitle: 'What We Do ?',
-        whatwedo: 'We work closely with our clients to understand their goals and vision, and we use our expertise to turn those ideas into reality. We believe in building long-term relationships with our clients.In addition to website design and development, we offer a range of related services, including website hosting, maintenance, and digital marketing. Whether you\'re just starting out or looking to take your online presence to the next level, we\'re here to help.',
-        servicesTitle: 'All about our services',
-        services: 'Discover our exceptional range of services designed to meet your specific needs. From software development to digital marketing and more, we deliver customized solutions that drive success. Experience our expertise and commitment to your satisfaction.',
-        bannerTitle: 'We are there when you need us.',
-        banner: 'Our Client Success Team is available to assist and our flexibility provides for a customized service to fit your needs.',
-        ourClientReview: 'Our Client Reviews',
-        contactUsTitle: 'Have a question or need more information? We\'re here to help.Contact us today and let\'s start a conversation.',
-        contactUs: 'Whether you\'re interested in working with us,have a question about our services,or just want to say hello,we\'d love to hear from you.Here are the ways you canget in touch: ',
-        addresss: 'Address Information'
+        topTeacher: 'Top Teacher On Teach<span style="color:#8642DE">Hub</span> <img class="content-title-image" style="width: 65px;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
+        rateTeacher: 'What They Say About <span style="color:#8642DE">Our Teachers</span> <img class = "rating-title-image" style = "width: 70px;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src = "/images/Particle.png" alt = "" > ',
+        rateDescription: 'Discover qualified teachers based upon our available subjects on the platform in short time. Just explore with your own perception on the platform now',
+        trial: 'Enjoy A Complimentary <span style="color:#FFD32B">1-hour Trial</span> With Our <span style="color:#FFD32B"> Top Teachers </span>',
+        banner: 'Connect with us to shape the <span style="color:#FFD32B"> future of education </span>'
     },
     btn: {
-        CTA: 'Let\' talk now',
+        explore: 'Start Explore',
+        review: 'Write a Review',
+        contactUs: 'Contact Us',
         login: 'Login',
         register: 'Register',
         next: 'Next',

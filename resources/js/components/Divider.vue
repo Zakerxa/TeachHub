@@ -4,19 +4,19 @@
             <div class="col-md-0 col-lg-2"></div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
                <div class="dig">500+</div>
-               <div class="dig-text">Active Learner</div>
+               <div class="dig-text">{{ $t('divider.sec1') }}</div>
             </div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
                <div class="dig">100+</div>
-               <div class="dig-text">Active Teachers</div>
+               <div class="dig-text">{{ $t('divider.sec2') }}</div>
             </div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
                <div class="dig">15+</div>
-               <div class="dig-text">Avaliable Subjects</div>
+               <div class="dig-text">{{ $t('divider.sec3') }}</div>
             </div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
                <div class="dig">10+</div>
-               <div class="dig-text">Grades</div>
+               <div class="dig-text">{{ $t('divider.sec4') }}</div>
             </div>
             <div class="col-md-0 col-lg-2"></div>
         </div>

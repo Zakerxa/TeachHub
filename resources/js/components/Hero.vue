@@ -6,16 +6,12 @@
 
                     <div class="col offset-md-1">
 
-                        <p class="hero-title">Discover Exceptional Educators <span style="color: #8642DE;">In Your
-                                City</span>
-                            <img class="hero-title-image" src="/images/Particle.png" alt="">
-                        </p>
+                        <div class="position-relative">
+                            <p class="hero-title" v-html="$t('hero.heroTitle')"></p>
+                            <!-- <img class="hero-title-image" src="/images/Particle.png" alt=""> -->
+                        </div>
                         <p class="hero-subtitle mr-5">
-                            <!-- Discover qualified teachers in your city and give your child the gift of personalized learning.
-                            Connect
-                            with
-                            us and let’s shape the future of education together -->
-                            {{ $t('content.banner') }}
+                            {{ $t('hero.heroSubTitle') }}
                         </p>
                         <button class="hero-btn fw-bold">Start Explore <font-awesome-icon icon="fa-solid fa-angle-right"
                                 style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></button>
@@ -35,7 +31,7 @@
     <div class="container-fluid pb-4" style="background: #F9F5FF;">
         <div class="row justify-content-center text-center">
             <div style="cursor:pointer" class="col-2 pb-0 position-relative text-center">
-                <a href="#secondSection" style="text-decoration: none;">
+                <a href="#topTeacher" style="text-decoration: none;">
                     <font-awesome-icon class="fw-bold" style="font-size: 35px;bottom:-10px;right:0;color:#8642DE;"
                         icon="fa-solid fa-angle-down"></font-awesome-icon>
                     <div class="text-dark fw-bold position-relative" style="top:-10px;">Scroll</div>
@@ -123,7 +119,7 @@ export default {
 @media screen and (min-width:300px) and (max-width : 375px) {
 
     .hero {
-        height: auto;
+        max-height: 120vh;
     }
 
     .hero-title-image {
@@ -133,12 +129,12 @@ export default {
     }
 
     .hero-left-section {
-        height: auto;
+        min-height: 20vh;
 
         .hero-title {
             margin-top: 30px;
             font-size: 7vw;
-            line-height: 9vw;
+            line-height: 10vw;
         }
 
         .hero-subtitle {
@@ -148,12 +144,13 @@ export default {
     }
 
     .hero-right-section {
-        height: auto;
+        max-height: 50vh;
 
         .hero-image-container {
-            height: 65vh;
+            height: 50vh;
 
             .hero-image {
+                height: 100%;
                 left: 5%;
             }
         }
@@ -178,7 +175,7 @@ export default {
         .hero-title {
             margin-top: 40px;
             font-size: 7vw;
-            line-height: 9vw;
+            line-height: 10vw;
         }
 
         .hero-subtitle {
@@ -244,6 +241,8 @@ export default {
     }
 }
 
+
+
 @media screen and (min-width:768px) and (max-width : 992px) {
     .hero {
         height: 80vh;
@@ -271,18 +270,30 @@ export default {
     }
 }
 
+@media screen and (aspect-ratio: 540/720) {
+    // .hero {
+    //     min-height: 100vh;
+    // }
 
+    // .hero-container {
+    //     background: #843feb;
+
+    //     max-height: 100vh;
+
+    // }
+
+}
 
 
 @media screen and (aspect-ratio: 820/1180),
 screen and (aspect-ratio: 1024/1366),
 screen and (aspect-ratio: 912/1368) {
     .hero {
-        height: 600px;
+        height: 40vh;
     }
 
     .hero-left-section {
-        height: 400px;
+        max-height: 20vh;
         padding: 0;
     }
 
@@ -291,13 +302,18 @@ screen and (aspect-ratio: 912/1368) {
     }
 }
 
-@media screen and (aspect-ratio: 540/720) {
+@media screen and (aspect-ratio: 768/1024) {
     .hero {
-        height: auto;
+        height: 50vh;
     }
 
     .hero-left-section {
-        height: 37vh;
+        max-height: 25vh;
+        padding: 0;
+    }
+
+    .hero-right-section {
+        max-height: 100%
     }
 }
 </style>

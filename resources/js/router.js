@@ -6,6 +6,11 @@ const routes = [{
         component: require('./views/Home.vue').default
     },
     {
+        path: "/explore",
+        name: "explore",
+        component: require('./views/Home.vue').default
+    },
+    {
         path: "/:pathMatch(.*)*",
         name: "PageNotFound",
         component: require('./components/PageNotFound.vue').default

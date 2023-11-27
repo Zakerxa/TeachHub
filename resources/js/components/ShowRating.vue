@@ -3,14 +3,11 @@
         <div class="container">
            <div class="row pt-4 d-flex align-items-center text-start" style="min-height:40vh">
               <div class="col-12 col-sm-6">
-                 <p class="rating-title">What They Say About <span>Our Teachers</span>
-                    <img class="rating-title-image" src="/images/Particle.png" alt="">
-                 </p>
-
+                 <p class="rating-title" v-html="$t('content.rateTeacher')"></p>
               </div>
               <div class="col-12 col-sm-6">
                  <p class="rating-description">
-                    Discover qualified teachers based upon our available subjects on the platform in short time. Just explore with your own perception on the platform now
+                    {{ $t('content.rateDescription') }}
                  </p>
               </div>
            </div>
@@ -30,7 +27,7 @@
 
             <div class="row pt-5 pb-5 mb-5 justify-content-center">
                 <div class="col-12 text-center">
-                    <button class="review-btn fw-bold">Write a Review <font-awesome-icon icon="fa-solid fa-angle-right"
+                    <button class="review-btn fw-bold">{{ $t('btn.review')}} <font-awesome-icon icon="fa-solid fa-angle-right"
                                 style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></button>
                 </div>
             </div>

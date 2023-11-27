@@ -9,16 +9,16 @@
             </a>
 
             <font-awesome-icon @click="toggleCollapse" class="navbar-toggler border-0 fw-bold" style="font-size: 29px;"
-                icon="fas fa-bars" aria-controls="navbarScroll">
+                :icon="navIcon" aria-controls="navbarScroll">
             </font-awesome-icon>
 
 
-            <div class="d-none d-lg-block navbar-collapse" :style="{ zIndex: 9999 }">
+            <!-- Desktop -->
+            <div class="d-none d-lg-block navbar-collapse" :style="{ zIndex: 1 }">
                 <ul class="m-auto"> </ul>
                 <ul class="navbar-nav ml-auto my-2 my-md-0" style="--bs-scroll-height: 100px;">
-                    <router-link v-for="(route, i) in router" :key="i"
-                        class="nav-link p-4 pt-3 pb-3 pt-md-1 pb-md-0" tag="li" active-class="active" aria-current="page"
-                        :to="route.path">
+                    <router-link v-for="(route, i) in router" :key="i" class="nav-link p-4 pt-3 pb-3 pt-md-2 pb-md-0"
+                        tag="li" active-class="active" aria-current="page" :to="route.path">
                         {{ route.name }}
                     </router-link>
 
@@ -26,19 +26,43 @@
                 </ul>
             </div>
 
+           <!-- Mobile -->
             <transition name="custom-collapse" @enter="enter" @before-enter="beforeEnter" @after-enter="afterEnter"
                 @after-leave="afterLeave">
-                <div v-if="isCollapseOpen" key="collapse" class="collapse navbar-collapse" :style="{ zIndex: 9999 }"
+                <div v-if="isCollapseOpen" key="collapse" class="collapse navbar-collapse" :style="{ zIndex: 1 }"
                     id="navbarScroll" :class="{ show: isCollapseOpen }">
                     <ul class="m-auto"> </ul>
-                    <ul class="navbar-nav ml-auto my-2 my-md-0" style="--bs-scroll-height: 100px;">
+                    <ul class="navbar-nav ml-auto my-2 my-md-0" style="--bs-scroll-height: 150px;">
                         <router-link @click="closeCollapse" v-for="(route, i) in router" :key="i"
-                            class="nav-link p-4 pt-3 pb-3 pt-md-1 pb-md-0" tag="li" active-class="active"
+                            class="nav-link p-2 pt-3 pb-3 pt-md-1 pb-md-0" style="font-size: 18px;" tag="li" active-class="active"
                             aria-current="page" :to="route.path">
                             {{ route.name }}
                         </router-link>
 
-                        <Language class="p-4 pt-3 pb-3 pt-md-1 pb-md-0" />
+                        <Language class="p-2 pt-3 pb-3 pt-md-1 pb-md-0" />
+                    </ul>
+
+                    <ul class="d-block d-lg-none p-0">
+                      <div class="row mt-3 p-2 pb-0">
+                         <div class="brands-container">
+                            <font-awesome-icon class="brands-color" icon="fa-brands fa-facebook" />
+                         </div>
+                         <div class="brands-container">
+                            <font-awesome-icon class="brands-color" icon="fa-brands fa-twitter" />
+                         </div>
+                         <div class="brands-container">
+                            <font-awesome-icon class="brands-color" icon="fa-brands fa-instagram" />
+                         </div>
+                         <div class="brands-container">
+                            <font-awesome-icon class="brands-color" icon="fa-brands fa-youtube" />
+                         </div>
+                      </div>
+
+                      <div class="row p-3 pt-2">
+                          <div class="" style="font-size: 12px;">
+                            All Rights Reserved. Copyright @ 2023 TeachHub
+                          </div>
+                      </div>
                     </ul>
 
                     <!--  <ul class="navbar-nav my-2 my-md-0 pt-3 pb-3 pt-md-0 pb-md-0" style="--bs-scroll-height: 100px;">
@@ -60,7 +84,7 @@ export default {
         return {
             isCollapseOpen: false,
             title: "<Zakerxa/>",
-            navIcon: 'navbar-toggler-icon',
+            navIcon: 'fas fa-bars',
             navTran: 'transform: rotateZ(0deg);',
             navCheck: false,
             bsOffcanvas: '',
@@ -69,11 +93,11 @@ export default {
                 path: "/"
             },
             {
-                name: "About",
-                path: "/about"
+                name: "Explore",
+                path: "/explore"
             },
             {
-                name: "Contact",
+                name: "Contact Us",
                 path: "/contact"
             }
             ]
@@ -83,11 +107,14 @@ export default {
         toggleCollapse() {
             // Toggle the collapse manually
             $('#navbarScroll').collapse('toggle');
+
             this.isCollapseOpen = !this.isCollapseOpen;
+            if (this.isCollapseOpen) this.navIcon = 'fas fa-xmark';
+            else this.navIcon = 'fas fa-bars';
         },
         closeCollapse() {
             $('#navbarScroll').collapse('hide');
-            // Update the state to reflect the current collapse status
+            this.navIcon = 'fas fa-bars';
             this.isCollapseOpen = false;
         },
         beforeEnter(el) {
@@ -118,6 +145,18 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.brands-container{
+  width: 45px;
+}
+.brands-color{
+    color: #8642DE;
+    border: 1px solid #8642DE;
+    font-size: 17px;
+    border-radius: 50%;
+    padding: 5px;
+}
+
 .custom-collapse-enter-active,
 .custom-collapse-leave-active {
     transition: height 0.5s ease;

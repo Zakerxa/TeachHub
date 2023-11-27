@@ -1,13 +1,12 @@
 <template>
-    <div class="mb-5" style="border-bottom: 2px solid #8642DE;background: #F9F5FF;padding-bottom: 8%">
-        <div class="container-fluid pt-5" id="secondSection">
-            <div class="row m-0 p-0 mt-5 pt-5 content-header justify-content-center text-center">
+    <div class="mb-5" style="border-bottom: 2px solid #8642DE;background: #F9F5FF;padding-bottom: 8%" id="topTeacher">
+        <div class="container-fluid pt-5">
+            <div class="row m-0 p-0 mt-0 mt-md-3 pt-5 content-header justify-content-center text-center">
                 <div class="col-1 col-sm-1">
                     <img class="left-effect" src="/images/effect.png" alt="">
                 </div>
                 <div class="col-10 pt-5 pb-5 col-sm-10 col-md-10">
-                    <h3 class="content-title">Top Teacher On Teach<span>Hub</span>
-                        <img class="content-title-image" src="/images/Particle.png" alt="">
+                    <h3 class="content-title" v-html="$t('content.topTeacher')">
                     </h3>
                 </div>
                 <div class="col-1 col-sm-1">
@@ -131,12 +130,13 @@ export default {
 
 @media screen and (min-width:300px) and (max-width : 375px) {
     .content-title {
+        font-weight: bold;
         font-size: 8vw;
-        line-height: 12vw;
+        line-height: 8vw;
     }
 
     .content-title-image {
-        width: 40px;
+        width: 30px;
         top: -10px;
         left: -10px;
     }

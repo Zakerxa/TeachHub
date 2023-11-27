@@ -6,10 +6,8 @@
                     <img class="trial-img" src="/images/trialimg.png" alt="">
                 </div>
                 <div class="col-12 col-md-7">
-                    <p class="trial-text">Enjoy A Complimentary <span>1-hour Trial</span> With Our <span>Top Teachers</span>
-                    </p>
-
-                    <button class="trial-btn fw-bold">Content Us <font-awesome-icon icon="fa-solid fa-angle-right"
+                    <p class="trial-text" v-html="$t('content.trial')"> </p>
+                    <button class="trial-btn fw-bold"> {{  $t('btn.contactUs') }} <font-awesome-icon icon="fa-solid fa-angle-right"
                             style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></button>
                 </div>
             </div>
