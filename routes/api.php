@@ -30,10 +30,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('client/deleteReview', [ReviewController::class, 'destory']);
 });
 
+Route::get('/subjects', [TeacherController::class, 'subjects']);
 Route::get('/client/reviews', [ReviewController::class, 'index']);
 Route::get('/teachers', [TeacherController::class, 'index']);
 Route::get('/teachers/details/{id}', [TeacherController::class, 'show']);
-Route::get('/teachers/search', [TeacherController::class, 'search']);
+Route::post('/teachers/search', [TeacherController::class, 'search']);
 Route::post('/teachers', [TeacherController::class, 'store']);
 Route::put('/teachers/{id}', [TeacherController::class, 'update']);
 Route::delete('/teacher/delete/{id}', [TeacherController::class, 'destroy']);

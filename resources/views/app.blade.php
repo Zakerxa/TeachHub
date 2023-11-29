@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="./slick/slick.css">
     <link rel="stylesheet" href="./slick/slick-theme.css">
     <link rel="shortcut icon" href="images/circle.png" type="image/x-icon">
+    {{-- <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.6/dist/vue-multiselect.min.css"> --}}
     <!-- Styles -->
     <style>
         body {

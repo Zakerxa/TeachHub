@@ -17,6 +17,9 @@ const en = {
         trial: 'Enjoy A Complimentary <span style="color:#FFD32B">1-hour Trial</span> With Our <span style="color:#FFD32B"> Top Teachers </span>',
         banner: 'Connect with us to shape the <span style="color:#FFD32B"> future of education </span>'
     },
+    explore: {
+        title: 'Explore <span style="color:#8642DE">Teachers</span> <img class="content-title-image" style="width: 65px;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
+    },
     btn: {
         explore: 'Start Explore',
         review: 'Write a Review',

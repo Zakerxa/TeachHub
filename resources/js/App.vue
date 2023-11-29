@@ -81,7 +81,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+:root {
+    --font: "Inter", sans-serif;
+    --primary: #8642DE;
+    --secondary: #FFD32B;
+    --bg: #F9F5FF;
+}
 
 $primary-color : #d6f0ff;
 

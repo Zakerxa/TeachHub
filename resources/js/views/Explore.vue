@@ -1,15 +1,27 @@
 <template>
-    <div>
 
-    </div>
+    <Explore></Explore>
+
+    <!-- <show-rating /> -->
+
+    <trial />
+
+    <footer-vue></footer-vue>
 </template>
 <script>
+import showRating from '../components/ShowRating.vue';
+import trial from '../components/Trial.vue';
+import footerVue from '../components/Footer.vue';
+import Explore from '../components/Explore/Explore.vue';
 export default {
-    data() {
-        return {
-
-        }
+    components: {
+        Explore,
+        showRating,
+        trial,
+        footerVue
     }
 }
 </script>
-<style lang="scss"></style>
+<style lang="">
+
+</style>

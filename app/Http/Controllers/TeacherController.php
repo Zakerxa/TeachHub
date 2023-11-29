@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subject;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Validator;
@@ -14,6 +15,12 @@ class TeacherController extends Controller
         $teachers = Teacher::with(['locations', 'subjects'])->get();
 
         return response()->json(['teachers' => $teachers]);
+    }
+
+    public function subjects()
+    {
+        $subjects = Subject::all();
+        return response()->json($subjects);
     }
 
     // Return a specific teacher
@@ -34,11 +41,10 @@ class TeacherController extends Controller
 
         if ($request['name'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships']) {
             $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'subjects', 'region', 'capital', 'townships']))->orderBy('id', 'ASC');
+            return response()->json(['teachers' => $query->get()]);
+        } else {
+            dd("No Data");
         }
-
-        $teachers = $query->get();
-
-        return response()->json(['teachers' => $teachers]);
     }
 
     public function store(Request $request)

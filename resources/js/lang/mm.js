@@ -17,6 +17,9 @@ const mm = {
         trial: 'သင်တန်းအတွက် ဆရာမများထံမှ <span style="color:#FFD32B"> တနာရီစာ </span> အခမဲ့ရယူလိုက်ပါ',
         banner: 'TeachHub နဲ့အတူ <span style="color:#FFD32B"> ပညာရေးကိုမြှင့်တင်လိုက်ပါ </span>'
     },
+    explore: {
+        title: '<span style="color:#8642DE">ဆရာမများ</span> ရှာဖွေမည် <img class="content-title-image" style="width: 65px;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
+    },
     btn: {
         explore: 'ရှာဖွေမည်',
         review: 'Reviewရေးမည်',

@@ -8,7 +8,7 @@ const routes = [{
     {
         path: "/explore",
         name: "explore",
-        component: require('./views/Home.vue').default
+        component: require('./views/Explore.vue').default
     },
     {
         path: "/:pathMatch(.*)*",

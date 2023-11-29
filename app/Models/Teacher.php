@@ -50,9 +50,10 @@ class Teacher extends Model
             });
         });
 
-        $query->when($filter['townships'] ?? false, function ($query, $township) {
-            return $query->whereHas('locations', function ($query) use ($township) {
-                $query->where('township', $township);
+        $query->when($filter['townships'] ?? false, function ($query, $townships) {
+            $townships = explode(',', $townships);
+            return $query->whereHas('locations', function ($query) use ($townships) {
+                $query->whereIn('township', $townships);
             });
         });
 
