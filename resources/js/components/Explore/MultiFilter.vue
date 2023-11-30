@@ -26,16 +26,16 @@
 
         <div class="col-md-5 col-lg-2 col-xl-2 mt-2 pr-0">
             <div>
-                <multiselect @select="dispatchAction" @remove="removeAction" v-if="optionsCity.length >= 1" v-model="city"
-                    :options-limit="300" :custom-label="customLabelCity" :options="optionsCity" placeholder="Region"
-                    track-by="capital" :show-labels="false">
+                <multiselect @select="dispatchAction('region')" @remove="removeAction" v-if="optionsRegion.length >= 1"
+                    v-model="region" :options-limit="300" :custom-label="customLabelCity" :options="optionsRegion"
+                    placeholder="Region" track-by="capital" :show-labels="false">
                 </multiselect>
             </div>
         </div>
 
         <div class="col-md-5 col-lg-2 col-xl-2 mt-2 township-container">
             <div>
-                <multiselect @select="dispatchAction" @remove="removeAction" :disabled="city == null || city.length < 1"
+                <multiselect @select="dispatchAction" @remove="removeAction" :disabled="region == null || region.length < 1"
                     :custom-label="customLabelTownShip" v-model="townships" :multiple="true" :options="optionsTownship"
                     group-values="townships" group-label="eng" :group-select="true" placeholder="City&Township" label="name"
                     track-by="eng" :show-labels="false">
@@ -54,7 +54,7 @@
 
         <div class="col-md-3 col-lg-2 col-xl-1 mt-2 pr-0">
             <div>
-                <multiselect @select="dispatchAction" @remove="removeAction" :custom-label="customLabel" v-model="status"
+                <multiselect @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel" v-model="status"
                     :multiple="true" :options="optionsStatus" placeholder="Status" label="name" track-by="name"
                     :show-labels="false">
 
@@ -72,7 +72,7 @@
 
         <div class="col-md-4 col-lg-3 col-xl-2 mt-2">
             <div>
-                <multiselect @select="dispatchAction" @remove="removeAction" :custom-label="customLabel"
+                <multiselect @select="dispatchAction('env')" @remove="removeAction" :custom-label="customLabel"
                     v-model="environment" :multiple="true" :options="optionsEnvironment" placeholder="Teaching Environment"
                     label="name" track-by="name" :show-labels="false">
 
@@ -114,7 +114,10 @@
             <p>500 Teachers | </p>
         </div>
         <div class="col-2 text-start">
-            <div @click="clearFilter" class="alert alert-danger p-2" role="alert">
+            <div
+                v-if="name == '' && (region == null || region.length < 1) && (status == null || status.length < 1) && (subjects == null || subjects.length < 1) && (townships == null || townships.length < 1) && (environment == null || environment.length < 1)">
+            </div>
+            <div v-else @click="clearFilter" class="alert alert-danger p-2" role="alert">
                 Clear Filter
             </div>
         </div>
@@ -127,20 +130,16 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 export default {
     data() {
         return {
-            name: '',
-            status: [],
             optionsStatus: [
                 { id: 0, name: 'Select All' },
-                { id: 1, name: 'Online', language: 'JavaScript' },
-                { id: 2, name: 'Local', language: 'Ruby' }
+                { id: 1, name: 'Online' },
+                { id: 2, name: 'Local' }
             ],
-            environment: [],
             optionsEnvironment: [
                 { id: 0, name: 'Select All' },
-                { id: 1, name: 'International Schools', language: 'JavaScript' },
-                { id: 2, name: 'Government Schools', language: 'JavaScript' },
+                { id: 1, name: 'International Schools' },
+                { id: 2, name: 'Government Schools' },
             ],
-            subjects: [],
             optionsSubject: [
                 { id: 1, name: 'Myanmar', language: 'Myanmar' },
                 { id: 2, name: 'English', language: 'English' },
@@ -148,9 +147,13 @@ export default {
                 { id: 4, name: 'Mathematics', language: 'Mathematics' },
                 { id: 5, name: 'Chemistry', language: 'Chemistry' },
             ],
-            city: [],
-            optionsCity: [],
+            name: '',
+            region: [],
+            status: [],
+            subjects: [],
             townships: [],
+            environment: [],
+            optionsRegion: [],
             optionsTownship: []
         }
     },
@@ -160,7 +163,7 @@ export default {
             this.optionsSubject = sub;
         });
         console.log("getting map");
-        MyanmarApi.data.map(city => this.optionsCity.push(city))
+        MyanmarApi.data.map(region => this.optionsRegion.push(region))
     },
     computed: {
         ...mapGetters(['teachers']),
@@ -173,22 +176,32 @@ export default {
     },
     methods: {
         ...mapActions(['gettingTeacher', 'defaultTeacher']),
-        filters() {
+        filters(e) {
 
-            const city = (this.city == null || this.city.length < 1) ? '' : this.city.eng;
+            if (e == 'region') this.townships = [];
+
+            if (e == 'status') if (this.isSelectedAll(this.status)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
+
+            if(e == 'env') if (this.isSelectedAll(this.environment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
+
+            const region = (this.region == null || this.region.length < 1) ? '' : this.region.eng;
 
             const townshipsParam = (this.townships == null || this.townships.length < 1) ? '' : this.townships.map(township => township.eng).join(',');
 
             const subject = (this.subjects == null || this.subjects.length < 1) ? '' : this.subjects.map(sub => sub.id).join(',');
 
-            if (city == '' && townshipsParam == '' && subject == '') {
+            const status = (this.status == null || this.status.length < 1) ? '' : this.status.map(stat => stat.id).join(',');
+
+            const environment = (this.environment == null || this.environment.length < 1) ? '' : this.environment.map(stat => stat.id).join(',');
+
+            if (this.name == '' && region == '' && townshipsParam == '' && subject == '' && status == '' && environment == '') {
                 console.log("Nothing state");
             }
-            else this.gettingTeacher({ name: this.name, region: city, townships: townshipsParam, subjects: subject });
+            else this.gettingTeacher({ name: this.name, region: region, townships: townshipsParam, subjects: subject, status: status, environment: environment });
 
         },
-        dispatchAction() {
-            this.filters();
+        dispatchAction(e) {
+            this.filters(e);
         },
         removeAction() {
             this.filters();
@@ -198,20 +211,18 @@ export default {
         },
         clearFilter() {
             this.name = '';
-            this.city = [];
+            this.region = null;
+            this.status = [];
+            this.subjects = [];
             this.townships = [];
             this.environment = [];
-            this.subjects = [];
-            this.status = [];
             this.defaultTeacher();
         }
     },
     watch: {
-        city(selectCity) {
-            if (selectCity != null) {
-                this.townships = [];
-                this.optionsTownship = selectCity.districts;
-            }
+        region(selectRegion) {
+            this.townships = [];
+            if (selectRegion != null) this.optionsTownship = selectRegion.districts;
         },
         status(selectStatus) {
             if (this.isSelectedAll(selectStatus)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
@@ -221,7 +232,7 @@ export default {
         }
     },
     mounted() {
-        // console.log(MyanmarApi.data);
+
     }
 
 }

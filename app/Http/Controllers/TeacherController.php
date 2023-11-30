@@ -39,8 +39,8 @@ class TeacherController extends Controller
     public function search(Request $request)
     {
 
-        if ($request['name'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships']) {
-            $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'subjects', 'region', 'capital', 'townships']))->orderBy('id', 'ASC');
+        if ($request['name'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships'] || $request['status'] || $request['environment']) {
+            $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'subjects', 'region', 'capital', 'townships','status','environment']))->orderBy('id', 'ASC');
             return response()->json(['teachers' => $query->get()]);
         } else {
             dd("No Data");

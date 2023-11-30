@@ -19,11 +19,12 @@ class TeacherFactory extends Factory
         return [
             'name' => $this->faker->name,
             'age' => $this->faker->numberBetween(25, 50),
-            'experience' => $this->faker->randomElement(['+3 years', '+2 years']),
+            'experience' => $this->faker->randomElement(['+1 years', '+2 years', '+3 years', '+4 years']),
             'experience_description' => $this->faker->paragraph,
-            'time' => $this->faker->randomElement(['full-time', 'part-time']),
-            'online_or_local' => $this->faker->boolean,
-            'international_or_government' => $this->faker->randomElement(['international', 'government']),
+            'time_table_1' => $this->faker->randomElement(['Mon,Tue,Wed ( 8:00 - 9:00 pm )', 'Sat,Sun ( 12:00 - 1:00 pm )']),
+            'time_table_2' => $this->faker->randomElement(['Thu,Fri ( 8:00 - 9:00 pm )', 'Sat,Sun ( 12:00 - 1:00 pm )']),
+            'online_or_local' => $this->faker->randomElement(['1', '2']),
+            'international_or_government' => $this->faker->randomElement(['1', '2']),
         ];
     }
 }

@@ -16,10 +16,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
-import { faSliders, faMagnifyingGlass, faXmark, faHistory, faCheckCircle, faEyeSlash, faEye, faSearch, faBars, faAngleRight, faSignOut, faMobileScreen, faDesktop, faMapLocationDot, faAngleDown, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faSliders, faMagnifyingGlass, faXmark, faHistory, faCheckCircle, faEyeSlash, faEye, faSearch, faBars, faAngleRight, faSignOut, faMobileScreen, faDesktop, faMapLocationDot, faAngleDown, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter, faYoutube, faInstagram, faFacebook, faSquareTwitter, faSquareYoutube, faSquareInstagram } from '@fortawesome/free-brands-svg-icons';
 /* add icons to the library */
-library.add(faSliders, faMagnifyingGlass, faTwitter, faYoutube, faInstagram, faFacebook, faSquareTwitter, faSquareYoutube, faSquareInstagram, faXmark, faGlobe, faBars, faAngleDown, faAngleRight, faSignOut, faHistory, faCheckCircle, faEye, faEyeSlash, faSearch, faMapLocationDot, faMobileScreen, faDesktop)
+library.add(faCalendarDays, faSliders, faMagnifyingGlass, faTwitter, faYoutube, faInstagram, faFacebook, faSquareTwitter, faSquareYoutube, faSquareInstagram, faXmark, faGlobe, faBars, faAngleDown, faAngleRight, faSignOut, faHistory, faCheckCircle, faEye, faEyeSlash, faSearch, faMapLocationDot, faMobileScreen, faDesktop)
 
 import App from "./App.vue";
 const app = createApp(App).use(router).use(store)

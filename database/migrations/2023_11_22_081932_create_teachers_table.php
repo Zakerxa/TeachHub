@@ -15,18 +15,21 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('age');
-            $table->string('pic')->default('teacher.png');
+            $table->string('pic')->default('hero.png');
             $table->string('experience');
-            $table->string('time');
-            $table->boolean('online_or_local')->default(1);
+            $table->string('time_table_1')->nullable();
+            $table->string('time_table_2')->nullable();
+            $table->boolean('online_or_local')->default(0);
             $table->string('location')->nullable();
             $table->text('experience_description');
-            $table->string('international_or_government');
-            $table->string('time_mm')->nullable();
+            $table->boolean('international_or_government')->default(0);
+            $table->string('time_table_1_mm')->nullable();
+            $table->string('time_table_2_mm')->nullable();
             $table->string('location_mm')->nullable();
             $table->text('experience_description_mm')->nullable();
-            $table->string('international_or_government_mm')->nullable();
             $table->string('blank')->nullable();
+            $table->integer('order')->unique()->nullable();
+            $table->string('rating')->default(0);
             $table->timestamps();
         });
     }

@@ -57,6 +57,17 @@ class Teacher extends Model
             });
         });
 
+
+        $query->when($filter['status'] ?? false, function ($query, $status) {
+            $statusId = explode(',', $status);
+            $query->whereIn('online_or_local', $statusId);
+        });
+
+        $query->when($filter['environment'] ?? false, function ($query, $environment) {
+            $environmentId = explode(',', $environment);
+            $query->whereIn('international_or_government', $environmentId);
+        });
+
         // $query->when($filter['locations'] ?? false, function ($query, $locationId) {
         //     $locationId = explode(',', $locationId);
         //     return $query->whereHas('locations', function ($query) use ($locationId) {

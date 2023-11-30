@@ -1,7 +1,6 @@
 <template lang="">
     <div class="explore-container container-fluid">
        <div class="row justify-content-center p-0 m-0">
-
           <div class="col-12 text-center">
             <h3 class="content-title" v-html="$t('explore.title')"> </h3>
           </div>
@@ -9,31 +8,32 @@
           <MultiFilter />
 
        </div>
+    </div>
 
-       <!-- Teacher Filters -->
-       <div class="row pt-5 p-5">
-                <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" v-for="teacher in teachers.teachers">
-                    <div class="row border-0">
-                        <div class="col-6 col-md-12">
-                            <img src="/images/hero.png" class="card-img-top teacher-image" alt="...">
+    <!-- Teacher Filters -->
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-3 p-0 p-sm-1 p-md-2 p-lg-3" v-for="teacher in teachers.teachers">
+                <div class="row p-0">
+                    <div class="col-6 col-md-12">
+                        <img width="100%" src="/images/hero.png" class="teacher-image" alt="...">
+                    </div>
+                    <div class="col-6 col-md-12 p-0">
+                        <div class="specialist mt-2 mb-2">
+                            <span v-for="subject in teacher.subjects" class="bg-warning badge mr-2">{{subject.name}}</span>
                         </div>
-                        <div class="col-6 col-md-12 pr-0">
-                            <div class="specialist mt-2 mb-2">
-                                <span v-for="subject in teacher.subjects" class="bg-warning badge mr-2">{{subject.name}}</span>
-                            </div>
-                            <div class="location" v-for="loc in teacher.locations">
-                                {{loc.region_state_mm}} - {{ loc.township_mm}}
-                            </div>
-                            <p class="teacher-name pt-2">{{teacher.name}}</p>
-                            <div class="teacher-time">
-                              <li>Mon-Tue <span>( 8:00 - 9:00 PM)</span></li>
-                              <li>Sat-Sun <span>( 8:00 - 9:00 PM)</span></li>
-                            </div>
+                        <span class="location" v-for="loc in teacher.locations">
+                            - {{ loc.township_mm}}
+                        </span>
+                        <p class="teacher-name pt-2">{{teacher.name}}</p>
+                        <div>
+                            <div class="teacher-time"><font-awesome-icon icon="fa-solid fa-calendar-days" />  {{teacher.time_table_1}}</div>
+                            <div class="teacher-time"><font-awesome-icon icon="fa-solid fa-calendar-days" />  {{teacher.time_table_2}}</div>
                         </div>
                     </div>
                 </div>
             </div>
-
+        </div>
     </div>
 </template>
 <script>
@@ -67,5 +67,14 @@ export default {
     font-weight: bold;
     position: relative;
     padding: 30px 0;
+}
+
+.teacher-time {
+    font-size: 13px;
+    color: #555;
+}
+
+.teacher-image {
+    width: 100%;
 }
 </style>

@@ -1595,7 +1595,7 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-        $subjectNames = ['Myanmar', 'English', 'Physics', 'Maths', 'Chemistry'];
+        $subjectNames = ['Myanmar', 'English', 'Physics', 'Mathematics','Geography','Science','Biology', 'Chemistry'];
 
         foreach ($subjectNames as $key => $value) {
             // Create subjects
@@ -1608,7 +1608,7 @@ class DatabaseSeeder extends Seeder
         // Attach random subjects and locations to each teacher
         foreach ($teachers as $teacher) {
             // Attach random subjects
-            $teacher->subjects()->attach($subjects->random());
+            $teacher->subjects()->attach(rand(1,8));
 
             // Get a random region index
             $randomRegionIndex = array_rand($jayParsedAry['data']);
@@ -1616,10 +1616,10 @@ class DatabaseSeeder extends Seeder
             // Get the data for the random region
             $regionData = $jayParsedAry['data'][$randomRegionIndex];
 
-            $di1 = rand(0, 2);
-            $di2 = rand(0, 2);
-            $to1 = rand(0, 2);
-            $to2 = rand(0, 2);
+            $di1 = rand(0, 1);
+            $di2 = rand(0, 1);
+            $to1 = rand(0, 1);
+            $to2 = rand(0, 1);
 
             // Create teacher location for the region
             $teacher->locations()->create([
