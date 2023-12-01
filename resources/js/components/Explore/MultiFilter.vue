@@ -24,7 +24,7 @@
 
     <div class="row justify-content-center p-0 m-0 mt-3">
 
-        <div class="col-md-5 col-lg-2 col-xl-2 mt-2 pr-0">
+        <div class="col-md-5 col-lg-2 col-xl-2 mt-2 pr-md-0">
             <div>
                 <multiselect @select="dispatchAction('region')" @remove="removeAction" v-if="optionsRegion.length >= 1"
                     v-model="region" :options-limit="300" :custom-label="customLabelCity" :options="optionsRegion"
@@ -35,14 +35,14 @@
 
         <div class="col-md-5 col-lg-2 col-xl-2 mt-2 township-container">
             <div>
-                <multiselect @select="dispatchAction" @remove="removeAction" :disabled="region == null || region.length < 1"
-                    :custom-label="customLabelTownShip" v-model="townships" :multiple="true" :options="optionsTownship"
-                    group-values="townships" group-label="eng" :group-select="true" placeholder="City&Township" label="name"
-                    track-by="eng" :show-labels="false">
+                <multiselect @select="dispatchAction('townships')" @remove="removeAction"
+                    :disabled="region == null || region.length < 1" :custom-label="customLabelTownShip" v-model="townships"
+                    :multiple="true" :options="optionsTownship" group-values="townships" group-label="eng"
+                    :group-select="true" placeholder="City&Township" label="name" track-by="eng" :show-labels="false">
 
                     <template v-slot:selection="{ values, search, isOpen }">
                         <span v-if="values.length >= 2">
-                            <span v-if="!isOpen">
+                            <span v-if="!isOpen" class="select-size">
                                 {{ values.length }} TownShip
                             </span>
                         </span>
@@ -52,15 +52,15 @@
             </div>
         </div>
 
-        <div class="col-md-3 col-lg-2 col-xl-1 mt-2 pr-0">
+        <div class="col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
             <div>
-                <multiselect @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel" v-model="status"
-                    :multiple="true" :options="optionsStatus" placeholder="Status" label="name" track-by="name"
-                    :show-labels="false">
+                <multiselect @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel"
+                    v-model="status" :multiple="true" :options="optionsStatus" placeholder="Status" label="name"
+                    track-by="name" :show-labels="false">
 
                     <template v-slot:selection="{ values, search, isOpen }">
                         <span v-if="values.length >= 2">
-                            <span v-if="!isOpen">
+                            <span v-if="!isOpen" class="select-size">
                                 {{ values.length }} Status
                             </span>
                         </span>
@@ -78,7 +78,7 @@
 
                     <template v-slot:selection="{ values, search, isOpen }">
                         <span v-if="values.length >= 2">
-                            <span v-if="!isOpen">
+                            <span v-if="!isOpen" class="select-size">
                                 {{ values.length }} Environment
                             </span>
                         </span>
@@ -88,7 +88,7 @@
             </div>
         </div>
 
-        <div class="col-md-3 col-lg-2 col-xl-1 mt-2 subject-container">
+        <div class="col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
             <div>
                 <multiselect @select="dispatchAction" @remove="removeAction" :custom-label="customLabel" v-model="subjects"
                     :multiple="true" :options="optionsSubject" placeholder="Subject" label="name" track-by="name"
@@ -96,7 +96,7 @@
 
                     <template v-slot:selection="{ values, search, isOpen }">
                         <span v-if="values.length >= 2">
-                            <span v-if="!isOpen">
+                            <span v-if="!isOpen" class="select-size">
                                 {{ values.length }} Subjects
                             </span>
                         </span>
@@ -108,16 +108,16 @@
 
     </div>
 
-    <div class="row d-flex align-items-center justify-content-start p-0 m-0 mt-3" style="height:50px">
+    <div id="filter-teacher" class="row d-flex align-items-center justify-content-start p-0 m-0 mt-3" style="height:50px">
         <div class="col-1"></div>
-        <div class="col-2 text-end">
+        <div class="col-5 col-md-2 text-end">
             <p>500 Teachers | </p>
         </div>
-        <div class="col-2 text-start">
+        <div class="col-5 col-md-2 text-start">
             <div
                 v-if="name == '' && (region == null || region.length < 1) && (status == null || status.length < 1) && (subjects == null || subjects.length < 1) && (townships == null || townships.length < 1) && (environment == null || environment.length < 1)">
             </div>
-            <div v-else @click="clearFilter" class="alert alert-danger p-2" role="alert">
+            <div v-else @click="clearFilter('all')" class="alert alert-danger p-2" role="alert">
                 Clear Filter
             </div>
         </div>
@@ -158,15 +158,14 @@ export default {
         }
     },
     async created() {
+        console.log("Open Explore & Getting Map");
         await fetch('/api/subjects').then(res => res.json()).then(sub => {
-            console.log("getting subject", sub);
             this.optionsSubject = sub;
         });
-        console.log("getting map");
         MyanmarApi.data.map(region => this.optionsRegion.push(region))
     },
     computed: {
-        ...mapGetters(['teachers']),
+        ...mapGetters(['teachers', 'perPage']),
         customLabelCity() {
             return option => option.eng
         },
@@ -176,13 +175,14 @@ export default {
     },
     methods: {
         ...mapActions(['gettingTeacher', 'defaultTeacher']),
+        ...mapMutations(['updateFiltersQuery', 'clearFilterQuery']),
         filters(e) {
 
             if (e == 'region') this.townships = [];
 
             if (e == 'status') if (this.isSelectedAll(this.status)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
 
-            if(e == 'env') if (this.isSelectedAll(this.environment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
+            if (e == 'env') if (this.isSelectedAll(this.environment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
 
             const region = (this.region == null || this.region.length < 1) ? '' : this.region.eng;
 
@@ -194,34 +194,47 @@ export default {
 
             const environment = (this.environment == null || this.environment.length < 1) ? '' : this.environment.map(stat => stat.id).join(',');
 
+            this.updateFiltersQuery({ name: this.name, region: region, townships: townshipsParam, subjects: subject, status: status, environment: environment });
+
             if (this.name == '' && region == '' && townshipsParam == '' && subject == '' && status == '' && environment == '') {
+                this.clearFilterQuery();
+                this.defaultTeacher('?page=1&per_page=' + this.perPage);
                 console.log("Nothing state");
+                return null;
             }
-            else this.gettingTeacher({ name: this.name, region: region, townships: townshipsParam, subjects: subject, status: status, environment: environment });
+            else this.gettingTeacher();
 
         },
         dispatchAction(e) {
-            this.filters(e);
+            this.$nextTick(() => {
+                console.log("DOM has been updated");
+                this.filters(e);
+            });
         },
         removeAction() {
-            this.filters();
+            this.$nextTick(() => {
+                console.log("DOM has been updated");
+                this.filters();
+            });
         },
         isSelectedAll(values) {
             return values.some(res => res.name == 'Select All')
         },
-        clearFilter() {
+        clearFilter(e) {
             this.name = '';
             this.region = null;
             this.status = [];
             this.subjects = [];
             this.townships = [];
             this.environment = [];
-            this.defaultTeacher();
+            this.clearFilterQuery();
+            if (e == 'all') {
+                this.defaultTeacher('?page=1&per_page=' + this.perPage);
+            }
         }
     },
     watch: {
-        region(selectRegion) {
-            this.townships = [];
+        region(selectRegion, oldRegion) {
             if (selectRegion != null) this.optionsTownship = selectRegion.districts;
         },
         status(selectStatus) {
@@ -232,7 +245,7 @@ export default {
         }
     },
     mounted() {
-
+        this.clearFilter();
     }
 
 }
@@ -241,10 +254,14 @@ export default {
 <style lang="scss" scoped>
 .multiselect__placeholder,
 .multiselect__single {
-    font-size: 11px;
+    font-size: 10px;
     color: #494949;
     letter-spacing: 1px;
     font-weight: bold;
+}
+
+.select-size{
+    font-size: 11px;
 }
 
 .multiselect__tags {

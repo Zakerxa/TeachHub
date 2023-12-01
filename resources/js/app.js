@@ -46,6 +46,8 @@ global.$cookie = cookie;
 
 import VueMultiselect from 'vue-multiselect'
 
+import { VuePagination } from '@zakerxa/vue-laravel-pagination';
+app.component("vue-pagination", VuePagination);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.component('multiselect', VueMultiselect);
 app.mount('#app');

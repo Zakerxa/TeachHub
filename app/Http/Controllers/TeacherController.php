@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class TeacherController extends Controller
 {
     // Return a list of teachers
-    public function index()
+    public function index(Request $request)
     {
-        $teachers = Teacher::with(['locations', 'subjects'])->get();
+
+        $teachers = Cache::remember('default_teacher'.$request->page, 60, function () use ($request) {
+            return Teacher::with(['locations', 'subjects'])->paginate($request->per_page ?? 12);
+        });
 
         return response()->json(['teachers' => $teachers]);
     }
@@ -38,12 +42,12 @@ class TeacherController extends Controller
     // Return teachers based on multiple search criteria
     public function search(Request $request)
     {
-
         if ($request['name'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships'] || $request['status'] || $request['environment']) {
-            $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'subjects', 'region', 'capital', 'townships','status','environment']))->orderBy('id', 'ASC');
-            return response()->json(['teachers' => $query->get()]);
+            $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'subjects', 'region', 'capital', 'townships', 'status', 'environment']))->orderBy('id', 'ASC');
+            $teacher = $query->paginate($request['per_page'] ?? 12, ['*'], '', $request['page']);
+            return response()->json(['teachers' => $teacher]);
         } else {
-            dd("No Data");
+            return response()->json(['teachers' => 'no data']);
         }
     }
 
