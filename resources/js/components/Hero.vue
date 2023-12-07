@@ -10,7 +10,7 @@
                             <p class="hero-title" v-html="$t('hero.heroTitle')"></p>
                             <!-- <img class="hero-title-image" src="/images/Particle.png" alt=""> -->
                         </div>
-                        <p class="hero-subtitle mr-5">
+                        <p class="hero-subtitle mr-5 mb-3">
                             {{ $t('hero.heroSubTitle') }}
                         </p>
                         <router-link to="/explore" class="hero-btn fw-bold">Start Explore <font-awesome-icon
@@ -99,6 +99,8 @@ export default {
         border: none;
         text-decoration: none;
         color: #000;
+        top: 10px;
+        position: relative;
     }
 }
 

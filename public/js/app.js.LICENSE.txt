@@ -5,15 +5,15 @@
   */
 
 /*!
-  * vue-i18n v9.8.0
+  * shared v9.8.0
   * (c) 2023 kazuya kawaguchi
   * Released under the MIT License.
   */
 
 /*!
-  * vue-router v4.2.5
-  * (c) 2023 Eduardo San Martin Morote
-  * @license MIT
+  * vue-i18n v9.8.0
+  * (c) 2023 kazuya kawaguchi
+  * Released under the MIT License.
   */
 
 /*!

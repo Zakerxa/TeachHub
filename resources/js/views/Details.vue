@@ -8,13 +8,13 @@
                     <div class="detail-name-mobile">
                         <h3>{{ teacher.name }}</h3>
                         <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
-                        <p class="badge text-bg-warning p-2 fw-normal">Online</p>
+                        <p class="badge text-bg-warning p-2 fw-normal">{{ online_or_local }}</p>
                     </div>
                 </div>
                 <div class="detail-name">
                     <h3>{{ teacher.name }}</h3>
                     <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
-                    <p class="badge text-bg-light p-2 fw-normal">Online</p>
+                    <p class="badge text-bg-light p-2 fw-normal">{{ online_or_local }}</p>
                 </div>
             </div>
             <div class="col-md-4 col-lg-5"></div>
@@ -23,9 +23,7 @@
         <div class="row position-relative justify-content-center second-details-section">
             <div class="col-12 col-md-5">
                 <h4>{{ $t('details.description') }}</h4>
-                <p>
-                    {{ (lang == 'English') ? teacher.description : teacher.description_mm }}
-                </p>
+                <p>{{ description }}</p>
             </div>
             <div class="col-12 col-md-5 mt-4 mt-md-0">
                 <div class="row justify-content-center">
@@ -41,8 +39,7 @@
                                     </template>
 
                                     <v-list-item-title>{{ $t('details.environment') }}</v-list-item-title>
-                                    <v-list-item-subtitle>{{ (lang == 'English') ? teacher.environment :
-                                        teacher.environment_mm }} </v-list-item-subtitle>
+                                    <v-list-item-subtitle>{{ environment }} </v-list-item-subtitle>
                                 </v-list-item>
 
 
@@ -79,10 +76,8 @@
                                     </template>
 
                                     <v-list-item-title>{{ $t('details.datetime') }}</v-list-item-title>
-                                    <v-list-item-subtitle>{{ (lang == 'English') ? teacher.time_table_1 :
-                                        teacher.time_table_1_mm }}</v-list-item-subtitle>
-                                    <v-list-item-subtitle class="mt-1">{{ (lang == 'English') ? teacher.time_table_2 :
-                                        teacher.time_table_2_mm }}</v-list-item-subtitle>
+                                    <v-list-item-subtitle>{{ timetable1 }}</v-list-item-subtitle>
+                                    <v-list-item-subtitle class="mt-1">{{ timetable2 }}</v-list-item-subtitle>
                                 </v-list-item>
 
 
@@ -94,7 +89,7 @@
 
                                     <v-list-item-title>{{ $t('details.location') }}</v-list-item-title>
                                     <v-list-item-subtitle>
-                                        <span v-for="(loc,i) in teacher.locations" :key="i">
+                                        <span v-for="(loc, i) in teacher.locations" :key="i">
                                             <span v-if="i == 1">,</span>{{ (lang == 'English') ? loc.township : loc.township_mm }}
                                         </span>
                                     </v-list-item-subtitle>
@@ -103,7 +98,7 @@
                         </div>
                     </div>
                     <div class="col-11 col-md-11 col-lg-10">
-                        <button class="btn details-info-btn">Contact Us</button>
+                        <button @click="contactus" class="btn details-info-btn">Contact Us</button>
                     </div>
                 </div>
             </div>
@@ -130,13 +125,33 @@ export default {
     computed: {
         ...mapGetters([
             'lang',
-        ])
+        ]),
+        online_or_local() {
+            if (this.teacher.online_or_local == 1) return 'Online'
+            else if (this.teacher.online_or_local == 2) return 'Local'
+            else return 'Online-Local'
+        },
+        description() {
+            return (this.lang == 'English') ? this.teacher.description : this.teacher.description_mm
+        },
+        environment() {
+            return (this.lang == 'English') ? this.teacher.environment : this.teacher.environment_mm
+        },
+        timetable1(){
+            return  (this.lang == 'English') ? this.teacher.time_table_1 : this.teacher.time_table_1_mm
+        },
+        timetable2(){
+            return  (this.lang == 'English') ? this.teacher.time_table_2 : this.teacher.time_table_2_mm
+        }
     },
     methods: {
         getTeacherDetails(id) {
             fetch('/api/teachers/details/' + id).then(res => res.json()).then(res => this.teacher = res.teacher).then(res => {
                 console.log("DOM has been updated", this.teacher);
             })
+        },
+        contactus(){
+            window.location.href = "tel:+959777637858";
         }
     },
     created() {
@@ -291,4 +306,5 @@ export default {
     .details-info-btn {
         top: -50px;
     }
-}</style>
+}
+</style>

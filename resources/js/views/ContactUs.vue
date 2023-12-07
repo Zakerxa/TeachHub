@@ -58,6 +58,11 @@ export default {
     components: {
         trial,
         footerVue
+    },
+    methods:{
+        contactus(){
+            window.location.href = "tel:+959777637858";
+        }
     }
 }
 </script>

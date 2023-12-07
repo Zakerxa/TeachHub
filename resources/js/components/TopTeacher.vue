@@ -33,9 +33,9 @@
                             <p class="teacher-name pt-2">{{ teacher.name }}</p>
                             <div>
                                 <div class="teacher-time"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-calendar-days" />
-                                    {{ teacher.time_table_1 }}</div>
+                                    {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}</div>
                                 <div class="teacher-time"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-calendar-days" />
-                                    {{ teacher.time_table_2 }}</div>
+                                    {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
                             </div>
                         </div>
                     </div>

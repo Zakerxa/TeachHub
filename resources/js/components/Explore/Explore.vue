@@ -24,15 +24,18 @@
                     <div class="col-6 col-md-12 text-start">
                         <div class="specialist mt-2 mb-2">
                             <span v-for="subject in teacher.subjects" class="bg-warning badge mr-2">
-                                {{ (lang == 'English') ? subject.name : subject.name_mm  }}
+                                {{ (lang == 'English') ? subject.name : subject.name_mm }}
                             </span>
                         </div>
                         <p class="teacher-name pt-2">{{ teacher.name }}</p>
                         <div>
-                            <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-calendar-days" />
-                                {{ teacher.time_table_1 }}</div>
-                            <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-calendar-days" />
-                                {{ teacher.time_table_2 }}</div>
+                            <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
+                                    icon="fa-solid fa-calendar-days" />
+                                {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
+                            </div>
+                            <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
+                                    icon="fa-solid fa-calendar-days" />
+                                {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
                         </div>
                     </div>
                 </div>

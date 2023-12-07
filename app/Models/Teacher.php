@@ -10,15 +10,7 @@ class Teacher extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'age',
-        'experience',
-        'experience_description',
-        'time',
-        'online_or_local',
-        'international_or_government',
-    ];
+    protected $guarded = [];
 
     public function subjects()
     {

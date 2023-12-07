@@ -7,7 +7,8 @@
                 </div>
                 <div class="col-12 col-md-7">
                     <p class="trial-text" v-html="$t('content.trial')"> </p>
-                    <button class="trial-btn fw-bold"> {{  $t('btn.contactUs') }} <font-awesome-icon icon="fa-solid fa-angle-right"
+                    <button @click="contactus" class="trial-btn fw-bold"> {{ $t('btn.contactUs') }} <font-awesome-icon
+                            icon="fa-solid fa-angle-right"
                             style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></button>
                 </div>
             </div>
@@ -16,7 +17,11 @@
 </template>
 <script>
 export default {
-
+    methods: {
+        contactus() {
+            window.location.href = "tel:+959777637858";
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>

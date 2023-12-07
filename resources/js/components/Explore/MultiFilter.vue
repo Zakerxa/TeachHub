@@ -10,7 +10,7 @@
                 <input v-model="name" v-on:keyup.enter="dispatchAction" type="text" placeholder="Search . . .">
 
                 <button @click="dispatchAction" class="explore-btn">
-                    <span class="explore-btn-text">Explore</span>
+                    <span class="explore-btn-text fw-bold">{{ $t('btn.explore') }}</span>
                     <font-awesome-icon class="explore-btn-icon" icon="fa-solid fa-magnifying-glass" />
                 </button>
             </div>
@@ -136,7 +136,7 @@
         </div>
     </div>
 
-    <div  id="filter-teacher" class="row justify-content-center p-0 m-0 mt-3">
+    <div id="filter-teacher" class="row justify-content-center p-0 m-0 mt-3">
 
         <div class="hide-filter col-md-5 col-lg-2 col-xl-2 mt-2 pr-md-0">
             <div>
