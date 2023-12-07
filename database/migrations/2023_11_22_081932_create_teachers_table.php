@@ -21,12 +21,13 @@ return new class extends Migration
             $table->string('time_table_2')->nullable();
             $table->boolean('online_or_local')->default(0);
             $table->string('location')->nullable();
-            $table->text('experience_description');
-            $table->boolean('international_or_government')->default(0);
+            $table->text('description');
+            $table->boolean('environment')->default(0);
+            $table->boolean('environment_mm')->default(0);
             $table->string('time_table_1_mm')->nullable();
             $table->string('time_table_2_mm')->nullable();
             $table->string('location_mm')->nullable();
-            $table->text('experience_description_mm')->nullable();
+            $table->text('description_mm')->nullable();
             $table->string('blank')->nullable();
             $table->integer('order')->unique()->nullable();
             $table->string('rating')->default(0);

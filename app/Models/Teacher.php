@@ -30,6 +30,15 @@ class Teacher extends Model
         return $this->hasMany(TeacherLocation::class, 'teacher_id');
     }
 
+    public function getEnvironmentAttribute($value){
+        if($value == 1) return $value = 'International School';
+        else return $value = 'Government School';
+    }
+
+    public function getEnvironmentMmAttribute($value){
+        if($value == 1) return $value = 'နိုင်ငံတကာကျောင်း';
+        else return $value = 'အစိုးရကျောင်း';
+    }
 
     function scopeFilter($query, $filter)
     {

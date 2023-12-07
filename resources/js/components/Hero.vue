@@ -13,18 +13,19 @@
                         <p class="hero-subtitle mr-5">
                             {{ $t('hero.heroSubTitle') }}
                         </p>
-                        <button class="hero-btn fw-bold">Start Explore <font-awesome-icon icon="fa-solid fa-angle-right"
-                                style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></button>
+                        <router-link to="/explore" class="hero-btn fw-bold">Start Explore <font-awesome-icon
+                                icon="fa-solid fa-angle-right"
+                                style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></router-link>
                     </div>
                 </div>
             </div>
 
             <div class="col-12 col-md-5 p-0 hero-right-section">
                 <div class="hero-image-container">
+                    <!-- <v-parallax src="/images/hero-image.png"></v-parallax> -->
                     <img class="hero-image" src="/images/hero-image.png" alt="">
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -96,6 +97,8 @@ export default {
         background-color: #FFD32B;
         padding: 13px 16px;
         border: none;
+        text-decoration: none;
+        color: #000;
     }
 }
 

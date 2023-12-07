@@ -6,13 +6,17 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 
 class ReviewController extends Controller
 {
 
+
     public function index()
     {
-        $reviews = Review::where('status', 1)->OrderBy('id', 'desc')->get();
+        $reviews = Cache::remember('reviews', 30, function () {
+            return  Review::where('status', 1)->OrderBy('id', 'desc')->get();
+        });
         return response()->json(['data' => $reviews]);
     }
 
@@ -49,7 +53,9 @@ class ReviewController extends Controller
     {
 
         if ($token == 'null')  $reviews = Review::where('status', 1)->OrderBy('id', 'desc')->get();
-        else $reviews = Review::where('status', 1)->orWhere(function ($query) use ($token) {$query->where('status', 0)->where('token', $token);})->OrderBy('id', 'desc')->get();
+        else $reviews = Review::where('status', 1)->orWhere(function ($query) use ($token) {
+            $query->where('status', 0)->where('token', $token);
+        })->OrderBy('id', 'desc')->get();
 
         session()->regenerateToken();
 

@@ -710,10 +710,11 @@ class DatabaseSeeder extends Seeder
         ];
 
         $subjectNames = ['Myanmar', 'English', 'Physics', 'Mathematics', 'Geography', 'Science', 'Biology', 'Chemistry'];
+        $subjectNames_mm = ['မြန်မာ','အင်္ဂလိပ်','ရူပဗေဒ','သင်္ချာ','ပထဝီ','သိပ္ပံ','ဇီဝဗေဒ','ဓာတုဗေဒ'];
 
         foreach ($subjectNames as $key => $value) {
             // Create subjects
-            Subject::factory(1)->create(['name' => $value]);
+            Subject::factory(1)->create(['name' => $value,'name_mm' => $subjectNames_mm[$key]]);
         }
 
         // Create teachers

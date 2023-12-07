@@ -1,5 +1,6 @@
 <template>
     <div class="row justify-content-center p-0 m-0">
+
         <div class="col-10 col-lg-6">
             <div class="search-local">
                 <div class="explore-search-icon">
@@ -16,15 +17,128 @@
         </div>
 
         <div class="col-2 d-md-none">
-            <div class="sliders d-flex align-items-center">
+            <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="sliders d-flex align-items-center">
                 <font-awesome-icon class="sliders-icon" icon="fa-solid fa-sliders" />
             </div>
         </div>
     </div>
 
-    <div class="row justify-content-center p-0 m-0 mt-3">
+    <!-- Modal -->
+    <div class="modal fade p-0" id="staticBackdrop" style="z-index:10000" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><font-awesome-icon data-bs-dismiss="modal"
+                            aria-label="Close" icon="fa-solid fa-arrow-left-long" /> Filters</h5>
+                    <div
+                        v-if="name == '' && (region == null || region.length < 1) && (status == null || status.length < 1) && (subjects == null || subjects.length < 1) && (townships == null || townships.length < 1) && (environment == null || environment.length < 1)">
+                    </div>
+                    <div v-else @click="clearFilter('all')" class="text-danger p-2" role="alert">
+                        Clear All
+                    </div>
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="row justify-content-center p-0 m-0 mt-5">
 
-        <div class="col-md-5 col-lg-2 col-xl-2 mt-2 pr-md-0">
+                        <div class="modal-filter col-md-5 col-lg-2 col-xl-2 mt-2 pr-md-0">
+                            <div>
+                                <multiselect @select="dispatchAction('region')" @remove="removeAction"
+                                    v-if="optionsRegion.length >= 1" v-model="region" :options-limit="300"
+                                    :custom-label="customLabelCity" :options="optionsRegion" placeholder="Region"
+                                    track-by="capital" :show-labels="false">
+                                </multiselect>
+                            </div>
+                        </div>
+
+                        <div class="modal-filter col-md-5 col-lg-2 col-xl-2 mt-2 township-container">
+                            <div>
+                                <multiselect @select="dispatchAction('townships')" @remove="removeAction"
+                                    :disabled="region == null || region.length < 1" :custom-label="customLabelTownShip"
+                                    v-model="townships" :multiple="true" :options="optionsTownship" group-values="townships"
+                                    group-label="eng" :group-select="true" placeholder="City&Township" label="name"
+                                    track-by="eng" :show-labels="false">
+
+                                    <template v-slot:selection="{ values, search, isOpen }">
+                                        <span v-if="values.length >= 2">
+                                            <span v-if="!isOpen" class="select-size">
+                                                {{ values.length }} TownShip
+                                            </span>
+                                        </span>
+                                    </template>
+
+                                </multiselect>
+                            </div>
+                        </div>
+
+                        <div class="modal-filter col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
+                            <div>
+                                <multiselect @select="dispatchAction('status')" @remove="removeAction"
+                                    :custom-label="customLabel" v-model="status" :multiple="true" :options="optionsStatus"
+                                    placeholder="Status" label="name" track-by="name" :show-labels="false">
+
+                                    <template v-slot:selection="{ values, search, isOpen }">
+                                        <span v-if="values.length >= 2">
+                                            <span v-if="!isOpen" class="select-size">
+                                                {{ values.length }} Status
+                                            </span>
+                                        </span>
+                                    </template>
+
+                                </multiselect>
+                            </div>
+                        </div>
+
+                        <div class="modal-filter col-md-4 col-lg-3 col-xl-2 mt-2">
+                            <div>
+                                <multiselect @select="dispatchAction('env')" @remove="removeAction"
+                                    :custom-label="customLabel" v-model="environment" :multiple="true"
+                                    :options="optionsEnvironment" placeholder="Teaching Environment" label="name"
+                                    track-by="name" :show-labels="false">
+
+                                    <template v-slot:selection="{ values, search, isOpen }">
+                                        <span v-if="values.length >= 2">
+                                            <span v-if="!isOpen" class="select-size">
+                                                {{ values.length }} Environment
+                                            </span>
+                                        </span>
+                                    </template>
+
+                                </multiselect>
+                            </div>
+                        </div>
+
+                        <div class="modal-filter col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
+                            <div>
+                                <multiselect @select="dispatchAction" @remove="removeAction" :custom-label="customLabel"
+                                    v-model="subjects" :multiple="true" :options="optionsSubject" placeholder="Subject"
+                                    label="name" track-by="name" :show-labels="false">
+
+                                    <template v-slot:selection="{ values, search, isOpen }">
+                                        <span v-if="values.length >= 2">
+                                            <span v-if="!isOpen" class="select-size">
+                                                {{ values.length }} Subjects
+                                            </span>
+                                        </span>
+                                    </template>
+
+                                </multiselect>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background:var(--primary);" data-bs-dismiss="modal"
+                        class="btn btn-secondary w-100 text-light">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div  id="filter-teacher" class="row justify-content-center p-0 m-0 mt-3">
+
+        <div class="hide-filter col-md-5 col-lg-2 col-xl-2 mt-2 pr-md-0">
             <div>
                 <multiselect @select="dispatchAction('region')" @remove="removeAction" v-if="optionsRegion.length >= 1"
                     v-model="region" :options-limit="300" :custom-label="customLabelCity" :options="optionsRegion"
@@ -33,7 +147,7 @@
             </div>
         </div>
 
-        <div class="col-md-5 col-lg-2 col-xl-2 mt-2 township-container">
+        <div class="hide-filter col-md-5 col-lg-2 col-xl-2 mt-2 township-container">
             <div>
                 <multiselect @select="dispatchAction('townships')" @remove="removeAction"
                     :disabled="region == null || region.length < 1" :custom-label="customLabelTownShip" v-model="townships"
@@ -52,7 +166,7 @@
             </div>
         </div>
 
-        <div class="col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
+        <div class="hide-filter col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
             <div>
                 <multiselect @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel"
                     v-model="status" :multiple="true" :options="optionsStatus" placeholder="Status" label="name"
@@ -70,7 +184,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 col-lg-3 col-xl-2 mt-2">
+        <div class="hide-filter col-md-4 col-lg-3 col-xl-2 mt-2">
             <div>
                 <multiselect @select="dispatchAction('env')" @remove="removeAction" :custom-label="customLabel"
                     v-model="environment" :multiple="true" :options="optionsEnvironment" placeholder="Teaching Environment"
@@ -88,7 +202,7 @@
             </div>
         </div>
 
-        <div class="col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
+        <div class="hide-filter col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
             <div>
                 <multiselect @select="dispatchAction" @remove="removeAction" :custom-label="customLabel" v-model="subjects"
                     :multiple="true" :options="optionsSubject" placeholder="Subject" label="name" track-by="name"
@@ -108,7 +222,7 @@
 
     </div>
 
-    <div id="filter-teacher" class="row d-flex align-items-center justify-content-start p-0 m-0 mt-3" style="height:50px">
+    <div class="row d-flex align-items-center justify-content-start p-0 m-0 mt-3" style="height:50px">
         <div class="col-1"></div>
         <div class="col-5 col-md-2 text-end">
             <p>500 Teachers | </p>
@@ -176,6 +290,17 @@ export default {
     methods: {
         ...mapActions(['gettingTeacher', 'defaultTeacher']),
         ...mapMutations(['updateFiltersQuery', 'clearFilterQuery']),
+        showFilter() {
+
+        },
+        openModal() {
+            this.isModalOpen = !this.isModalOpen;
+            document.body.style.overflow = 'hidden';
+        },
+        closeModal() {
+            this.isModalOpen = false;
+            document.body.style.overflow = 'auto';
+        },
         filters(e) {
 
             if (e == 'region') this.townships = [];
@@ -252,15 +377,28 @@ export default {
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style lang="scss" scoped>
+.modal-filter {
+    border-bottom: 1px solid #c3c3c3;
+    padding: 20px 0;
+}
+
+body.offcanvas-open {
+    overflow: hidden;
+}
+
+.hide-filter {
+    display: block;
+}
+
 .multiselect__placeholder,
 .multiselect__single {
     font-size: 10px;
-    color: #494949;
+    color: #424242;
     letter-spacing: 1px;
     font-weight: bold;
 }
 
-.select-size{
+.select-size {
     font-size: 11px;
 }
 
@@ -385,6 +523,24 @@ input[type="text"]::placeholder {
 // Vuetify
 .v-field__append-inner {
     display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .hide-filter {
+        display: none;
+    }
+
+    .multiselect__placeholder,
+    .multiselect__single {
+        font-size: 13px;
+        color: #424242;
+        letter-spacing: 1px;
+        font-weight: bold;
+    }
+
+    .select-size {
+        font-size: 14px;
+    }
 }
 
 /* MEDIAS */

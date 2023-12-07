@@ -1,24 +1,12 @@
 
 <template>
-    <!-- <div class="dropdown-center p-0 m-0">
-        <button class="btn dropdown-toggle lang-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <font-awesome-icon icon="fa-solid fa-globe" style="color: #8642DE;" /> {{ lang }}
-        </button>
-        <ul class="dropdown-menu">
-            <li @click="setLanguage(item.code, item.name)" v-for="(item, i) in items" :key="i">
-                <a class="dropdown-item" href="#">{{ item.name }}</a>
-            </li>
-        </ul>
-    </div> -->
-
-
     <div>
         <v-menu :style="{ zIndex: 9999 }">
             <template v-slot:activator="{ props }">
                 <v-btn class="lang-btn p-0" v-bind="props">
                     <div class="dropdown-toggle">
-                        <span class="fw-bold" style="font-size: 13px;" top=""><font-awesome-icon icon="fa-solid fa-globe"
-                                style="color: #8642DE;" /> {{ lang }}</span>
+                        <span v-if="lang" class="fw-bold" style="font-size: 13px;" top=""><font-awesome-icon
+                                class="lang-icon" icon="fa-solid fa-globe" /> {{ lang }}</span>
                     </div>
                 </v-btn>
             </template>
@@ -32,39 +20,22 @@
     </div>
 </template>
 <script>
-import LanguageService from '../lang/LanguageService';
+import { mapGetters, mapMutations } from 'vuex';
 export default {
-    data() {
-        return {
-            lang: '',
-            items: null,
-        }
-    },
+    computed: mapGetters(['lang', 'items']),
     methods: {
+        ...mapMutations(['updateLanguage', 'checkLanguage', 'getLanguage']),
         setLanguage(code, name) {
-            this.lang = name;
-            LanguageService.setLanguage(code);
-            this.$i18n.locale = code;
-            this.items = this.langcode()
-        },
-        langcode() {
-            return [
-                { title: this.$t('language.mm'), code: 'mm', name: 'Myanmar' },
-                { title: this.$t('language.en'), code: 'en', name: 'English' }
-            ];
-        },
-        checkLang() {
-            if (LanguageService.getLanguage() == 'mm') this.lang = 'Myanmar'
-            else this.lang = 'English'
+            this.updateLanguage({ code: code, name: name, $i18n: this.$i18n, $t: this.$t })
         }
     },
     mounted() {
-        this.$i18n.locale = LanguageService.getLanguage();
-        this.items = this.langcode();
-        this.checkLang();
+        this.getLanguage({ $i18n: this.$i18n, $t: this.$t })
+        this.checkLanguage();
     }
 }
 </script>
+
 <style lang="scss" scoped>
 .lang-btn {
     min-width: 120px !important;
@@ -73,5 +44,9 @@ export default {
     box-shadow: 1px 3px 5px #ddd;
     text-align: start;
     position: relative;
+
+    .lang-icon {
+        color: var(--primary);
+    }
 }
 </style>

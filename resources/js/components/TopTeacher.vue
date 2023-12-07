@@ -16,20 +16,26 @@
         </div>
 
         <div class="container">
+
             <div class="row pt-5">
-                <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" v-for="p in 4">
-                    <div class="row border-0">
+                <div v-if="topTeachers" class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;"
+                    v-for="teacher in topTeachers">
+                    <div @click="routeTo(teacher.id)" class="row border-0">
                         <div class="col-6 col-md-12">
-                            <img src="/images/hero.png" class="card-img-top teacher-image" alt="...">
+                            <img width="100%" src="/images/hero.png" class="teacher-image" alt="...">
                         </div>
-                        <div class="col-6 col-md-12 pr-0">
+                        <div class="col-6 col-md-12 p-0">
                             <div class="specialist mt-2 mb-2">
-                                <span class="badge">Mathematics</span>
+                                <span v-for="subject in teacher.subjects" class="bg-warning badge mr-2">
+                                  {{ (lang == 'English') ? subject.name : subject.name_mm  }}
+                                </span>
                             </div>
-                            <p class="teacher-name">Kay Thi Kyine Myint</p>
-                            <div class="teacher-time">
-                              <li>Mon-Tue <span>( 8:00 - 9:00 PM)</span></li>
-                              <li>Sat-Sun <span>( 8:00 - 9:00 PM)</span></li>
+                            <p class="teacher-name pt-2">{{ teacher.name }}</p>
+                            <div>
+                                <div class="teacher-time"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-calendar-days" />
+                                    {{ teacher.time_table_1 }}</div>
+                                <div class="teacher-time"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-calendar-days" />
+                                    {{ teacher.time_table_2 }}</div>
                             </div>
                         </div>
                     </div>
@@ -40,11 +46,34 @@
 
     </div>
 </template>
-<script>
-export default {
 
+<script>
+import { mapGetters, mapActions } from 'vuex';
+export default {
+    data() {
+        return {
+            msg: 'Hello World',
+        }
+    },
+    computed: mapGetters(['topTeachers','lang']),
+    methods: {
+        ...mapActions(['gettingTopTeachers', 'defaultTeacher']),
+        routeTo(id) {
+            this.$router.push({ name: 'details', params: { id } });
+        }
+    },
+    created() {
+        this.gettingTopTeachers();
+    },
+    mounted() {
+        this.$nextTick(() => {
+            console.log('Top Teacher Working ', this.topTeachers);
+        })
+        console.log(this.msg);
+    }
 }
 </script>
+
 <style lang="scss" scoped>
 .left-effect,
 .right-effect {
@@ -65,20 +94,6 @@ export default {
     >span {
         color: #8642DE;
     }
-
-    &:before {
-        content: url('/images/effect.png');
-        display: inline;
-        top: 20px;
-        width: 10%;
-        /* Adjust the width of the image as a percentage */
-        max-height: 10%;
-        /* Set a maximum height if needed */
-        opacity: 0.2;
-        height: auto;
-        position: absolute;
-        vertical-align: top;
-    }
 }
 
 .content-title-image {
@@ -89,8 +104,8 @@ export default {
     transform: rotate(-10deg);
 }
 
-.specialist{
-    >span{
+.specialist {
+    >span {
         background-color: #FFEDAA;
         color: #1B0D2C;
         font-size: 12px;
@@ -98,31 +113,35 @@ export default {
     }
 }
 
-.teacher-name{
+.teacher-name {
     font-size: 18px;
     font-weight: 700;
     color: #141414;
     margin-bottom: 5px;
-    white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden; /* Hide overflowed text */
-    text-overflow: ellipsis; /* Show ellipsis for overflowed text */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    overflow: hidden;
+    /* Hide overflowed text */
+    text-overflow: ellipsis;
+    /* Show ellipsis for overflowed text */
 }
 
-.teacher-image{
-   border: none;
-   box-shadow: 1px 1px 3px #e3e0e6;
-   border-left: 1.5px solid #8642DE;
-   border-bottom: 1.5px solid #8642DE;
-   border-radius: 8px;
+.teacher-image {
+    border: none;
+    box-shadow: 1px 1px 3px #e3e0e6;
+    border-left: 1.5px solid #8642DE;
+    border-bottom: 1.5px solid #8642DE;
+    border-radius: 8px;
 }
 
-.teacher-time{
-    >li{
+.teacher-time {
+    >li {
         list-style: none;
         font-size: 14px;
         font-weight: 600;
         padding-top: 3px;
-        >span{
+
+        >span {
             font-weight: 400;
         }
     }

@@ -5,7 +5,7 @@
   */
 
 /*!
-  * vue-i18n v9.7.1
+  * vue-i18n v9.8.0
   * (c) 2023 kazuya kawaguchi
   * Released under the MIT License.
   */
@@ -43,3 +43,5 @@
 /*! #__NO_SIDE_EFFECTS__ */
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */

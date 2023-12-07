@@ -137,8 +137,9 @@ export default {
 
 @media screen and (min-width:300px) and (max-width : 375px) {
     .rating-title {
+        font-weight: bold;
         font-size: 8vw;
-        line-height: 12vw;
+        line-height: 9vw;
     }
 
     .content-title-image {

@@ -3,6 +3,7 @@ export default {
         return {
             perPage: 8,
             teachers: null,
+            topTeachers: null,
             paginations: {
                 current_page: 1,
                 last_page: '',
@@ -34,6 +35,9 @@ export default {
         },
         filtersQuery(state) {
             return state.filtersQuery;
+        },
+        topTeachers(state) {
+            return state.topTeachers;
         }
     },
     mutations: {
@@ -103,12 +107,19 @@ export default {
             })
         },
         defaultTeacher({ commit, state, rootState }, payload) {
+            console.log("Getting Default Teacher . . .")
             return new Promise((resolve, reject) => {
                 fetch('/api/teachers' + payload).then(res => res.json())
                     .then(res => {
                         commit('updatePagination', res.teachers)
                         resolve(state.teachers = res.teachers.data);
                     });
+            })
+        },
+        gettingTopTeachers({ commit, state }) {
+            console.log("Getting Top Teacher . . .")
+            return new Promise((resolve, reject) => {
+                fetch('/api/topteachers').then(res => res.json()).then(res => resolve(state.topTeachers = res.teachers));
             })
         }
     }

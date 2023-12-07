@@ -1,8 +1,9 @@
 import { createStore } from 'vuex';
 import Review from './modules/review';
 import Teacher from './modules/teacher';
+import Language from './modules/language';
 const store = createStore({
-    modules: { Review, Teacher },
+    modules: { Review, Teacher, Language },
     state() {
         return {
             auth: localStorage.getItem('auth') || null,

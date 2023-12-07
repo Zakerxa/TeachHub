@@ -13,11 +13,18 @@ class TeacherController extends Controller
     // Return a list of teachers
     public function index(Request $request)
     {
-
-        $teachers = Cache::remember('default_teacher'.$request->page, 60, function () use ($request) {
+        $teachers = Cache::remember('default_teacher_' . $request->page, 120, function () use ($request) {
             return Teacher::with(['locations', 'subjects'])->paginate($request->per_page ?? 12);
         });
 
+        return response()->json(['teachers' => $teachers]);
+    }
+
+    public function topteacher()
+    {
+        $teachers = Cache::remember('top_teacher', 60 * 5, function () {
+            return Teacher::with(['locations', 'subjects'])->take(4)->get();
+        });
         return response()->json(['teachers' => $teachers]);
     }
 
@@ -30,7 +37,9 @@ class TeacherController extends Controller
     // Return a specific teacher
     public function show($id)
     {
-        $teacher = Teacher::with(['locations', 'subjects'])->find($id);
+        $teacher = Cache::remember('show_teacher_' . $id, 60 * 5, function () use ($id) {
+            return Teacher::with(['locations', 'subjects'])->find($id);
+        });
 
         if (!$teacher) {
             return response()->json(['error' => 'Teacher not found'], 404);

@@ -10,6 +10,9 @@ const mm = {
         sec3: 'ဘာသာရပ်များ',
         sec4: 'အတန်းများ'
     },
+    contactus: {
+        title: 'ကူညီပေးဖိုအဆင်သင့်ပါပဲ <span style="color:#8642DE"> ဆက်သွယ်လိုက်ပါ </span> <img class="hero-title-image" style="width: 15%;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">'
+    },
     content: {
         topTeacher: 'Teach<span style="color:#8642DE">Hub</span> ပေါ်မှ အတော်ဆုံးဆရာမများ',
         rateTeacher: 'လူအများ၏ Teach<span style="color:#8642DE">Hub</span>ပေါ် စကားသံများ <img class="rating-title-image" style="width: 70px;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src = "/images/Particle.png" alt = "" >',
@@ -19,6 +22,14 @@ const mm = {
     },
     explore: {
         title: '<span style="color:#8642DE">ဆရာမများ</span> ရှာဖွေမည် <img class="content-title-image" style="width: 65px;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
+    },
+    details: {
+        description: 'အချက်အလက်များ',
+        environment: 'သင်ကြားမှုနယ်ပယ်',
+        subject: 'ဘာသာရပ်',
+        experience: 'အတွေ့အကြုံကာလ',
+        datetime: 'သင်ကြားချိန်',
+        location: 'သင်ကြားနိုင်မည့်နေရာ'
     },
     btn: {
         explore: 'ရှာဖွေမည်',

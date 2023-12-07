@@ -11,6 +11,17 @@ const routes = [{
         component: require('./views/Explore.vue').default
     },
     {
+        path: "/detail/:id",
+        name: "details",
+        component: require('./views/Details.vue').default,
+        props: true
+    },
+    {
+        path: "/contact",
+        name: "contact",
+        component: require('./views/ContactUs.vue').default
+    },
+    {
         path: "/:pathMatch(.*)*",
         name: "PageNotFound",
         component: require('./components/PageNotFound.vue').default
