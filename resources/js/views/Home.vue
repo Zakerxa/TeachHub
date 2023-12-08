@@ -1,6 +1,4 @@
 <template>
-
-
     <hero></hero>
 
     <divider />
@@ -12,8 +10,8 @@
     <trial />
 
     <footer-vue></footer-vue>
-
 </template>
+
 <script>
 import hero from '../components/Hero.vue';
 import divider from '../components/Divider.vue';
@@ -32,6 +30,9 @@ export default {
     }
 }
 </script>
-<style lang="">
 
+<style lang="scss">
+body {
+    scroll-behavior: smooth !important;
+}
 </style>

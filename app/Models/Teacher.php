@@ -10,7 +10,7 @@ class Teacher extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function subjects()
     {
@@ -66,7 +66,7 @@ class Teacher extends Model
 
         $query->when($filter['environment'] ?? false, function ($query, $environment) {
             $environmentId = explode(',', $environment);
-            $query->whereIn('international_or_government', $environmentId);
+            $query->whereIn('environment', $environmentId);
         });
 
         // $query->when($filter['locations'] ?? false, function ($query, $locationId) {

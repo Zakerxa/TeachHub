@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('experience');
             $table->string('time_table_1')->nullable();
             $table->string('time_table_2')->nullable();
-            $table->boolean('online_or_local')->default(0);
+            $table->integer('online_or_local')->default(0);
             $table->string('location')->nullable();
             $table->text('description');
             $table->boolean('environment')->default(0);

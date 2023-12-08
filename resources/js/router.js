@@ -32,7 +32,18 @@ const router = createRouter({
     history: createWebHistory(process.env.BASH_URL),
     routes,
     linkActiveClass: "active",
-    linkExactActiveClass: "exact-active"
+    linkExactActiveClass: "exact-active",
+    scrollBehavior(to, from, savedPosition) {
+        if (to.hash) {
+            return {
+                el: to.hash,
+                behavior: 'smooth',
+            }
+        } else {
+            // Default behavior for other routes
+            return savedPosition || { top: 0 };
+        }
+    },
 });
 
 export default router;

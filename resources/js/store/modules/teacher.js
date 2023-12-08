@@ -4,6 +4,8 @@ export default {
             perPage: 8,
             teachers: null,
             topTeachers: null,
+            teacherCount: null,
+            searchCount: null,
             paginations: {
                 current_page: 1,
                 last_page: '',
@@ -38,6 +40,12 @@ export default {
         },
         topTeachers(state) {
             return state.topTeachers;
+        },
+        teacherCount(state) {
+            return state.teacherCount;
+        },
+        searchCount(state) {
+            return state.searchCount;
         }
     },
     mutations: {
@@ -76,7 +84,8 @@ export default {
                 subjects: '',
                 status: '',
                 environment: ''
-            }
+            };
+            state.searchCount = null;
         }
     },
     actions: {
@@ -99,7 +108,8 @@ export default {
                     .then(res => {
                         if (res.message == 'CSRF token mismatch.') reject('CSRF TOKEN MISMATCH');
                         else {
-                            commit('updatePagination', res.teachers)
+                            commit('updatePagination', res.teachers);
+                            state.searchCount = res.searchCount;
                             resolve(state.teachers = res.teachers.data);
                         }
                     })
@@ -112,6 +122,7 @@ export default {
                 fetch('/api/teachers' + payload).then(res => res.json())
                     .then(res => {
                         commit('updatePagination', res.teachers)
+                        state.teacherCount = res.count;
                         resolve(state.teachers = res.teachers.data);
                     });
             })

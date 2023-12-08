@@ -718,7 +718,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create teachers
-        $teachers = Teacher::factory(24)->create();
+        $teachers = Teacher::factory(48)->create();
 
         // Attach random subjects and locations to each teacher
         foreach ($teachers as $teacher) {

@@ -66,31 +66,25 @@ class ReviewController extends Controller
     {
         try {
             $review = $request->validate([
-                'username' => ['required', 'min:1', 'max:100'],
-                'email' => ['required', 'min:1', 'max:100'],
-                'token' => ['required'],
+                'name' => ['required', 'min:1', 'max:100'],
                 'message' => ['required'],
-                'password' => ['required'],
-                '_token' => ['required'],
+                'rating' => ['required'],
+                '_token' => ['required']
             ]);
         } catch (ValidationException $th) {
             return $th;
         }
 
-        if ($review['token'] == 'new') {
-            $string     = 'QWERTYUIOPASDFGHJKLZXCVBNM0123456789';
-            $review['token'] = substr(str_shuffle($string), 0, 12) . '-' . rand(10000, 99999);
-            $ContactForm = Review::create($review);
-            // Refresh CSRF Token
-            session()->regenerateToken();
-            if ($ContactForm) return response()->json(['response' => 'success', 'token' =>  $review['token']]);
-        } else {
-            $ContactForm = Review::create($review);
-            session()->regenerateToken();
-            if ($ContactForm) return response()->json(['response' => 'success', 'token' =>  null]);
-        }
+        session()->regenerateToken();
 
-        return response()->json(['response' => 'error']);
+        $review['status'] = 1;
+
+        $ContactForm = Review::create($review);
+
+
+        if ($ContactForm) return response()->json(['response' => 'success','data' => $ContactForm]);
+
+        else return response()->json(['response' => 'error']);
     }
 
     public function destory(Request $request)

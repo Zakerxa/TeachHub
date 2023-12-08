@@ -8,13 +8,13 @@ const store = createStore({
         return {
             auth: localStorage.getItem('auth') || null,
             authUser: null,
-            reviews: null
+
         }
     },
     getters: {
         auth: state => state.auth,
         authUser: state => state.authUser,
-        reviews: state => state.reviews
+        csrf: state => state.csrf,
     },
     mutations: {
         updateAuthorize(state, payload) {
@@ -29,10 +29,9 @@ const store = createStore({
         globalMessage(state, payload) {
             state.globalNoti = payload
         },
-        updateReviews(state, payload) {
-            console.log("Someone is updating my reviews");
-            state.reviews = payload
-        }
+        updatecsrf(state, payload) {
+            state.csrf = payload
+        },
     },
     actions: {
         csrf({ state, commit, rootState }) {

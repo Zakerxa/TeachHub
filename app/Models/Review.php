@@ -15,7 +15,7 @@ class Review extends Model
         return \Carbon\Carbon::createFromTimeStamp(strtotime($date))->diffForHumans();
     }
 
-    public function getUsernameAttribute($value){
+    public function getNameAttribute($value){
         return ucwords($value);
     }
 
@@ -23,7 +23,7 @@ class Review extends Model
         return (int)$value;
     }
 
-    protected function setPasswordAttribute($value){
-        $this->attributes['password'] = bcrypt($value);
-    }
+    // protected function setPasswordAttribute($value){
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
 }

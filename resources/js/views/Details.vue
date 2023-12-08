@@ -34,7 +34,7 @@
 
                                 <v-list-item class="pt-5 pb-5" color="primary" rounded="shaped">
                                     <template v-slot:prepend>
-                                        <v-icon class="details-info-icon-bg" icon="fa-solid fa-user"></v-icon>
+                                        <v-icon class="details-info-icon-bg" icon=""></v-icon>
                                         <font-awesome-icon class="details-info-icon" icon="fa-solid fa-user" />
                                     </template>
 
@@ -45,13 +45,13 @@
 
                                 <v-list-item class="pt-2 pb-5" color="primary" rounded="shaped">
                                     <template v-slot:prepend>
-                                        <v-icon class="details-info-icon-bg" icon="fa-solid fa-book-open"></v-icon>
+                                        <v-icon class="details-info-icon-bg" icon=""></v-icon>
                                         <font-awesome-icon class="details-info-icon" icon="fa-solid fa-book-open" />
                                     </template>
 
                                     <v-list-item-title>{{ $t('details.subject') }}</v-list-item-title>
                                     <v-list-item-subtitle>
-                                        <span v-for="subject in teacher.subjects">
+                                        <span v-for="(subject,i) in teacher.subjects" :key="i">
                                             <span v-if="i == 1">,</span>{{ (lang == 'English') ? subject.name : subject.name_mm }}
                                         </span>
                                     </v-list-item-subtitle>
@@ -60,7 +60,7 @@
 
                                 <v-list-item class="pt-2 pb-5" color="primary" rounded="shaped">
                                     <template v-slot:prepend>
-                                        <v-icon class="details-info-icon-bg" icon="fa-solid fa-briefcase"></v-icon>
+                                        <v-icon class="details-info-icon-bg" icon=""></v-icon>
                                         <font-awesome-icon class="details-info-icon" icon="fa-solid fa-circle-check" />
                                     </template>
 
@@ -71,7 +71,7 @@
 
                                 <v-list-item class="pt-2 pb-5" color="primary" rounded="shaped">
                                     <template v-slot:prepend>
-                                        <v-icon class="details-info-icon-bg" icon="fa-solid fa-calendar-check"></v-icon>
+                                        <v-icon class="details-info-icon-bg" icon=""></v-icon>
                                         <font-awesome-icon class="details-info-icon" icon="fa-solid fa-calendar-check" />
                                     </template>
 

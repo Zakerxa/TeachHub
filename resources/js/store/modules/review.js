@@ -1,4 +1,22 @@
 export default {
+    data() {
+        return {
+            reviews: null
+        }
+    },
+    getters: {
+        reviews: state => state.reviews,
+    },
+    mutations: {
+        updateReviews(state, payload) {
+            console.log("Someone is updating my reviews", payload);
+            state.reviews = payload
+        },
+        addReviews(state, payload) {
+            console.log("Adding review");
+            state.reviews.push(payload);
+        }
+    },
     actions: {
         postReview({ state, commit, rootState }, forms) {
             return new Promise((resolve, reject) => {
@@ -13,10 +31,11 @@ export default {
                     })
                     .then(res => res.json())
                     .then(res => {
-                        console.log(res);
                         if (res.message == 'CSRF token mismatch.') return reject('CSRF token mismatch.');
-                        else if (res.response == 'success') return resolve(res);
-                        else return resolve('error');
+                        else if (res.response == 'success') {
+                            commit('addReviews', res.data);
+                            return resolve('success');
+                        } else return resolve('error');
                     })
                     .catch(err => reject(commit('loginError', err.errors)))
             })
@@ -37,8 +56,6 @@ export default {
                     .then(res => {
                         if (res.message == 'CSRF token mismatch.') return reject('CSRF token mismatch.');
                         else if (res.data) {
-                            console.log("DATA ", res.data)
-                                // rootState.reviews = res.data;
                             commit('updateReviews', res.data);
                             return resolve(res.data);
                         } else return resolve('error');

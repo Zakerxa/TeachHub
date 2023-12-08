@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="col-2 d-md-none">
+        <div class="col-2 d-md-none pr-0">
             <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="sliders d-flex align-items-center">
                 <font-awesome-icon class="sliders-icon" icon="fa-solid fa-sliders" />
             </div>
@@ -59,7 +59,7 @@
                                     group-label="eng" :group-select="true" placeholder="City&Township" label="name"
                                     track-by="eng" :show-labels="false">
 
-                                    <template v-slot:selection="{ values, search, isOpen }">
+                                    <template v-slot:selection="{ values, isOpen }">
                                         <span v-if="values.length >= 2">
                                             <span v-if="!isOpen" class="select-size">
                                                 {{ values.length }} TownShip
@@ -77,7 +77,7 @@
                                     :custom-label="customLabel" v-model="status" :multiple="true" :options="optionsStatus"
                                     placeholder="Status" label="name" track-by="name" :show-labels="false">
 
-                                    <template v-slot:selection="{ values, search, isOpen }">
+                                    <template v-slot:selection="{ values, isOpen }">
                                         <span v-if="values.length >= 2">
                                             <span v-if="!isOpen" class="select-size">
                                                 {{ values.length }} Status
@@ -96,7 +96,7 @@
                                     :options="optionsEnvironment" placeholder="Teaching Environment" label="name"
                                     track-by="name" :show-labels="false">
 
-                                    <template v-slot:selection="{ values, search, isOpen }">
+                                    <template v-slot:selection="{ values, isOpen }">
                                         <span v-if="values.length >= 2">
                                             <span v-if="!isOpen" class="select-size">
                                                 {{ values.length }} Environment
@@ -114,7 +114,7 @@
                                     v-model="subjects" :multiple="true" :options="optionsSubject" placeholder="Subject"
                                     label="name" track-by="name" :show-labels="false">
 
-                                    <template v-slot:selection="{ values, search, isOpen }">
+                                    <template v-slot:selection="{ values, isOpen }">
                                         <span v-if="values.length >= 2">
                                             <span v-if="!isOpen" class="select-size">
                                                 {{ values.length }} Subjects
@@ -142,7 +142,7 @@
             <div>
                 <multiselect @select="dispatchAction('region')" @remove="removeAction" v-if="optionsRegion.length >= 1"
                     v-model="region" :options-limit="300" :custom-label="customLabelCity" :options="optionsRegion"
-                    placeholder="Region" track-by="capital" :show-labels="false">
+                    :placeholder="pRegion" track-by="capital" :show-labels="false">
                 </multiselect>
             </div>
         </div>
@@ -152,9 +152,9 @@
                 <multiselect @select="dispatchAction('townships')" @remove="removeAction"
                     :disabled="region == null || region.length < 1" :custom-label="customLabelTownShip" v-model="townships"
                     :multiple="true" :options="optionsTownship" group-values="townships" group-label="eng"
-                    :group-select="true" placeholder="City&Township" label="name" track-by="eng" :show-labels="false">
+                    :group-select="true" :placeholder="pTownship" label="name" track-by="eng" :show-labels="false">
 
-                    <template v-slot:selection="{ values, search, isOpen }">
+                    <template v-slot:selection="{ values, isOpen }">
                         <span v-if="values.length >= 2">
                             <span v-if="!isOpen" class="select-size">
                                 {{ values.length }} TownShip
@@ -172,7 +172,7 @@
                     v-model="status" :multiple="true" :options="optionsStatus" placeholder="Status" label="name"
                     track-by="name" :show-labels="false">
 
-                    <template v-slot:selection="{ values, search, isOpen }">
+                    <template v-slot:selection="{ values, isOpen }">
                         <span v-if="values.length >= 2">
                             <span v-if="!isOpen" class="select-size">
                                 {{ values.length }} Status
@@ -186,11 +186,11 @@
 
         <div class="hide-filter col-md-4 col-lg-3 col-xl-2 mt-2">
             <div>
-                <multiselect @select="dispatchAction('env')" @remove="removeAction" :custom-label="customLabel"
-                    v-model="environment" :multiple="true" :options="optionsEnvironment" placeholder="Teaching Environment"
+                <multiselect @select="dispatchAction('env')" @remove="removeAction" :custom-label="customLabelEvnironment"
+                    v-model="environment" :multiple="true" :options="optionsEnvironment" :placeholder="pEnvironment"
                     label="name" track-by="name" :show-labels="false">
 
-                    <template v-slot:selection="{ values, search, isOpen }">
+                    <template v-slot:selection="{ values, isOpen }">
                         <span v-if="values.length >= 2">
                             <span v-if="!isOpen" class="select-size">
                                 {{ values.length }} Environment
@@ -204,11 +204,11 @@
 
         <div class="hide-filter col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
             <div>
-                <multiselect @select="dispatchAction" @remove="removeAction" :custom-label="customLabel" v-model="subjects"
-                    :multiple="true" :options="optionsSubject" placeholder="Subject" label="name" track-by="name"
-                    :show-labels="false">
+                <multiselect @select="dispatchAction" @remove="removeAction" :custom-label="customLabelSubject"
+                    v-model="subjects" :multiple="true" :options="optionsSubject" :placeholder="pSubject" label="name"
+                    track-by="name" :show-labels="false">
 
-                    <template v-slot:selection="{ values, search, isOpen }">
+                    <template v-slot:selection="{ values, isOpen }">
                         <span v-if="values.length >= 2">
                             <span v-if="!isOpen" class="select-size">
                                 {{ values.length }} Subjects
@@ -224,16 +224,17 @@
 
     <div class="row d-flex align-items-center justify-content-start p-0 m-0 mt-3" style="height:50px">
         <div class="col-1"></div>
-        <div class="col-5 col-md-2 text-end">
-            <p>500 Teachers | </p>
+        <div class="col-8 col-md-6 text-start fw-bold">
+            <p>{{ (searchCount >= 1) ? searchCount + '/' : '' }}{{ teacherCount }} Teachers |
+                <span
+                    v-if="name == '' && (region == null || region.length < 1) && (status == null || status.length < 1) && (subjects == null || subjects.length < 1) && (townships == null || townships.length < 1) && (environment == null || environment.length < 1)"></span>
+                <span v-else @click="clearFilter('all')" class="alert alert-danger p-1 fw-normal" style="cursor:pointer" role="alert">
+                    Clear Filter <v-icon icon="fa-solid fa-xmark"></v-icon>
+                </span>
+            </p>
         </div>
         <div class="col-5 col-md-2 text-start">
-            <div
-                v-if="name == '' && (region == null || region.length < 1) && (status == null || status.length < 1) && (subjects == null || subjects.length < 1) && (townships == null || townships.length < 1) && (environment == null || environment.length < 1)">
-            </div>
-            <div v-else @click="clearFilter('all')" class="alert alert-danger p-2" role="alert">
-                Clear Filter
-            </div>
+
         </div>
     </div>
 </template>
@@ -247,19 +248,13 @@ export default {
             optionsStatus: [
                 { id: 0, name: 'Select All' },
                 { id: 1, name: 'Online' },
-                { id: 2, name: 'Local' }
+                { id: 2, name: 'Local' },
+                { id: 3, name: 'Online-Loc' }
             ],
             optionsEnvironment: [
-                { id: 0, name: 'Select All' },
-                { id: 1, name: 'International Schools' },
-                { id: 2, name: 'Government Schools' },
-            ],
-            optionsSubject: [
-                { id: 1, name: 'Myanmar', language: 'Myanmar' },
-                { id: 2, name: 'English', language: 'English' },
-                { id: 3, name: 'Physics', language: 'Physics' },
-                { id: 4, name: 'Mathematics', language: 'Mathematics' },
-                { id: 5, name: 'Chemistry', language: 'Chemistry' },
+                { id: 0, name: 'Select All', name_mm: 'အားလုံးကို ရွေးပါ' },
+                { id: 1, name: 'International Schools', name_mm: 'နိုင်ငံတကာကျောင်း' },
+                { id: 2, name: 'Government Schools', name_mm: 'အစိုးရကျောင်း' },
             ],
             name: '',
             region: [],
@@ -268,6 +263,7 @@ export default {
             townships: [],
             environment: [],
             optionsRegion: [],
+            optionsSubject: [],
             optionsTownship: []
         }
     },
@@ -279,13 +275,32 @@ export default {
         MyanmarApi.data.map(region => this.optionsRegion.push(region))
     },
     computed: {
-        ...mapGetters(['teachers', 'perPage']),
+        ...mapGetters(['teachers', 'teacherCount', 'searchCount', 'perPage', 'lang']),
         customLabelCity() {
-            return option => option.eng
+            return option => this.lang == 'English' ? option.eng : option.mm
         },
         customLabelTownShip() {
-            return option => option.eng
+            return option => this.lang == 'English' ? option.eng : option.mm
+        },
+        customLabelSubject() {
+            return option => this.lang == 'English' ? option.name : option.name_mm
+        },
+        customLabelEvnironment() {
+            return option => this.lang == 'English' ? option.name : option.name_mm
+        },
+        pEnvironment() {
+            return this.lang == "English" ? 'Teaching Environment' : 'သင်ကြားမှုနယ်ပယ်'
+        },
+        pRegion() {
+            return this.lang == "English" ? 'Region' : 'တိုင်းဒေသကြီး'
+        },
+        pTownship() {
+            return this.lang == "English" ? 'City&Township' : 'မြိုနယ်'
+        },
+        pSubject() {
+            return this.lang == "English" ? 'Subjects' : 'ဘာသာရပ်များ'
         }
+
     },
     methods: {
         ...mapActions(['gettingTeacher', 'defaultTeacher']),

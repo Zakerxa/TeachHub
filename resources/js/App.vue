@@ -9,13 +9,12 @@
     </div>
     <div v-else>
 
-        <Transition appear name="fade">
-            <Navigation v-if="scrollDown" />
-        </Transition>
+        <Navigation />
 
-        <router-view />
+        <transition name="bounce" appear>
+            <router-view />
+        </transition>
 
-        <!-- <div class="divider"></div> -->
 
     </div>
 </template>
@@ -23,65 +22,38 @@
 <script>
 import Navigation from './components/Navigation.vue';
 import Footer from './components/Footer.vue';
-import { mapGetters } from 'vuex';
+import {
+    mapGetters
+} from 'vuex';
 export default {
     data() {
         return {
             loadingIcon: '<Zakerxa/>',
             loading: true,
-            scrollPosition: '',
-            scrollDown: true
         }
     },
     components: {
         Navigation,
         Footer
     },
-    created() {
-        // window.addEventListener('scroll', this.handleScroll);
-    },
-    destroyed() {
-        // window.removeEventListener('scroll', this.handleScroll);
-    },
-    methods: {
-        handleScroll() {
-            var currentScrollPosition = window.scrollY;
-            if (currentScrollPosition > this.scrollPosition) {
-                if (currentScrollPosition >= 320) this.scrollDown = false;
-            } else this.scrollDown = true;
-            this.scrollPosition = currentScrollPosition;
-        }
-    },
-    computed: {
-        // ...mapGetters(['authUser'])
-    },
     watch: {
         $route(to, from) {
-            // this.$store.dispatch('gettingAuthUser').then(() => {
-            //     if (!this.authUser) this.$store.commit('removeAuthorize');
-            // }).catch(() => {
-            //     if (!this.authUser) this.$store.commit('removeAuthorize');
-            // })
+
         }
     },
     mounted() {
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                this.loading = false
-            }, 100);
-        });
+        document.addEventListener('DOMContentLoaded', () => setTimeout(() => this.loading = false, 1000));
         this.$nextTick(() => console.log("Render has been loaded"));
-        // Fetching UserData form parent
-        // fetch('api/products').then(res => res.json())
-        //     .then(res => {
-        //         console.log(res)
-        //     })
-        //     .catch(err => console.log(err));
     }
 }
 </script>
 
 <style lang="scss">
+* {
+    padding: 0;
+    margin: 0;
+}
+
 :root {
     --font: "Inter", sans-serif;
     --primary: #8642DE;
@@ -90,12 +62,6 @@ export default {
 }
 
 $primary-color : #d6f0ff;
-
-* {
-    scroll-behavior: smooth;
-    padding: 0;
-    margin: 0;
-}
 
 .divider {
     min-height: 15vh;
@@ -109,13 +75,36 @@ $primary-color : #d6f0ff;
     width: 100vw;
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.v-enter-active,
+.v-leave-active {
     transition: opacity 0.5s ease;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.v-enter-from,
+.v-leave-to {
     opacity: 0;
+}
+
+
+.bounce-enter-active {
+    animation: bounce-in 0.5s;
+}
+
+.bounce-leave-active {
+    animation: bounce-in 0.5s reverse;
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 </style>

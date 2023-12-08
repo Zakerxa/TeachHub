@@ -14,8 +14,8 @@
 
     <!-- Teacher List Filters -->
     <div class="container pt-5 mt-3">
-        <div class="row justify-content-center gx-4 gy-3">
-            <div class="text-center col-11 col-md-5 col-lg-4 col-xl-3" style="cursor: pointer;" v-for="teacher in teachers">
+        <div class="row justify-content-start gx-4 gy-3">
+            <div class="text-start col-11 col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;" v-for="(teacher,i) in teachers" :key="i">
 
                 <div @click="routeTo(teacher.id)" class="row justify-content-start">
                     <div class="col-6 col-md-12 text-start">
@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-6 col-md-12 text-start">
                         <div class="specialist mt-2 mb-2">
-                            <span v-for="subject in teacher.subjects" class="bg-warning badge mr-2">
+                            <span v-for="(subject,i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
                                 {{ (lang == 'English') ? subject.name : subject.name_mm }}
                             </span>
                         </div>
@@ -59,7 +59,7 @@ import MultiFilter from './MultiFilter.vue';
 export default {
     data() {
         return {
-            items: [4],
+            items: [12],
             style: {
                 color: 'rgb(106, 106, 114)',
                 activeColor: '#fff',

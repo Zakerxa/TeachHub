@@ -1,55 +1,67 @@
 <template>
-    <div>
-        <v-card :style="review.status ? 'border:2px solid #eee' : 'border:2px outset #F1DD2B'" class="p-0 m-2">
+<div>
+    <v-card :style="review.status ? 'border:2px solid #eee' : 'border:2px outset #F1DD2B'" class="p-0 m-2">
 
-            <div class="m-3 mb-1 review1" :class="review.status ? 'text-dark' : 'text-muted'">
+        <div class="m-3 mb-1 review1" :class="review.status ? 'text-dark' : 'text-muted'">
 
-                <div class="user-info">
-                    <span class="clientLogo">
-                        <b>{{ Array.from(review.username)[0] }}</b>
-                    </span>
-                    <div class="info">
-                        <h5 class="name">{{ review.username }}</h5>
-                        <!-- <h5 class="position">{{ review.created_at }}</h5> -->
-                    </div>
-
-                    <div class="ml-auto position-relative" style="top:3px;">
-                        <img class="showReviewIcon" :src="review.status ? quoteBlue : quoteYellow" alt="Quote" />
-                    </div>
+            <div class="user-info">
+                <span class="clientLogo">
+                    <b>{{ Array.from(review.name)[0] }}</b>
+                </span>
+                <div class="info">
+                    <h5 class="name">{{ review.name }}</h5>
+                    <!-- <h5 class="position">{{ review.created_at }}</h5> -->
                 </div>
 
-                <p class="review-text pl-4">
-                    {{ review.message.substr(0, 170) }}
-                    <span @click="review.status ? flip() : ''" v-show="review.message.length > 170" class="text-muted" style="cursor:pointer"> . . .</span>
-                </p>
-
-                <div class="text-start">
-                    <span>* 5.0</span>
+                <div class="ml-auto position-relative" style="top:3px;">
+                    <img class="showReviewIcon" :src="review.status ? quoteBlue : quoteYellow" alt="Quote" />
                 </div>
-
             </div>
 
-            <v-expand-transition>
-                <v-card v-if="reveal" class="v-card--reveal p-2 text-start" style="height: 100%">
+            <p class="review-text pl-4">
+                {{ review.message.substr(0, 150) }}
+                <span @click="review.status ? flip() : ''" v-show="review.message.length > 150" class="text-muted" style="cursor:pointer">...see more</span>
+            </p>
 
-                    <!-- <span v-if="review.status" class="">
+        </div>
+
+        <v-card-actions>
+            <v-btn>
+                <font-awesome-icon icon="fa-solid fa-star" class="mb-1" style="color:var(--secondary)" /> {{
+                        review.rating }}
+            </v-btn>
+        </v-card-actions>
+
+        <v-expand-transition>
+            <v-card v-if="reveal" scrollable class="overflow-y-auto v-card--reveal p-2 text-start" max-height="300">
+
+                <div class="d-flex align-items-center mt-5 pt-1">
+                    <div class="ml-3 mt-2">
+                        <font-awesome-icon icon="fa-solid fa-star" class="mt-1" style="color:var(--secondary)" />
+                        {{ review.rating }}
+                    </div>
+                    <span v-if="review.status" class="ml-auto position-relative" style="top:3px;">
                         <img class="mr-auto ml-2" style="width:60px;height:60px;" :src="quoteBlue" alt="Quote" />
-                    </span> -->
+                    </span>
+                </div>
 
-                    <v-card-text class="pt-0" v-if="review.status" @click="reveal = false">
-                        <p @click="reveal = false" class="text--primary pt-1">
-                            {{ review.message }}
-                        </p>
-                    </v-card-text>
+                <v-card-text style="min-height:200px;" class="pt-3" v-if="review.status" @click="reveal = false">
+                    <p @click="reveal = false" class="text--primary pt-1">
+                        {{ review.message }}
+                    </p>
+                </v-card-text>
 
-                </v-card>
-            </v-expand-transition>
-        </v-card>
+            </v-card>
+        </v-expand-transition>
+    </v-card>
 
-    </div>
+</div>
 </template>
+
 <script>
-import { mapActions } from 'vuex';
+import {
+    mapActions
+} from 'vuex';
 export default {
     data() {
         return {
@@ -68,7 +80,8 @@ export default {
             pressEnter: false,
             finalState: false,
             loading: false,
-            alertMsg: null
+            alertMsg: null,
+            scrollInvoked: null
         }
     },
     watch: {
@@ -87,11 +100,15 @@ export default {
             this.password = null;
             this.loading = false;
             this.alertMsg = null;
-        }
+        },
+        onScroll() {
+            this.scrollInvoked++
+        },
     },
     props: ['review'],
 };
 </script>
+
 <style lang="scss" scoped>
 .v-card--reveal {
     bottom: 0;
@@ -115,7 +132,7 @@ export default {
 .review1 {
     display: flex;
     flex-direction: column;
-    min-height: 235px;
+    min-height: 120px;
 }
 
 @media screen and (max-width: 500px) {
@@ -149,7 +166,6 @@ export default {
     align-items: center;
     margin-bottom: 20px;
 }
-
 
 .clientLogo {
     display: flex;

@@ -14,10 +14,12 @@ class TeacherController extends Controller
     public function index(Request $request)
     {
         $teachers = Cache::remember('default_teacher_' . $request->page, 120, function () use ($request) {
-            return Teacher::with(['locations', 'subjects'])->paginate($request->per_page ?? 12);
+            $query = Teacher::with(['locations', 'subjects']);
+            $count = $query->count();
+            $teachers = $query->paginate($request->per_page ?? 12);
+            return ['teachers' => $teachers, 'count' => $count];
         });
-
-        return response()->json(['teachers' => $teachers]);
+        return response()->json($teachers);
     }
 
     public function topteacher()
@@ -53,8 +55,9 @@ class TeacherController extends Controller
     {
         if ($request['name'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships'] || $request['status'] || $request['environment']) {
             $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'subjects', 'region', 'capital', 'townships', 'status', 'environment']))->orderBy('id', 'ASC');
+            $searchCount = $query->count();
             $teacher = $query->paginate($request['per_page'] ?? 12, ['*'], '', $request['page']);
-            return response()->json(['teachers' => $teacher]);
+            return response()->json(['teachers' => $teacher, 'searchCount' => $searchCount]);
         } else {
             return response()->json(['teachers' => 'no data']);
         }

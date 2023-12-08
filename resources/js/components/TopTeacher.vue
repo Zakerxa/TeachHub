@@ -17,16 +17,15 @@
 
         <div class="container">
 
-            <div class="row pt-5">
-                <div v-if="topTeachers" class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;"
-                    v-for="teacher in topTeachers">
+            <div class="row pt-5" v-if="topTeachers">
+                <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;" v-for="(teacher,i) in topTeachers" :key="i">
                     <div @click="routeTo(teacher.id)" class="row border-0">
                         <div class="col-6 col-md-12">
                             <img width="100%" src="/images/hero.png" class="teacher-image" alt="...">
                         </div>
                         <div class="col-6 col-md-12 p-0">
                             <div class="specialist mt-2 mb-2">
-                                <span v-for="subject in teacher.subjects" class="bg-warning badge mr-2">
+                                <span v-for="(subject,i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
                                   {{ (lang == 'English') ? subject.name : subject.name_mm  }}
                                 </span>
                             </div>
