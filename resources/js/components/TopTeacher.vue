@@ -21,7 +21,7 @@
                 <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;" v-for="(teacher,i) in topTeachers" :key="i">
                     <div @click="routeTo(teacher.id)" class="row border-0">
                         <div class="col-6 col-md-12">
-                            <img width="100%" src="/images/hero.png" class="teacher-image" alt="...">
+                            <img width="100%" :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'" class="teacher-image" alt="...">
                         </div>
                         <div class="col-6 col-md-12 p-0">
                             <div class="specialist mt-2 mb-2">

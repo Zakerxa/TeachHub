@@ -19,7 +19,7 @@
 
                 <div @click="routeTo(teacher.id)" class="row justify-content-start">
                     <div class="col-6 col-md-12 text-start">
-                        <img width="100%" src="/images/hero.png" class="teacher-image" alt="...">
+                        <img width="100%" :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'" class="teacher-image" alt="...">
                     </div>
                     <div class="col-6 col-md-12 text-start">
                         <div class="specialist mt-2 mb-2">

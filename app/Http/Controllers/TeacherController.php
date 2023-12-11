@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class TeacherController extends Controller
 {
@@ -16,7 +17,7 @@ class TeacherController extends Controller
         $teachers = Cache::remember('default_teacher_' . $request->page, 120, function () use ($request) {
             $query = Teacher::with(['locations', 'subjects']);
             $count = $query->count();
-            $teachers = $query->paginate($request->per_page ?? 12);
+            $teachers = $query->orderBy('id', 'desc')->paginate($request->per_page ?? 12);
             return ['teachers' => $teachers, 'count' => $count];
         });
         return response()->json($teachers);
@@ -25,7 +26,7 @@ class TeacherController extends Controller
     public function topteacher()
     {
         $teachers = Cache::remember('top_teacher', 60 * 5, function () {
-            return Teacher::with(['locations', 'subjects'])->take(4)->get();
+            return Teacher::with(['locations', 'subjects'])->orderBy('experience', 'desc')->take(4)->get();
         });
         return response()->json(['teachers' => $teachers]);
     }
@@ -65,29 +66,77 @@ class TeacherController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'age' => 'required|integer',
-            'experience' => 'required|string',
-            'experience_description' => 'required|string',
-            'time' => 'required|string',
-            'online_or_local' => 'required|boolean',
-            'international_or_government' => 'required|boolean',
-            'locations' => 'required|array',
-            'locations.*' => 'exists:locations,id',
-            'subjects' => 'required|array',
-            'subjects.*' => 'exists:subjects,id',
+
+        try {
+            $request->validate([
+                'name' => 'required|string',
+                'name_mm' => 'required|string',
+                'age' => 'required|numeric',
+                'pic.*' => ['mimes:jpg,png,jpeg,svg'],
+                'region' => 'required',
+                'township' => 'required',
+                'subjects' => 'required|array',
+                'subjects.*' => 'exists:subjects,id',
+                'experience' => 'required',
+                'time_table_1' => 'required|string',
+                'time_table_1_mm' => 'required|string',
+                'description' => 'required|string',
+                'description_mm' => 'required|string',
+                'online_or_local' => 'required|numeric',
+                'environment' => 'required|numeric',
+                'environment_mm' => 'required|numeric',
+            ]);
+        } catch (ValidationException $th) {
+            return $th->validator->errors();
+        }
+
+        //  Random Token
+        $string     = 'QWERTYUIOPASDFGHJKLZXCVBNM0123456789';
+        $shuffle    = str_shuffle($string);
+        $token       = random_int(10000, 99999) . '-' . substr($shuffle, 0, 12) . '-' . rand(1000, 9999);
+
+        $request['token'] = $token;
+
+        $imagepath  = public_path("/uploads/profile/$token");
+        // File Input System
+        if (!file_exists($imagepath)) {
+            if (!mkdir($imagepath, 0777, true)) die('Failed to create folders...');
+            else chmod("$imagepath", 0777);
+        }
+
+        $images = [];
+        if ($request->hasFile('pic')) {
+            foreach ($request->file('pic') as $image) {
+                $fileName = rand(1000, 9999) . '-' . $image->getClientOriginalName();
+                $image->move($imagepath, $fileName);
+                $images = $fileName;
+            }
+        }
+
+        // Create the teacher without including 'pic' in the $request->only() call
+        $teacher = $request->only([
+            'name', 'name_mm', 'age', 'token', 'experience', 'time_table_1', 'time_table_1_mm',
+            'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
+        $teacher['pic'] = $images;
+
+        $townships =  explode(',', implode($request->township));
+        $townships_mm =  explode(',', implode($request->township_mm));
+        $subjects =  explode(',', implode($request->subjects));
+
         // Create the teacher
-        $teacher = Teacher::create($request->only([
-            'name', 'age', 'experience', 'experience_description',
-            'time', 'online_or_local', 'international_or_government',
-        ]));
+        $teacher = Teacher::create($teacher);
 
         // Attach locations and subjects
-        $teacher->locations()->attach($request->input('locations'), ['township' => 'Township']);
-        $teacher->subjects()->attach($request->input('subjects'));
+        foreach ($townships as $key => $township) {
+            $teacher->locations()->create(['region_state' => $request->region, 'region_state_mm' => $request->region_mm, 'capital' => '200', 'township' => $township, 'township_mm' => $townships_mm[$key]]);
+        }
+
+        foreach ($subjects as $key => $subject) {
+            $teacher->subjects()->attach($subject);
+        }
+
 
         return response()->json(['teacher' => $teacher], 201);
     }

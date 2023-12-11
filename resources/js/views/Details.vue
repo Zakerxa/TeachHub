@@ -4,7 +4,7 @@
             <div class="detailBackground"></div>
             <div class="col-12 col-md-8 col-lg-6 offset-lg-1 d-flex justify-content-start">
                 <div class="cover">
-                    <img class="pic" :src="/images/ + teacher.pic" alt="">
+                    <img class="pic" :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'" alt="">
                     <div class="detail-name-mobile">
                         <h3>{{ teacher.name }}</h3>
                         <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
@@ -65,9 +65,8 @@
                                     </template>
 
                                     <v-list-item-title>{{ $t('details.experience') }}</v-list-item-title>
-                                    <v-list-item-subtitle>{{ teacher.experience }}</v-list-item-subtitle>
+                                    <v-list-item-subtitle>+{{ teacher.experience }} Years</v-list-item-subtitle>
                                 </v-list-item>
-
 
                                 <v-list-item class="pt-2 pb-5" color="primary" rounded="shaped">
                                     <template v-slot:prepend>
