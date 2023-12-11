@@ -33,7 +33,7 @@
                                     icon="fa-solid fa-calendar-days" />
                                 {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
                             </div>
-                            <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
+                            <div v-if="teacher.time_table_2" class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
                                     icon="fa-solid fa-calendar-days" />
                                 {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
                         </div>

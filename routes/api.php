@@ -33,6 +33,8 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::middleware(\App\Http\Middleware\CorsMiddleware::class)->group(function () {
     Route::post('/add/teacher', [TeacherController::class, 'store']);
+    Route::post('/delete/teachers', [TeacherController::class, 'destroy']);
+    Route::post('/update/teacher', [TeacherController::class, 'update']);
 });
 
 Route::get('/client/reviews', [ReviewController::class, 'index']);
@@ -43,5 +45,5 @@ Route::get('/teachers', [TeacherController::class, 'index']);
 Route::get('/topteachers', [TeacherController::class, 'topteacher']);
 Route::get('/teachers/details/{id}', [TeacherController::class, 'show']);
 Route::post('/teachers/search', [TeacherController::class, 'search']);
-Route::put('/teachers/{id}', [TeacherController::class, 'update']);
-Route::delete('/teacher/delete/{id}', [TeacherController::class, 'destroy']);
+
+

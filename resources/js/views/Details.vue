@@ -52,7 +52,7 @@
                                     <v-list-item-title>{{ $t('details.subject') }}</v-list-item-title>
                                     <v-list-item-subtitle>
                                         <span v-for="(subject,i) in teacher.subjects" :key="i">
-                                            <span v-if="i == 1">,</span>{{ (lang == 'English') ? subject.name : subject.name_mm }}
+                                            <span v-if="i != 0">,</span>{{ (lang == 'English') ? subject.name : subject.name_mm }}
                                         </span>
                                     </v-list-item-subtitle>
                                 </v-list-item>
@@ -89,7 +89,7 @@
                                     <v-list-item-title>{{ $t('details.location') }}</v-list-item-title>
                                     <v-list-item-subtitle>
                                         <span v-for="(loc, i) in teacher.locations" :key="i">
-                                            <span v-if="i == 1">,</span>{{ (lang == 'English') ? loc.township : loc.township_mm }}
+                                            <span v-if="i != 0">,</span>{{ (lang == 'English') ? loc.township : loc.township_mm }}
                                         </span>
                                     </v-list-item-subtitle>
                                 </v-list-item>
