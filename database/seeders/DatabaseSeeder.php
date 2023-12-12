@@ -709,12 +709,12 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-        $subjectNames = ['Myanmar', 'English', 'Physics', 'Mathematics', 'Geography', 'Science', 'Biology', 'Chemistry'];
-        $subjectNames_mm = ['မြန်မာ','အင်္ဂလိပ်','ရူပဗေဒ','သင်္ချာ','ပထဝီ','သိပ္ပံ','ဇီဝဗေဒ','ဓာတုဗေဒ'];
+        $subjectNames = ['Myanmar', 'English', 'Physics', 'Mathematics', 'Chemistry'];
+        $subjectNames_mm = ['မြန်မာ', 'အင်္ဂလိပ်', 'ရူပဗေဒ', 'သင်္ချာ', 'ဓာတုဗေဒ'];
 
         foreach ($subjectNames as $key => $value) {
             // Create subjects
-            Subject::factory(1)->create(['name' => $value,'name_mm' => $subjectNames_mm[$key]]);
+            Subject::factory(1)->create(['name' => $value, 'name_mm' => $subjectNames_mm[$key],'status' => 1]);
         }
 
         // Create teachers
@@ -723,7 +723,7 @@ class DatabaseSeeder extends Seeder
         // Attach random subjects and locations to each teacher
         foreach ($teachers as $teacher) {
             // Attach random subjects
-            $teacher->subjects()->attach(rand(1, 8));
+            $teacher->subjects()->attach(rand(1, 5));
 
             // Get a random region index
             $randomRegionIndex = array_rand($jayParsedAry['data']);

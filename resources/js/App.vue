@@ -22,13 +22,14 @@
 <script>
 import Navigation from './components/Navigation.vue';
 import Footer from './components/Footer.vue';
+import { mapActions } from 'vuex';
 import {
     mapGetters
 } from 'vuex';
 export default {
     data() {
         return {
-            loadingIcon: '<Zakerxa/>',
+            loadingIcon: '<Teach-Hub/>',
             loading: true,
         }
     },
@@ -41,9 +42,15 @@ export default {
 
         }
     },
+    methods:{
+        ...mapActions(['defaultTeacher'])
+    },
     mounted() {
         document.addEventListener('DOMContentLoaded', () => setTimeout(() => this.loading = false, 1000));
-        this.$nextTick(() => console.log("Render has been loaded"));
+        this.$nextTick(() => {
+            console.log("Render has been loaded");
+            this.defaultTeacher('?page=1&per_page=' + 12);
+        });
     }
 }
 </script>

@@ -34,7 +34,7 @@ class TeacherController extends Controller
 
     public function subjects()
     {
-        $subjects = Subject::all();
+        $subjects = Subject::where('status',1)->get();
         return response()->json($subjects);
     }
 

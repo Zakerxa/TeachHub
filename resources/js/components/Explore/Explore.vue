@@ -14,7 +14,7 @@
 
     <!-- Teacher List Filters -->
     <div class="container pt-5 mt-3">
-        <div class="row justify-content-start gx-4 gy-3">
+        <div v-if="teachers" class="row justify-content-start gx-4 gy-3">
             <div class="text-start col-11 col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;" v-for="(teacher,i) in teachers" :key="i">
 
                 <div @click="routeTo(teacher.id)" class="row justify-content-start">
@@ -42,6 +42,13 @@
 
             </div>
         </div>
+
+        <div v-else class="row d-flex align-items-center" style="min-height:40vh">
+            <div class="text-center col-11 col-md-6 col-lg-4 col-xl-3">
+                <span>Loading . . .</span>
+            </div>
+        </div>
+
 
         <!-- Pagination -->
         <div class="row jsutify-content-center pb-4 pt-4">

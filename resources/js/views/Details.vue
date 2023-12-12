@@ -1,11 +1,15 @@
 <template>
     <div class="container-fluid">
-        <div class="row p-0 position-relative justify-content-center">
+
+        <div v-if="teacher != null" class="row p-0 position-relative justify-content-center">
             <div class="detailBackground"></div>
             <div class="col-12 col-md-8 col-lg-6 offset-lg-1 d-flex justify-content-start">
                 <div class="cover">
-                    <img class="pic" :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'" alt="">
-                    <div class="detail-name-mobile">
+                    <img v-if="teacher != null" class="pic"
+                        :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'"
+                        alt="">
+                    <img v-else src="" style="width:200px;height:200px" alt="Loading . . .">
+                    <div v-if="teacher != null && teacher.name" class="detail-name-mobile">
                         <h3>{{ teacher.name }}</h3>
                         <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
                         <p class="badge text-bg-warning p-2 fw-normal">{{ online_or_local }}</p>
@@ -20,10 +24,15 @@
             <div class="col-md-4 col-lg-5"></div>
         </div>
 
-        <div class="row position-relative justify-content-center second-details-section">
-            <div class="col-12 col-md-5">
+        <div v-if="teacher != null" class="row position-relative justify-content-center second-details-section"
+            :style="{ top: dynamicTop }">
+            <div v-if="teacher != null && teacher.description" class="col-12 col-md-5" style="min-height:50px">
                 <h4>{{ $t('details.description') }}</h4>
                 <p>{{ description }}</p>
+            </div>
+            <div v-else class="">
+                <h4>{{ $t('details.description') }}</h4>
+                <p>Loading . . . </p>
             </div>
             <div class="col-12 col-md-5 mt-4 mt-md-0">
                 <div class="row justify-content-center">
@@ -51,8 +60,9 @@
 
                                     <v-list-item-title>{{ $t('details.subject') }}</v-list-item-title>
                                     <v-list-item-subtitle>
-                                        <span v-for="(subject,i) in teacher.subjects" :key="i">
-                                            <span v-if="i != 0">,</span>{{ (lang == 'English') ? subject.name : subject.name_mm }}
+                                        <span v-for="(subject, i) in teacher.subjects" :key="i">
+                                            <span v-if="i != 0">,</span>{{ (lang == 'English') ? subject.name :
+                                                subject.name_mm }}
                                         </span>
                                     </v-list-item-subtitle>
                                 </v-list-item>
@@ -89,7 +99,8 @@
                                     <v-list-item-title>{{ $t('details.location') }}</v-list-item-title>
                                     <v-list-item-subtitle>
                                         <span v-for="(loc, i) in teacher.locations" :key="i">
-                                            <span v-if="i != 0">,</span>{{ (lang == 'English') ? loc.township : loc.township_mm }}
+                                            <span v-if="i != 0">,</span>{{ (lang == 'English') ? loc.township :
+                                                loc.township_mm }}
                                         </span>
                                     </v-list-item-subtitle>
                                 </v-list-item>
@@ -101,6 +112,26 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div v-else class="row p-0 position-relative justify-content-center">
+            <div class="detailBackground"></div>
+            <div class="col-12 col-md-8 col-lg-6 offset-lg-1 d-flex justify-content-start">
+                <div class="cover">
+                    <img src="/images/hero.png" style="width:200px;height:200px" alt="Loading . . .">
+                    <div class="detail-name-mobile">
+                        <h3> Loading . . .</h3>
+                        <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Loading . . .</p>
+                        <p class="badge text-bg-warning p-2 fw-normal">Loading . . .</p>
+                    </div>
+                </div>
+                <div class="detail-name">
+                    <h3>Loading . . .</h3>
+                    <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Loading . . .</p>
+                    <p class="badge text-bg-light p-2 fw-normal">Loading . . .</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-5"></div>
         </div>
     </div>
 
@@ -114,7 +145,7 @@ export default {
     props: ['id'],
     data() {
         return {
-            teacher: []
+            teacher: null
         }
     },
     components: {
@@ -125,6 +156,21 @@ export default {
         ...mapGetters([
             'lang',
         ]),
+        dynamicTop() {
+            // Adjust the values as needed based on your requirements
+            const maxLengthForTop = 100; // Change this value accordingly
+            const maxLength = this.description.length;
+
+            if (maxLength >= 70) {
+                let height = `-${(maxLength / 4)}px`;
+                console.log(height, this.description.length);
+                return height;
+            } else {
+                return '0px';
+            }
+
+
+        },
         online_or_local() {
             if (this.teacher.online_or_local == 1) return 'Online'
             else if (this.teacher.online_or_local == 2) return 'Local'
@@ -136,20 +182,22 @@ export default {
         environment() {
             return (this.lang == 'English') ? this.teacher.environment : this.teacher.environment_mm
         },
-        timetable1(){
-            return  (this.lang == 'English') ? this.teacher.time_table_1 : this.teacher.time_table_1_mm
+        timetable1() {
+            return (this.lang == 'English') ? this.teacher.time_table_1 : this.teacher.time_table_1_mm
         },
-        timetable2(){
-            return  (this.lang == 'English') ? this.teacher.time_table_2 : this.teacher.time_table_2_mm
+        timetable2() {
+            return (this.lang == 'English') ? this.teacher.time_table_2 : this.teacher.time_table_2_mm
         }
     },
     methods: {
         getTeacherDetails(id) {
-            fetch('/api/teachers/details/' + id).then(res => res.json()).then(res => this.teacher = res.teacher).then(res => {
+            fetch('/api/teachers/details/' + id).then(res => res.json()).then(res => {
+                this.teacher = res.teacher
+            }).then(res => {
                 console.log("DOM has been updated", this.teacher);
             })
         },
-        contactus(){
+        contactus() {
             window.location.href = "tel:+959777637858";
         }
     },
@@ -158,10 +206,6 @@ export default {
     },
     mounted() {
         // console.log("New Id ", this.$route.params.id);
-
-        this.$nextTick(() => {
-            console.log("DOM has been updated", this.teacher);
-        });
     }
 }
 </script>
@@ -257,7 +301,7 @@ export default {
 
     .second-details-section {
         position: relative;
-        top: -80px;
+        top: 0;
     }
 
     .cover {
@@ -281,7 +325,7 @@ export default {
 
     .second-details-section {
         position: relative;
-        top: -110px;
+        top: 0;
     }
 
     .cover {
