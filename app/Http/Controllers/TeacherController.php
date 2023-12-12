@@ -6,6 +6,7 @@ use App\Models\Subject;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -180,6 +181,8 @@ class TeacherController extends Controller
             $token       = random_int(10000, 99999) . '-' . substr($shuffle, 0, 12) . '-' . rand(1000, 9999);
         }
 
+        $request['token'] = $token;
+
         $teacherUpdate = $request->only([
             'name', 'name_mm', 'age', 'token', 'experience', 'time_table_1', 'time_table_1_mm',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
@@ -192,6 +195,14 @@ class TeacherController extends Controller
             if (!file_exists($imagepath)) {
                 if (!mkdir($imagepath, 0777, true)) die('Failed to create folders...');
                 else chmod("$imagepath", 0777);
+            }
+
+            // Get all files in the folder
+            $files = File::files($imagepath);
+
+            // Delete each file
+            foreach ($files as $file) {
+                File::delete($file);
             }
 
             $images = [];
@@ -253,7 +264,7 @@ class TeacherController extends Controller
 
         $status = $teacher->update($teacherUpdate);
 
-        if($status) return response()->json('success');
+        if ($status) return response()->json('success');
     }
 
     public function destroy(Request $request)
@@ -262,6 +273,11 @@ class TeacherController extends Controller
 
         // Find and delete teachers
         Teacher::whereIn('id', $ids)->get()->each(function ($teacher) {
+            $imagePath = public_path("/uploads/profile/$teacher->token");
+            // Delete the teacher's folder and its contents
+            if (File::exists($imagePath)) {
+                File::deleteDirectory($imagePath);
+            }
             // Detach subjects (many-to-many relationship)
             $teacher->subjects()->detach();
             // Delete locations (one-to-many relationship)
