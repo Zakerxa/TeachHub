@@ -17,7 +17,6 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./slick/slick.css">
     <link rel="stylesheet" href="./slick/slick-theme.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="preload" as="image" href="/images/hero.png">
@@ -35,7 +34,7 @@
     @else
       <script src="{{ mix('/js/app.js.gz') }}" type="text/javascript" charset="utf-8"></script>
     @endif
-    <script src="./slick/slick.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </body>
 
 </html>
