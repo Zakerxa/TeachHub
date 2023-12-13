@@ -20,7 +20,7 @@ export default {
     actions: {
         postReview({ state, commit, rootState }, forms) {
             return new Promise((resolve, reject) => {
-                fetch('api/client/review', {
+                fetch('/api/client/review', {
                         method: 'post',
                         headers: {
                             "Accept": 'application/json',

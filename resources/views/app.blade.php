@@ -17,13 +17,10 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./slick/slick.css">
-    <link rel="stylesheet" href="./slick/slick-theme.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="preload" as="image" href="/images/hero.png">
-    {{--
-    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.6/dist/vue-multiselect.min.css"> --}}
-    <!-- Styles -->
+    <link rel="stylesheet" href="/slick/slick-theme.css">
+    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     <style>
         body {
             font-family: 'Nunito', sans-serif;
@@ -33,7 +30,12 @@
 
 <body>
     <div id="app"></div>
-    <script src="{{ mix('/js/app.js') }}"></script>
+
+    @if (request()->getHost() == 'localhost' || request()->getHost() == '127.0.0.1')
+    <script src="{{ mix('/js/app.js') }}" type="text/javascript" charset="utf-8"></script>
+    @else
+    <script src="{{ mix('/js/app.js.gz') }}" type="text/javascript" charset="utf-8"></script>
+    @endif
     <script src="./slick/slick.min.js"></script>
 </body>
 

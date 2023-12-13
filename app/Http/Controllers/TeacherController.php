@@ -174,21 +174,19 @@ class TeacherController extends Controller
 
         $token = $teacher->token;
 
-        if (empty($token)) {
-            //  Random Token
-            $string     = 'QWERTYUIOPASDFGHJKLZXCVBNM0123456789';
-            $shuffle    = str_shuffle($string);
-            $token       = random_int(10000, 99999) . '-' . substr($shuffle, 0, 12) . '-' . rand(1000, 9999);
-        }
-
-        $request['token'] = $token;
-
         $teacherUpdate = $request->only([
-            'name', 'name_mm', 'age', 'token', 'experience', 'time_table_1', 'time_table_1_mm',
+            'name', 'name_mm', 'age', 'experience', 'time_table_1', 'time_table_1_mm',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
         if ($request->hasFile('pic')) {
+
+            if (empty($token)) {
+                //  Random Token
+                $string     = 'QWERTYUIOPASDFGHJKLZXCVBNM0123456789';
+                $shuffle    = str_shuffle($string);
+                $token       = random_int(10000, 99999) . '-' . substr($shuffle, 0, 12) . '-' . rand(1000, 9999);
+            }
 
             $imagepath  = public_path("/uploads/profile/$token");
             // File Input System
@@ -215,6 +213,7 @@ class TeacherController extends Controller
             }
 
             $teacherUpdate['pic'] = $images;
+            $teacherUpdate['token'] = $token;
         }
 
 

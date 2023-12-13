@@ -13,8 +13,8 @@
             </div>
         </div>
 
-        <div class="container py-2">
-            <div class="ex1 row pt-3" style="align-items: center">
+        <div class="container">
+            <div class="row pt-3" style="align-items: center">
                 <div v-if="reviews" class="slickSlider mt-2 mt-md-5 pb-3">
                     <div v-for="(review, i) in reviews" :key="i" class="text-center">
                         <Review-Card :review="review"></Review-Card>
@@ -94,7 +94,7 @@ export default {
             dots: true,
             infinite: false,
             speed: 300,
-            arrows: true,
+            arrows: false,
             centerMode: false,
             centerPadding: '20px',
             slidesToShow: 3,
@@ -103,7 +103,7 @@ export default {
                 {
                     breakpoint: 992,
                     settings: {
-                        arrows: true,
+                        arrows: false,
                         centerPadding: '40px',
                         slidesToShow: 3,
                         slidesToScroll: 3
@@ -112,7 +112,7 @@ export default {
                 {
                     breakpoint: 991,
                     settings: {
-                        arrows: true,
+                        arrows: false,
                         slidesToShow: 2,
                         slidesToScroll: 2,
                         mobileFirst: true
@@ -121,7 +121,7 @@ export default {
                 {
                     breakpoint: 576,
                     settings: {
-                        arrows: true,
+                        arrows: false,
                         slidesToShow: 1,
                         slidesToScroll: 1,
                         mobileFirst: true
@@ -161,7 +161,7 @@ export default {
                         if (res == 'success') {
                             this.initializeSlider();
                             this.clear();
-                        }
+                        }else this.clear();
                     });
             }).catch(res => console.log("Error => ", res));
         },
@@ -177,6 +177,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.slick-dots{
+    position: relative!important;
+}
 .rating-title {
     font-size: 3.4vw;
     line-height: 4vw;

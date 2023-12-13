@@ -1,5 +1,11 @@
 <?php
 
+$allowedDomainsString = env('ALLOWED_DOMAINS');
+
+$allowedDomains = explode(',', $allowedDomainsString);
+
+$origin = implode(',', $allowedDomains);
+
 return [
 
     /*
@@ -15,11 +21,12 @@ return [
     |
     */
 
+
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [$origin],
 
     'allowed_origins_patterns' => [],
 
