@@ -6,8 +6,7 @@
             <div class="col-12 col-md-8 col-lg-6 offset-lg-1 d-flex justify-content-start">
                 <div class="cover">
                     <img v-if="teacher != null" class="pic"
-                        :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'"
-                        alt="">
+                        :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'" alt="">
                     <img v-else src="" style="width:200px;height:200px" alt="Loading . . .">
                     <div v-if="teacher != null && teacher.name" class="detail-name-mobile">
                         <h3>{{ teacher.name }}</h3>
@@ -161,8 +160,18 @@ export default {
             const maxLengthForTop = 100; // Change this value accordingly
             const maxLength = this.description.length;
 
-            if (maxLength >= 70) {
+            if (maxLength >= 70 && maxLength <= 199) {
                 let height = `-${(maxLength / 4)}px`;
+                console.log(height, this.description.length);
+                return height;
+            }
+            else if (maxLength >= 200 && maxLength <= 350) {
+                let height = `-${(maxLength / 6)}px`;
+                console.log(height, this.description.length);
+                return height;
+            }
+            else if (maxLength >= 350) {
+                let height = `-${(maxLength / 8)}px`;
                 console.log(height, this.description.length);
                 return height;
             } else {
