@@ -158,10 +158,10 @@ export default {
             this.csrf().then((token) => {
                 this.postReview({ name: this.name, message: this.message, rating: this.rating, _token: token })
                     .then(res => {
+                        this.clear();
                         if (res == 'success') {
                             this.initializeSlider();
-                            this.clear();
-                        }else this.clear();
+                        }
                     });
             }).catch(res => console.log("Error => ", res));
         },

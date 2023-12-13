@@ -8,12 +8,9 @@ const mix = require('laravel-mix');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 mix.js('resources/js/app.js', 'public/js')
-    .styles([
-        'public/slick/slick.css'
-    ], 'public/css/app.css')
     .setPublicPath('public')
     .vue()
-    .sass('resources/sass/app.scss', 'public/scss/css')
+    .sass('resources/sass/app.scss', 'public/css')
     .webpackConfig({
         plugins: [
             new CompressionPlugin({
