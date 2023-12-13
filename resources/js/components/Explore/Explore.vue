@@ -1,63 +1,70 @@
 <template>
-    <div class="explore-container container-fluid">
-        <div class="row justify-content-center text-center p-0 m-0">
-            <!-- EXplore Title -->
-            <div class="ml-5 ml-sm-0 col-12 text-center">
-                <h3 class="ml-3 ml-sm-0 content-title" v-html="$t('explore.title')"> </h3>
+    <div>
+        <div class="explore-container container-fluid mt-2">
+            <div class="row justify-content-center text-center p-0 m-0">
+                <!-- EXplore Title -->
+                <div class="col-12 text-center">
+                    <h3 class="ml-3 ml-sm-0 content-title" v-html="$t('explore.title')"> </h3>
+                </div>
             </div>
 
             <!-- Multi Filter Section & Search -->
             <MultiFilter />
 
         </div>
-    </div>
 
-    <!-- Teacher List Filters -->
-    <div class="container pt-5 mt-3">
-        <div v-if="teachers" class="row justify-content-start gx-4 gy-3">
-            <div class="text-start col-11 col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;" v-for="(teacher,i) in teachers" :key="i">
 
-                <div @click="routeTo(teacher.id)" class="row justify-content-start">
-                    <div class="col-6 col-md-12 text-start">
-                        <img width="100%" :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'" class="teacher-image" alt="...">
-                    </div>
-                    <div class="col-6 col-md-12 text-start">
-                        <div class="specialist mt-2 mb-2">
-                            <span v-for="(subject,i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
-                                {{ (lang == 'English') ? subject.name : subject.name_mm }}
-                            </span>
+
+        <!-- Teacher List Filters -->
+        <div class="container pt-5 mt-3">
+            <div v-if="teachers" class="row justify-content-start gx-4 gy-3 p-0 w-100">
+                <div class="text-start col-11 col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;"
+                    v-for="(teacher, i) in teachers" :key="i">
+
+                    <div @click="routeTo(teacher.id)" class="row justify-content-start">
+                        <div class="col-6 col-md-12 text-start">
+                            <img width="100%"
+                                :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'"
+                                class="teacher-image" alt="...">
                         </div>
-                        <p class="teacher-name pt-2">{{ teacher.name }}</p>
-                        <div>
-                            <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
-                                    icon="fa-solid fa-calendar-days" />
-                                {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
+                        <div class="col-6 col-md-12 text-start">
+                            <div class="specialist mt-2 mb-2">
+                                <span v-for="(subject, i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
+                                    {{ (lang == 'English') ? subject.name : subject.name_mm }}
+                                </span>
                             </div>
-                            <div v-if="teacher.time_table_2" class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
-                                    icon="fa-solid fa-calendar-days" />
-                                {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
+                            <p class="teacher-name pt-2">{{ teacher.name }}</p>
+                            <div>
+                                <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
+                                        icon="fa-solid fa-calendar-days" />
+                                    {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
+                                </div>
+                                <div v-if="teacher.time_table_2 != 'null' && teacher.time_table_2 != ''"
+                                    class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
+                                        icon="fa-solid fa-calendar-days" />
+                                    {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
 
-        <div v-else class="row d-flex align-items-center" style="min-height:40vh">
-            <div class="text-center col-11 col-md-6 col-lg-4 col-xl-3">
-                <span>Loading . . .</span>
+            <div v-else class="row d-flex align-items-center" style="min-height:40vh">
+                <div class="text-center col-11 col-md-6 col-lg-4 col-xl-3">
+                    <span>Loading . . .</span>
+                </div>
             </div>
-        </div>
 
-
-        <!-- Pagination -->
-        <div class="row jsutify-content-center pb-4 pt-4">
-            <div v-if="paginations" class="col-12 mb-5 mt-4 text-center">
-                <vue-pagination @event="vuePaginate" :meta-data="paginations" :onSides="1" :style="style"></vue-pagination>
+            <!-- Pagination -->
+            <div class="row jsutify-content-center pb-4 pt-4">
+                <div v-if="paginations" class="col-12 mb-5 mt-4 text-center">
+                    <vue-pagination @event="vuePaginate" :meta-data="paginations" :onSides="1"
+                        :style="style"></vue-pagination>
+                </div>
             </div>
+
         </div>
-
-
     </div>
 </template>
 <script>
@@ -114,7 +121,7 @@ export default {
 <style lang="scss">
 .explore-container {
     background-color: var(--bg);
-    padding: 30px 0;
+    padding-top: 40px;
 }
 
 
@@ -134,13 +141,15 @@ export default {
     line-height: 5vw;
     align-items: center;
     margin-bottom: 20px;
+    left: 20px;
+    display: inline-block;
     padding: 0;
 }
 
 
 @media screen and (min-width:300px) and (max-width : 375px) {
     .content-title {
-        font-size: 5vw;
+        font-size: 7vw;
     }
 }
 

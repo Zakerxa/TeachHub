@@ -17,14 +17,15 @@ class CorsMiddleware
     {
         $response = $next($request);
 
-        $allowedDomains = ['http://localhost:8000', 'https://localhost:8001', 'https://admin.teachub.bbbtest.click'];
+        $allowedDomainsString = env('ALLOWED_DOMAINS');
+        $allowedDomains = explode(',', $allowedDomainsString);
 
         $origin = $request->header('Origin');
         if (in_array($origin, $allowedDomains)) {
             $response->headers->set('Access-Control-Allow-Origin', $origin);
         }
 
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST');
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
         return $response;

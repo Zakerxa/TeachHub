@@ -17,8 +17,7 @@
             <div class="d-none d-lg-block navbar-collapse" :style="{ zIndex: 1 }">
                 <ul class="m-auto"> </ul>
                 <ul class="navbar-nav ml-auto my-2 my-md-0" style="--bs-scroll-height: 100px;">
-                    <router-link v-for="(route, i) in router" :key="i" class="nav-link p-4 pt-3 pb-3 pt-md-2 pb-md-0"
-                        tag="li" active-class="active" aria-current="page" :to="route.path">
+                    <router-link v-for="(route, i) in router" :key="i" class="nav-link p-4 pt-3 pb-3 pt-md-2 pb-md-0" active-class="active" aria-current="page" :to="route.path">
                         {{ route.name }}
                     </router-link>
 
@@ -34,12 +33,12 @@
                     <ul class="m-auto"> </ul>
                     <ul class="navbar-nav ml-auto my-2 my-md-0" style="--bs-scroll-height: 150px;">
                         <router-link @click="closeCollapse" v-for="(route, i) in router" :key="i"
-                            class="nav-link p-2 pt-3 pb-3 pt-md-1 pb-md-0" style="font-size: 18px;" tag="li" active-class="active"
+                            class="nav-link p-2 pt-3 pb-3 pt-md-1 pb-md-0" style="font-size: 18px;" active-class="active"
                             aria-current="page" :to="route.path">
                             {{ route.name }}
                         </router-link>
 
-                        <Language class="p-2 pt-3 pb-3 pt-md-1 pb-md-0" />
+                        <Language @lang="langclick" class="p-2 pt-3 pb-3 pt-md-1 pb-md-0" />
                     </ul>
 
                     <ul class="d-block d-lg-none p-0">
@@ -111,6 +110,12 @@ export default {
             this.isCollapseOpen = !this.isCollapseOpen;
             if (this.isCollapseOpen) this.navIcon = 'fas fa-xmark';
             else this.navIcon = 'fas fa-bars';
+        },
+        langclick(e){
+           console.log("work",e);
+           $('#navbarScroll').collapse('hide');
+            this.navIcon = 'fas fa-bars';
+            this.isCollapseOpen = false;
         },
         closeCollapse() {
             $('#navbarScroll').collapse('hide');

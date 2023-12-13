@@ -1,6 +1,7 @@
 <template>
     <div class="mb-5" style="border-bottom: 2px solid #8642DE;background: #F9F5FF;padding-bottom: 8%" id="topTeacher">
-        <div class="container-fluid pt-5">
+
+        <div class="container-fluid pt-5 pb-5">
             <div class="row m-0 p-0 mt-0 mt-md-3 pt-5 content-header justify-content-center text-center">
                 <div class="col-1 col-sm-1">
                     <img class="left-effect" src="/images/effect.png" alt="">
@@ -9,11 +10,12 @@
                     <h3 class="content-title" v-html="$t('content.topTeacher')">
                     </h3>
                 </div>
-                <div class="col-1 col-sm-1">
+                <div class="col-1 col-sm-1 p-0">
                     <img class="right-effect" src="/images/effect.png" alt="">
                 </div>
             </div>
         </div>
+
 
         <div class="container">
 
@@ -33,7 +35,7 @@
                             <div>
                                 <div class="teacher-time"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-calendar-days" />
                                     {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}</div>
-                                <div v-if="teacher.time_table_2" class="teacher-time"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-calendar-days" />
+                                <div v-if="teacher.time_table_2 != 'null' && teacher.time_table_2 != ''" class="teacher-time"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-calendar-days" />
                                     {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
                             </div>
                         </div>
@@ -78,6 +80,7 @@ export default {
 .right-effect {
     width: 30px;
     position: relative;
+    display: inline-block;
 }
 
 .right-effect {
@@ -86,9 +89,10 @@ export default {
 }
 
 .content-title {
-    font-size: 4vw;
+    font-size: 3.7vw;
     font-weight: bold;
     position: relative;
+    display: inline-block;
 
     >span {
         color: #8642DE;
@@ -151,6 +155,7 @@ export default {
         font-weight: bold;
         font-size: 8vw;
         line-height: 8vw;
+        display: inline-block;
     }
 
     .content-title-image {

@@ -10,7 +10,7 @@
                             <p class="hero-title" v-html="$t('hero.heroTitle')"></p>
                             <!-- <img class="hero-title-image" src="/images/Particle.png" alt=""> -->
                         </div>
-                        <p class="hero-subtitle mr-5 mb-3">
+                        <p class="hero-subtitle mr-5 mb-4 pt-1">
                             {{ $t('hero.heroSubTitle') }}
                         </p>
                         <router-link to="/explore" class="hero-btn fw-bold">Start Explore <font-awesome-icon
@@ -79,8 +79,8 @@ export default {
     .hero-title {
         font-weight: 900;
         font-family: sans-serif, Courier, monospace;
-        font-size: 3.8vw;
-        line-height: 5vw;
+        font-size: 3.7vw;
+        line-height: 3vw;
         align-items: center;
         margin: 0;
         padding: 0;
@@ -134,7 +134,7 @@ export default {
     }
 
     .hero-left-section {
-        min-height: 20vh;
+        min-height: 50vh;
 
         .hero-title {
             margin-top: 30px;
@@ -143,16 +143,16 @@ export default {
         }
 
         .hero-subtitle {
-            font-size: 14px;
+            font-size: 18px;
             line-height: 23px;
         }
     }
 
     .hero-right-section {
-        max-height: 50vh;
+        max-height: 52vh;
 
         .hero-image-container {
-            height: 50vh;
+            height: 52vh;
 
             .hero-image {
                 height: 100%;
@@ -175,7 +175,7 @@ export default {
     }
 
     .hero-left-section {
-        min-height: 10vh;
+        min-height: 40vh;
 
         .hero-title {
             margin-top: 40px;
@@ -184,8 +184,9 @@ export default {
         }
 
         .hero-subtitle {
-            font-size: 14px;
-            line-height: 23px;
+            margin: 10px 0;
+            font-size: 18px;
+            line-height: 24px;
         }
     }
 
@@ -219,8 +220,8 @@ export default {
 
         .hero-title {
             margin-top: 40px;
-            font-size: 5vw;
-            line-height: 5vw;
+            font-size: 6vw;
+            line-height: 3vw;
         }
 
         .hero-subtitle {

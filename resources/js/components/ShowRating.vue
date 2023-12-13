@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            <div class="row pt-4 d-flex align-items-center text-start" style="min-height: 40vh">
+            <div class="row pt-4 d-flex align-items-center text-start" style="min-height: 30vh">
                 <div class="col-12 col-sm-6">
                     <p class="rating-title" v-html="$t('content.rateTeacher')"></p>
                 </div>
@@ -58,8 +58,8 @@
                                                 placeholder="Write your review" id="" cols="30" rows="4"></textarea>
                                         </div>
                                         <div class="">
-                                            <button :disabled="name.length < 3 || message.length < 10 || disableSubmit" @click="review()"
-                                                class="btn w-100 fw-bold"
+                                            <button :disabled="name.length < 3 || message.length < 10 || disableSubmit"
+                                                @click="review()" class="btn w-100 fw-bold"
                                                 style="background:var(--secondary)">Submit</button>
                                         </div>
                                     </div>
@@ -87,7 +87,7 @@ export default {
         rating: 1.5,
         readyCarousel: false,
         owlCarouselInstance: null,
-        disableSubmit : false,
+        disableSubmit: false,
         name: '',
         message: '',
         options: {
@@ -176,12 +176,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .rating-title {
-    font-size: 3vw;
+    font-size: 3.4vw;
     line-height: 4vw;
     font-weight: bold;
     position: relative;
+    display: inline-block;
 
     >span {
         color: #8642de;
@@ -210,8 +211,12 @@ export default {
 
 .review-btn {
     background-color: #ffd32b !important;
-    padding: 10px 16px !important;
+    padding: 12px 16px !important;
     border: none;
+}
+
+.v-btn.v-btn--density-default {
+    height: auto !important;
 }
 
 @media screen and (min-width: 300px) and (max-width: 375px) {

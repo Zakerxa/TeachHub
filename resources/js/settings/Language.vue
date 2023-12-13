@@ -26,7 +26,8 @@ export default {
     methods: {
         ...mapMutations(['updateLanguage', 'checkLanguage', 'getLanguage']),
         setLanguage(code, name) {
-            this.updateLanguage({ code: code, name: name, $i18n: this.$i18n, $t: this.$t })
+            this.updateLanguage({ code: code, name: name, $i18n: this.$i18n, $t: this.$t });
+            this.$emit('lang', code);
         }
     },
     mounted() {

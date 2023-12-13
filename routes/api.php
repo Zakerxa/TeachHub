@@ -25,9 +25,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('v1/csrf', function (Request $request) {
         return response()->json($request->session()->get('_token'));
     });
-    Route::post('client/review', [ReviewController::class, 'store']);
-    Route::post('client/requestReview', [ReviewController::class, 'requestReview']);
-    Route::post('client/deleteReview', [ReviewController::class, 'destory']);
+    // Route::post('client/review', [ReviewController::class, 'store']);
+    // Route::post('client/requestReview', [ReviewController::class, 'requestReview']);
+    // Route::post('client/deleteReview', [ReviewController::class, 'destory']);
 });
 
 

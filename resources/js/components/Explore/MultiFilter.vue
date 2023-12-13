@@ -224,7 +224,7 @@
 
     <div class="row d-flex align-items-center justify-content-start p-0 m-0 mt-3" style="height:50px">
         <div class="col-1"></div>
-        <div class="col-8 col-md-6 text-start fw-bold">
+        <div class="col-10 col-md-6 text-start fw-bold">
             <p>{{ (searchCount >= 1) ? searchCount + '/' : '' }}{{ teacherCount }} Teachers |
                 <span
                     v-if="name == '' && (region == null || region.length < 1) && (status == null || status.length < 1) && (subjects == null || subjects.length < 1) && (townships == null || townships.length < 1) && (environment == null || environment.length < 1)"></span>
@@ -473,7 +473,7 @@ body.offcanvas-open {
     align-items: center;
     column-gap: 1rem;
     padding-left: 1rem;
-    background: #FFFFFF;
+    background: #fff;
     border-radius: 5px 0 0 5px;
     height: auto;
     border-right: none;
