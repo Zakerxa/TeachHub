@@ -184,7 +184,7 @@
             </div>
         </div>
 
-        <div class="hide-filter col-md-4 col-lg-3 col-xl-2 mt-2">
+        <div class="hide-filter col-md-4 col-lg-3 col-xl-3 mt-2">
             <div>
                 <multiselect @select="dispatchAction('env')" @remove="removeAction" :custom-label="customLabelEvnironment"
                     v-model="environment" :multiple="true" :options="optionsEnvironment" :placeholder="pEnvironment"
