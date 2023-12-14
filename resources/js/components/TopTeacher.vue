@@ -23,7 +23,9 @@
                 <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;" v-for="(teacher,i) in topTeachers" :key="i">
                     <div @click="routeTo(teacher.id)" class="row border-0">
                         <div class="col-6 col-md-12">
-                            <img width="100%" :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'" class="teacher-image" alt="...">
+                            <div class="teacher-image"
+                                :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                            </div>
                         </div>
                         <div class="col-6 col-md-12 p-0">
                             <div class="specialist mt-2 mb-2">
@@ -65,7 +67,12 @@ export default {
         ...mapActions(['gettingTopTeachers', 'defaultTeacher']),
         routeTo(id) {
             this.$router.push({ name: 'details', params: { id } });
-        }
+        },
+        imageDetector(token, pic) {
+            let imageUrl = '/images/hero.png';
+            if (token) imageUrl = '/uploads/profile/' + token + '/' + pic;
+            return imageUrl;
+        },
     },
     created() {
         this.gettingTopTeachers();
@@ -79,7 +86,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .left-effect,
 .right-effect {
     width: 30px;
@@ -134,11 +141,23 @@ export default {
 }
 
 .teacher-image {
-    border: none;
-    box-shadow: 1px 1px 3px #e3e0e6;
-    border-left: 1.5px solid #8642DE;
-    border-bottom: 1.5px solid #8642DE;
-    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #ffffff;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    left: 0;
+    top: 0;
+    /* Responsive styles for medium-sized screens and larger */
+    @media (min-width: 768px) {
+        width: 100%;
+        /* Ensure the image takes up the full width on medium-sized screens */
+        min-height: 310px;
+        /* Adjust the height as needed */
+    }
 }
 
 .teacher-time {

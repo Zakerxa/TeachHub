@@ -14,20 +14,19 @@
         </div>
 
 
-
         <!-- Teacher List Filters -->
         <div class="container pt-5 mt-3">
-            <div v-if="teachers" class="row justify-content-start gx-4 gy-3 p-0 w-100">
-                <div class="text-start col-11 col-md-6 col-lg-4 col-xl-3" style="cursor: pointer;"
+            <div v-if="teachers" class="row justify-content-start gx-md-3 gy-3 p-0 m-0">
+                <div class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0 p-md-2" style="cursor: pointer;"
                     v-for="(teacher, i) in teachers" :key="i">
 
                     <div @click="routeTo(teacher.id)" class="row justify-content-start">
                         <div class="col-6 col-md-12 text-start">
-                            <img width="100%"
-                                :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'"
-                                class="teacher-image" alt="...">
+                            <div class="teacher-image"
+                                :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                            </div>
                         </div>
-                        <div class="col-6 col-md-12 text-start">
+                        <div class="col-6 col-md-12 pr-0 p-md-auto text-start">
                             <div class="specialist mt-2 mb-2">
                                 <span v-for="(subject, i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
                                     {{ (lang == 'English') ? subject.name : subject.name_mm }}
@@ -99,7 +98,11 @@ export default {
         routeTo(id) {
             this.$router.push({ name: 'details', params: { id } });
         },
-
+        imageDetector(token, pic) {
+            let imageUrl = '/images/hero.png';
+            if (token) imageUrl = '/uploads/profile/' + token + '/' + pic;
+            return imageUrl;
+        },
         vuePaginate(e) {
 
             location.href = '#filter-teacher';
@@ -118,20 +121,66 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" >
 .explore-container {
     background-color: var(--bg);
     padding-top: 40px;
 }
 
-
-.teacher-time {
-    font-size: 13px;
-    color: #555;
+.image-container {
+    width: 100%;
+    height: 83%;
+    border-radius: 10px;
+    position: relative;
+    background-color: #ffffff;
+    left: 0;
+    top: 0;
 }
 
 .teacher-image {
     width: 100%;
+    min-height: 200px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    left: 0;
+    top: 0;
+    /* Responsive styles for medium-sized screens and larger */
+    @media (min-width: 768px) {
+        min-height: 320px;
+    }
+}
+
+.backdropTop {
+    position: absolute;
+    top: 0;
+    background: linear-gradient(to bottom, #000000e0, #000000c6, #000000ab, #0000008f, #1b1b1b67, #1b1b1b3d, #50505013, #50505003);
+    ;
+    width: 100%;
+    height: 100px;
+    padding-top: 10px;
+    z-index: -1;
+}
+
+.backdrop {
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(to top, #000000e0, #000000c6, #000000ab, #0000008f, #1b1b1b67, #1b1b1b3d, #50505013, #50505005);
+    ;
+    color: #fff;
+    width: 100%;
+    height: 80px;
+    padding-top: 10px;
+    font-weight: bold;
+    z-index: 0;
+}
+
+.teacher-time {
+    font-size: 13px;
+    color: #555;
 }
 
 .content-title {
