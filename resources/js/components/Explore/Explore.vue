@@ -1,5 +1,5 @@
 <template>
-    <div style="background-color: var(--bg);">
+    <div class="explore-main">
         <div class="explore-container container-fluid mt-2">
             <div class="row justify-content-center text-center p-0 m-0">
                 <!-- EXplore Title -->
@@ -18,10 +18,9 @@
         <div class="container pt-5 mt-3">
             <div v-if="teachers" class="row justify-content-center justify-content-md-start gy-2 p-0 m-0">
 
-                <div v-for="(teacher, i) in teachers" :key="i"
-                    class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0 pt-md-2 pb-md-2" style="cursor: pointer;">
+                <div v-for="(teacher, i) in teachers" :key="i" class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0 pt-md-2 pb-md-2" style="cursor: pointer;">
 
-                    <div @click="routeTo(teacher.id)" class="row justify-content-start mx-md-2 pt-3 pb-2 shadow-sm"
+                    <div @click="routeTo(teacher.id)" class="row justify-content-start mx-md-2 pt-3 pb-2"
                         style="background:#fff">
                         <div class="col-6 col-md-12 text-start">
                             <div class="teacher-image"
@@ -132,6 +131,10 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.explore-main{
+    background-color: var(--bg);
+}
 .explore-container {
     background-color: var(--bg);
     padding-top: 40px;
@@ -236,18 +239,27 @@ export default {
 
 
 @media screen and (min-width:300px) and (max-width : 375px) {
+    .explore-main{
+        background-color: #fff;
+    }
     .content-title {
         font-size: 7vw;
     }
 }
 
 @media screen and (min-width:376px) and (max-width : 500px) {
+    .explore-main{
+        background-color: #fff;
+    }
     .content-title {
         font-size: 7vw;
     }
 }
 
 @media screen and (min-width:501px) and (max-width : 767px) {
+    .explore-main{
+        background-color: #fff;
+    }
     .content-title {
         font-size: 5vw;
     }

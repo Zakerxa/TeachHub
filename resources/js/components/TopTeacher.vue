@@ -25,7 +25,7 @@
                         <div class="col-6 col-md-12">
                             <div class="teacher-image"
                                 :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
-                                <div class="recommand-heart">
+                                 <div class="recommand-heart">
                                     <i class="fa-regular fa-heart fa-2x"></i> <span class="ml-3">Recommand</span>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@ export default {
 
 .teacher-image {
     width: 100%;
-    height: 100%;
+    min-height: 200px;
     border-radius: 10px;
     background-color: #ffffff;
     background-position: center;
@@ -181,26 +181,18 @@ export default {
     position: relative;
     left: 0;
     top: 0;
+
     /* Responsive styles for medium-sized screens and larger */
     @media (min-width: 768px) {
-        width: 100%;
-        /* Ensure the image takes up the full width on medium-sized screens */
-        min-height: 310px;
-        /* Adjust the height as needed */
+        max-height: 300px;
+        height: 280px;
+        background-color: #fff;
     }
 }
 
 .teacher-time {
-    >li {
-        list-style: none;
-        font-size: 14px;
-        font-weight: 600;
-        padding-top: 3px;
-
-        >span {
-            font-weight: 400;
-        }
-    }
+    font-size: 13px;
+    color: #555;
 }
 
 @media screen and (min-width:300px) and (max-width : 375px) {
