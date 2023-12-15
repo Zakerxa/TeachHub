@@ -5,8 +5,12 @@
             <div class="detailBackground"></div>
             <div class="col-12 col-md-8 col-lg-6 offset-lg-1 d-flex justify-content-start">
                 <div class="cover">
-                    <img v-if="teacher != null" class="pic"
-                        :src="teacher.token ? '/uploads/profile/' + teacher.token + '/' + teacher.pic : '/images/hero.png'" alt="">
+                    <div v-if="teacher.pic" class="teacher-image"
+                        :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                        <div class="recommand-heart">
+                            <i class="fa-regular fa-heart fa-2x"></i>
+                        </div>
+                    </div>
                     <img v-else src="" style="width:200px;height:200px" alt="Loading . . .">
                     <div v-if="teacher != null && teacher.name" class="detail-name-mobile">
                         <h3>{{ teacher.name }}</h3>
@@ -156,29 +160,17 @@ export default {
             'lang',
         ]),
         dynamicTop() {
-            // Adjust the values as needed based on your requirements
-            const maxLengthForTop = 100; // Change this value accordingly
             const maxLength = this.description.length;
 
-            if (maxLength >= 70 && maxLength <= 199) {
-                let height = `-${(maxLength / 4)}px`;
-                console.log(height, this.description.length);
-                return height;
-            }
-            else if (maxLength >= 200 && maxLength <= 350) {
-                let height = `-${(maxLength / 6)}px`;
-                console.log(height, this.description.length);
-                return height;
-            }
-            else if (maxLength >= 350) {
-                let height = `-${(maxLength / 8)}px`;
-                console.log(height, this.description.length);
-                return height;
-            } else {
-                return '0px';
-            }
+            if(maxLength < 80) return `-${60 + (maxLength / 2)}px`;
 
+            else if (maxLength >= 80 && maxLength <= 199) return `-${(maxLength / 2)}px`;
 
+            else if (maxLength >= 200 && maxLength <= 350) return `-${(maxLength / 4)}px`;
+
+            else if (maxLength >= 350) return `-${(maxLength / 6)}px`;
+
+            else return '0px';
         },
         online_or_local() {
             if (this.teacher.online_or_local == 1) return 'Online'
@@ -208,7 +200,12 @@ export default {
         },
         contactus() {
             window.location.href = "tel:+959777637858";
-        }
+        },
+        imageDetector(token, pic) {
+            let imageUrl = '/images/hero.png';
+            if (token) imageUrl = '/uploads/profile/' + token + '/' + pic;
+            return imageUrl;
+        },
     },
     created() {
         this.getTeacherDetails(this.id);
@@ -262,6 +259,50 @@ export default {
     z-index: 0;
     position: absolute;
 }
+
+.teacher-image {
+    width: 140px;
+    height: 160px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    left: 0;
+    top: 0;
+
+    /* Responsive styles for medium-sized screens and larger */
+    @media (min-width: 768px) {
+        width: 180px;
+        height: 200px;
+        background-color: #fff;
+    }
+}
+
+.recommand-heart {
+    top: 0;
+    background: linear-gradient(to bottom, #00000041, #1b1b1b3f, #1b1b1b2d, #50505016, #60606001);
+    width: 100%;
+    height: 90px;
+    padding-top: 5px;
+    z-index: -1;
+
+    >i {
+        position: relative;
+        top: 5px;
+        left: 8px;
+        color: rgb(255, 255, 255);
+    }
+    >span{
+        position: relative;
+        top: -2px;
+        color: rgb(255, 255, 255);
+        font-weight: 600;
+
+    }
+}
+
 
 .cover {
     position: relative;

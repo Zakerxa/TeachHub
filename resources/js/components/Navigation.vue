@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="d-none d-md-block m-2" style="width:50px;"></div>
             <a class="navbar-brand text-success fw-bold ml-5" style="font-size: 20px;" href="#">
-                <img style="width: 60px;" src="/TeachHub resources/logo.png" alt="">
+                <img style="width: 60px;" src="/images/logo.png" alt="">
             </a>
 
             <font-awesome-icon @click="toggleCollapse" class="navbar-toggler border-0 fw-bold" style="font-size: 29px;"

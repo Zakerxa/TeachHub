@@ -25,6 +25,9 @@
                         <div class="col-6 col-md-12">
                             <div class="teacher-image"
                                 :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                                <div class="recommand-heart">
+                                    <i class="fa-regular fa-heart fa-2x"></i> <span class="ml-3">Recommand</span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-6 col-md-12 p-0">
@@ -34,6 +37,9 @@
                                 </span>
                             </div>
                             <p class="teacher-name pt-2">{{ teacher.name }}</p>
+                            <div class="">
+                                <span class="fw-normal"><i class="fa-solid fa-location-dot" style="color:var(--primary)"></i> {{ (lang == 'English') ? teacher.locations[0].region_state : teacher.locations[0].region_state_mm }}</span>
+                            </div>
                             <div>
                                 <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
                                         icon="fa-solid fa-calendar-days" />
@@ -86,7 +92,7 @@ export default {
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 .left-effect,
 .right-effect {
     width: 30px;
@@ -109,6 +115,30 @@ export default {
         color: #8642DE;
     }
 }
+
+.recommand-heart {
+    top: 0;
+    background: linear-gradient(to bottom, #00000041, #1b1b1b3f, #1b1b1b2d, #50505016, #60606001);
+    width: 100%;
+    height: 90px;
+    padding-top: 5px;
+    z-index: -1;
+
+    >i {
+        position: relative;
+        top: 5px;
+        left: 8px;
+        color: rgb(255, 255, 255);
+    }
+    >span{
+        position: relative;
+        top: -2px;
+        color: rgb(255, 255, 255);
+        font-weight: 600;
+
+    }
+}
+
 
 .content-title-image {
     width: 80px;
@@ -177,7 +207,7 @@ export default {
     .content-title {
         font-weight: bold;
         font-size: 8vw;
-        line-height: 8vw;
+        line-height: 10vw;
         display: inline-block;
     }
 

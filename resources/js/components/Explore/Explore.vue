@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="background-color: var(--bg);">
         <div class="explore-container container-fluid mt-2">
             <div class="row justify-content-center text-center p-0 m-0">
                 <!-- EXplore Title -->
@@ -16,23 +16,33 @@
 
         <!-- Teacher List Filters -->
         <div class="container pt-5 mt-3">
-            <div v-if="teachers" class="row justify-content-start gx-md-3 gy-3 p-0 m-0">
-                <div class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0 p-md-2" style="cursor: pointer;"
-                    v-for="(teacher, i) in teachers" :key="i">
+            <div v-if="teachers" class="row justify-content-center justify-content-md-start gy-2 p-0 m-0">
 
-                    <div @click="routeTo(teacher.id)" class="row justify-content-start">
+                <div v-for="(teacher, i) in teachers" :key="i"
+                    class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0 pt-md-2 pb-md-2" style="cursor: pointer;">
+
+                    <div @click="routeTo(teacher.id)" class="row justify-content-start mx-md-2 pt-3 pb-2 shadow-sm"
+                        style="background:#fff">
                         <div class="col-6 col-md-12 text-start">
                             <div class="teacher-image"
                                 :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                                <div class="recommand-heart">
+                                    <i class="fa-regular fa-heart fa-2x"></i> <span class="ml-3">Recommand</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-12 pr-0 p-md-auto text-start">
+                        <div class="col-6 col-md-12 text-start pl-0 pl-sm-2">
                             <div class="specialist mt-2 mb-2">
                                 <span v-for="(subject, i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
                                     {{ (lang == 'English') ? subject.name : subject.name_mm }}
                                 </span>
                             </div>
                             <p class="teacher-name pt-2">{{ teacher.name }}</p>
+                            <div class="">
+                                <span class="fw-normal"><i class="fa-solid fa-location-dot"
+                                        style="color:var(--primary)"></i> {{ (lang == 'English') ?
+                                            teacher.locations[0].region_state : teacher.locations[0].region_state_mm }}</span>
+                            </div>
                             <div>
                                 <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
                                         icon="fa-solid fa-calendar-days" />
@@ -121,20 +131,23 @@ export default {
 </script>
 
 
-<style lang="scss" >
+<style lang="scss" scoped>
 .explore-container {
     background-color: var(--bg);
     padding-top: 40px;
 }
 
-.image-container {
-    width: 100%;
-    height: 83%;
-    border-radius: 10px;
-    position: relative;
-    background-color: #ffffff;
-    left: 0;
-    top: 0;
+.teacher-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #141414;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    overflow: hidden;
+    /* Hide overflowed text */
+    text-overflow: ellipsis;
+    /* Show ellipsis for overflowed text */
 }
 
 .teacher-image {
@@ -148,9 +161,35 @@ export default {
     position: relative;
     left: 0;
     top: 0;
+
     /* Responsive styles for medium-sized screens and larger */
     @media (min-width: 768px) {
-        min-height: 320px;
+        max-height: 300px;
+        height: 280px;
+        background-color: #fff;
+    }
+}
+
+.recommand-heart {
+    top: 0;
+    background: linear-gradient(to bottom, #00000041, #1b1b1b3f, #1b1b1b2d, #50505016, #60606001);
+    width: 100%;
+    height: 90px;
+    padding-top: 5px;
+    z-index: -1;
+
+    >i {
+        position: relative;
+        top: 5px;
+        left: 8px;
+        color: rgb(255, 255, 255);
+    }
+    >span{
+        position: relative;
+        top: -2px;
+        color: rgb(255, 255, 255);
+        font-weight: 600;
+
     }
 }
 
@@ -212,5 +251,4 @@ export default {
     .content-title {
         font-size: 5vw;
     }
-}
-</style>
+}</style>
