@@ -8,23 +8,27 @@ const routes = [{
     {
         path: "/explore",
         name: "explore",
-        component: require('./views/Explore.vue').default
+        component: () =>
+            import ('./views/Explore.vue')
     },
     {
         path: "/detail/:id",
         name: "details",
-        component: require('./views/Details.vue').default,
+        component: () =>
+            import ('./views/Details.vue'),
         props: true
     },
     {
         path: "/contact",
         name: "contact",
-        component: require('./views/ContactUs.vue').default
+        component: () =>
+            import ('./views/ContactUs.vue')
     },
     {
         path: "/:pathMatch(.*)*",
         name: "PageNotFound",
-        component: require('./components/PageNotFound.vue').default
+        component: () =>
+            import ('./components/PageNotFound.vue')
     }
 ];
 
