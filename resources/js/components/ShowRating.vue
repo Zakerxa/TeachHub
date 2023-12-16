@@ -155,11 +155,19 @@ export default {
         },
         review() {
             this.disableSubmit = true;
+            // Get Session If Exist
+            let session = null;
+            if (localStorage.getItem("TeachubGlobalReviewToken")) session = localStorage.getItem("TeachubGlobalReviewToken")
+            else session = 'new';
+            // Post Review With CSRF
             this.csrf().then((token) => {
-                this.postReview({ name: this.name, message: this.message, rating: this.rating, _token: token })
+                this.postReview({ name: this.name, message: this.message, rating: this.rating, _token: token, token: session })
                     .then(res => {
                         this.clear();
-                        if (res == 'success') {
+                        if (res.response == 'success') {
+                            this.dialog = false;
+                             // Set New Session
+                            if (res.token) localStorage.setItem('TeachubGlobalReviewToken', res.token);
                             this.initializeSlider();
                         }
                     });

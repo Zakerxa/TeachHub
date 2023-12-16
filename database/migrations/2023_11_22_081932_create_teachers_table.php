@@ -29,6 +29,9 @@ return new class extends Migration
             $table->string('time_table_2_mm')->nullable();
             $table->string('token')->unique()->nullable();;
             $table->integer('order')->unique()->nullable();
+            $table->string('salary')->nullable()->default('Negotiate');
+            $table->boolean('recommand')->default(0);
+            $table->string('extra')->nullable();
             $table->string('rating')->default(0);
             $table->timestamps();
         });

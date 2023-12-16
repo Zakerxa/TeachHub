@@ -3,7 +3,7 @@
         <!-- Show Loading if Data not ready yet -->
         <div class="row d-flex align-items-center p-0 m-0" style="height:100vh;width:100vw;">
             <div class="col-12 text-center p-0">
-                <h3 class="fw-bold">{{ loadingIcon }}</h3>
+                <img style="width: 140px;height:50px" src="/images/logo.svg" alt="">
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@ $primary-color : #d6f0ff;
 }
 
 .loading {
-    background: #d6f7ff;
+    background: #fcfaff;
     z-index: 10;
     position: fixed;
     height: 100vh;

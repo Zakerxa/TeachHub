@@ -107,6 +107,20 @@
                                         </span>
                                     </v-list-item-subtitle>
                                 </v-list-item>
+
+                                <v-list-item class="pt-2 pb-5" color="primary" rounded="shaped">
+                                    <template v-slot:prepend>
+                                        <v-icon class="details-info-icon-bg" icon="fa-dollar-sing"></v-icon>
+                                        <font-awesome-icon class="details-info-icon pl-1" icon="fa-solid fa-dollar-sign" />
+                                    </template>
+
+                                    <v-list-item-title>{{ $t('details.salary') }}</v-list-item-title>
+                                    <v-list-item-subtitle>
+                                        <span>{{ teacher.salary }}</span>
+                                    </v-list-item-subtitle>
+                                </v-list-item>
+
+
                             </v-list>
                         </div>
                     </div>

@@ -34,17 +34,17 @@ export default {
                         if (res.message == 'CSRF token mismatch.') return reject('CSRF token mismatch.');
                         else if (res.response == 'success') {
                             commit('addReviews', res.data);
-                            return resolve('success');
+                            return resolve(res);
                         } else return resolve('error');
                     })
                     .catch(err => reject(commit('loginError', err.errors)))
             })
         },
         getReviews({ state, commit, rootState }) {
-            console.log("Trying to GetREview");
-            let token = localStorage.getItem("ReviewToken") ? localStorage.getItem("ReviewToken") : 'null';
+            let token = localStorage.getItem("TeachubGlobalReviewToken") ? localStorage.getItem("TeachubGlobalReviewToken") : 'null';
+            console.log(token, "MY token ");
             return new Promise((resolve, reject) => {
-                fetch('/api/client/reviews', {
+                fetch('/api/client/reviews/' + token, {
                         method: 'get',
                         headers: {
                             "Accept": 'application/json',
@@ -60,7 +60,7 @@ export default {
                             return resolve(res.data);
                         } else return resolve('error');
                     })
-                    .catch(err => reject(commit('loginError', err.errors)))
+                    .catch(err => reject('error'))
             })
         },
         requestReview({ state, commit, rootState }, forms) {

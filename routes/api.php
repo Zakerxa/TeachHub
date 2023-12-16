@@ -41,14 +41,16 @@ Route::get('/test', function (Request $request) {
     return response()->json(200);
 });
 // Review
-Route::get('/client/reviews', [ReviewController::class, 'index']);
+// Route::get('/client/reviews', [ReviewController::class, 'index']);
 // Subject
 Route::get('/subjects', [TeacherController::class, 'subjects']);
 // Teacher
 Route::get('/teachers', [TeacherController::class, 'index']);
 Route::get('/topteachers', [TeacherController::class, 'topteacher']);
-Route::get('/teachers/details/{id}', [TeacherController::class, 'show']);
 Route::post('/teachers/search', [TeacherController::class, 'search']);
+Route::get('/teachers/details/{id}', [TeacherController::class, 'show']);
+Route::get('/client/reviews/{token}', [ReviewController::class, 'reviewsWithPending']);
+
 // Test
 Route::get('/test', function (Request $request) {
     return response()->json(200);

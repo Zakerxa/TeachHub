@@ -29,7 +29,8 @@ const mm = {
         subject: 'ဘာသာရပ်',
         experience: 'အတွေ့အကြုံကာလ',
         datetime: 'သင်ကြားချိန်',
-        location: 'သင်ကြားနိုင်မည့်နေရာ'
+        location: 'သင်ကြားနိုင်မည့်နေရာ',
+        salary: 'လစာနှုန်းများ',
     },
     btn: {
         explore: 'ရှာဖွေမည်',

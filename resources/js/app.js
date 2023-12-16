@@ -20,10 +20,10 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 /* import specific icons */
-import { faStar, faCalendarCheck, faStreetView, faLocation, faBookOpen, faUser, faCircleCheck, faArrowLeftLong, faCalendarDays, faSliders, faMagnifyingGlass, faXmark, faHistory, faCheckCircle, faEyeSlash, faEye, faSearch, faBars, faAngleRight, faSignOut, faMobileScreen, faDesktop, faMapLocationDot, faAngleDown, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faDollarSign, faStar, faCalendarCheck, faStreetView, faLocation, faBookOpen, faUser, faCircleCheck, faArrowLeftLong, faCalendarDays, faSliders, faMagnifyingGlass, faXmark, faHistory, faCheckCircle, faEyeSlash, faEye, faSearch, faBars, faAngleRight, faSignOut, faMobileScreen, faDesktop, faMapLocationDot, faAngleDown, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter, faYoutube, faInstagram, faFacebook, faSquareTwitter, faSquareYoutube, faSquareInstagram } from '@fortawesome/free-brands-svg-icons';
 /* add icons to the library */
-library.add(faStar, faCalendarCheck, faStreetView, faLocation, faBookOpen, faUser, faCircleCheck, faArrowLeftLong, faCalendarDays, faSliders, faMagnifyingGlass, faTwitter, faYoutube, faInstagram, faFacebook, faSquareTwitter, faSquareYoutube, faSquareInstagram, faXmark, faGlobe, faBars, faAngleDown, faAngleRight, faSignOut, faHistory, faCheckCircle, faEye, faEyeSlash, faSearch, faMapLocationDot, faMobileScreen, faDesktop);
+library.add(faDollarSign, faStar, faCalendarCheck, faStreetView, faLocation, faBookOpen, faUser, faCircleCheck, faArrowLeftLong, faCalendarDays, faSliders, faMagnifyingGlass, faTwitter, faYoutube, faInstagram, faFacebook, faSquareTwitter, faSquareYoutube, faSquareInstagram, faXmark, faGlobe, faBars, faAngleDown, faAngleRight, faSignOut, faHistory, faCheckCircle, faEye, faEyeSlash, faSearch, faMapLocationDot, faMobileScreen, faDesktop);
 /* import createI18n from package */
 import { createI18n } from 'vue-i18n/dist/vue-i18n.esm-bundler.js';
 const i18n = createI18n({ locale: 'en', fallbackLocale: 'en', messages });

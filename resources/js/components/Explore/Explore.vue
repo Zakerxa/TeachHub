@@ -1,6 +1,6 @@
 <template>
     <div class="explore-main">
-        <div class="explore-container container-fluid mt-2">
+        <div class="explore-container container-fluid">
             <div class="row justify-content-center text-center p-0 m-0">
                 <!-- EXplore Title -->
                 <div class="col-12 text-center">
@@ -108,7 +108,7 @@ export default {
             this.$router.push({ name: 'details', params: { id } });
         },
         imageDetector(token, pic) {
-            let imageUrl = '/images/hero.png';
+            let imageUrl = '/images/default/hero.png';
             if (token) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
         },

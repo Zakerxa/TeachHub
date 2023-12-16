@@ -1,6 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row p-0 contact-us-row justify-content-center align-items-center d-flex">
+
             <div class="col-12 col-md-7 contact-left-section p-0">
                 <div class="row d-flex p-0 m-0">
 
@@ -200,6 +201,7 @@ export default {
 
         .hero-image-container {
             min-height: 50vh;
+            max-height: 100vh;
 
             .image_1 {
                 bottom: -50px;
@@ -241,6 +243,7 @@ export default {
 
         .hero-image-container {
             min-height: 30vh;
+            max-height: 100vh;
         }
 
         .image_1 {

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('message');
+            $table->string('token')->nullable();
+            $table->string('password')->nullable();
             $table->string('rating')->nullable()->default(0);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

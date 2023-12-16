@@ -29,7 +29,8 @@ const en = {
         subject: 'Subject',
         experience: 'Experience Level',
         datetime: 'Date & Time',
-        location: 'Location'
+        location: 'Location',
+        salary: 'Salary Ranges'
     },
     btn: {
         explore: 'Start Explore',

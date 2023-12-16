@@ -75,7 +75,7 @@ export default {
             this.$router.push({ name: 'details', params: { id } });
         },
         imageDetector(token, pic) {
-            let imageUrl = '/images/hero.png';
+            let imageUrl = '/images/default/hero.png';
             if (token) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
         },
