@@ -3,13 +3,13 @@
         <div class="line1"></div>
         <div class="line2"></div>
         <div class="row footer-row pt-5 pb-5 p-3 d-flex align-items-center">
-            <div class="col-12 col-md-2 text-md-center footer-image">
-                <img style="width: 100px;" src="/TeachHub resources/logo.png" alt="">
+            <div class="col-12 col-md-3 col-lg-3 text-md-center footer-image">
+                <img style="width: 200px;" src="/images/logoforbottomnav.svg" alt="">
             </div>
-            <div class="col-10 col-md-6 col-lg-4 text-start footer-content">
+            <div class="col-10 col-md-6 col-lg-5 text-start footer-content">
                 <p v-html="$t('content.banner')"></p>
             </div>
-            <div class="col-10 col-md-4 text-start footer-brands-container">
+            <div class="col-10 col-md-3 col-lg-4 text-start footer-brands-container">
                 <div class="row pb-0 d-flex align-items-center footer-icon-container">
                     <div class="brands col-2">
                         <font-awesome-icon class="brands-color" icon="fa-brands fa-facebook" />

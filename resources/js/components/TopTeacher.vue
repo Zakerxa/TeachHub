@@ -26,7 +26,7 @@
                             <div class="teacher-image"
                                 :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
                                  <div class="recommand-heart">
-                                    <i class="fa-regular fa-heart fa-2x"></i> <span class="ml-3">Recommand</span>
+                                     <span v-if="teacher.recommand == 1" class="ml-3">Recommand</span>
                                 </div>
                             </div>
                         </div>
@@ -42,12 +42,12 @@
                             </div>
                             <div>
                                 <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
-                                        icon="fa-solid fa-calendar-days" />
+                                        icon="fa-solid fa-clock" />
                                     {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
                                 </div>
-                                <div v-if="teacher.time_table_2 != 'null' && teacher.time_table_2 != ''"
+                                <div v-if="teacher.time_table_2"
                                     class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
-                                        icon="fa-solid fa-calendar-days" />
+                                        icon="fa-solid fa-clock" />
                                     {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
                             </div>
                         </div>
@@ -132,10 +132,11 @@ export default {
     }
     >span{
         position: relative;
-        top: -2px;
+        top: 5px;
         color: rgb(255, 255, 255);
-        font-weight: 600;
-
+        font-weight: bold;
+        font-size: 17px;
+        text-transform: uppercase;
     }
 }
 

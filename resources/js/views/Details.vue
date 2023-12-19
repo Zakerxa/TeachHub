@@ -84,7 +84,7 @@
                                 <v-list-item class="pt-2 pb-5" color="primary" rounded="shaped">
                                     <template v-slot:prepend>
                                         <v-icon class="details-info-icon-bg" icon=""></v-icon>
-                                        <font-awesome-icon class="details-info-icon" icon="fa-solid fa-calendar-check" />
+                                        <font-awesome-icon class="details-info-icon" icon="fa-solid fa-clock" />
                                     </template>
 
                                     <v-list-item-title>{{ $t('details.datetime') }}</v-list-item-title>

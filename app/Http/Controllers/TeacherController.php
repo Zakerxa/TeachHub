@@ -18,7 +18,10 @@ class TeacherController extends Controller
         $teachers = Cache::remember('default_teacher_' . $request->page, 10, function () use ($request) {
             $query = Teacher::with(['locations', 'subjects']);
             $count = $query->count();
-            $teachers = $query->orderBy('id', 'desc')->paginate($request->per_page ?? 12);
+            $teachers = $query->orderByDesc('recommand')
+            ->orderByDesc('experience')
+            ->OrderByDesc('id')
+            ->paginate($request->per_page ?? 12);
             return ['teachers' => $teachers, 'count' => $count];
         });
         return response()->json($teachers);
@@ -27,7 +30,11 @@ class TeacherController extends Controller
     public function topteacher()
     {
         $teachers = Cache::remember('top_teacher_list', 10, function () {
-            return Teacher::with(['locations', 'subjects'])->orderBy('experience', 'desc')->take(4)->get();
+            return Teacher::with(['locations', 'subjects'])->orderByDesc('recommand')
+            ->orderByDesc('experience')
+            ->OrderByDesc('id')
+            ->take(4)
+            ->get();
         });
         return response()->json(['teachers' => $teachers]);
     }
@@ -173,6 +180,15 @@ class TeacherController extends Controller
         $teacher = Teacher::findOrFail($request->id);
 
         $token = $teacher->token;
+
+        if (empty($request->time_table_2)) {
+            $request['time_table_2'] = '';
+        }
+
+        if (empty($request->time_table_2_mm)) {
+            $request['time_table_2_mm'] = '';
+        }
+
 
         $teacherUpdate = $request->only([
             'name', 'name_mm', 'age', 'experience', 'time_table_1', 'time_table_1_mm',

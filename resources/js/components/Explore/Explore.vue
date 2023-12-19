@@ -26,7 +26,7 @@
                             <div class="teacher-image"
                                 :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
                                 <div class="recommand-heart">
-                                    <i class="fa-regular fa-heart fa-2x"></i> <span class="ml-3">Recommand</span>
+                                    <span v-if="teacher.recommand == 1" class="ml-3">Recommand</span>
                                 </div>
                             </div>
                         </div>
@@ -189,10 +189,11 @@ export default {
     }
     >span{
         position: relative;
-        top: -2px;
+        top: 5px;
         color: rgb(255, 255, 255);
-        font-weight: 600;
-
+        font-weight: bold;
+        font-size: 17px;
+        text-transform: uppercase;
     }
 }
 
