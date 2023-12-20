@@ -16,9 +16,11 @@
 
         <!-- Teacher List Filters -->
         <div class="container pt-5 mt-3">
-            <div v-if="teachers" class="row justify-content-center justify-content-md-start gy-2 p-0 m-0">
+            <div v-if="teachers" class="row justify-content-center justify-content-md-start gy-2">
 
-                <div v-for="(teacher, i) in teachers" :key="i" class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0 pt-md-2 pb-md-2" style="cursor: pointer;">
+                <div v-for="(teacher, i) in teachers" :key="i"
+                    class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0 pt-md-2 pb-md-2"
+                    style="cursor: pointer;">
 
                     <div @click="routeTo(teacher.id)" class="row justify-content-start mx-md-2 pt-3 pb-2"
                         style="background:#fff">
@@ -31,26 +33,28 @@
                             </div>
                         </div>
                         <div class="col-6 col-md-12 text-start pl-0 pl-sm-2">
-                            <div class="specialist mt-2 mb-2">
-                                <span v-for="(subject, i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
-                                    {{ (lang == 'English') ? subject.name : subject.name_mm }}
-                                </span>
-                            </div>
-                            <p class="teacher-name pt-2">{{ teacher.name }}</p>
-                            <div class="">
-                                <span class="fw-normal"><i class="fa-solid fa-location-dot"
-                                        style="color:var(--primary)"></i> {{ (lang == 'English') ?
-                                            teacher.locations[0].region_state : teacher.locations[0].region_state_mm }}</span>
-                            </div>
-                            <div>
-                                <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
-                                        icon="fa-solid fa-calendar-days" />
-                                    {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
+                            <div class="details-info-container">
+                                <div class="specialist mt-2 mb-2">
+                                    <span v-for="(subject, i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
+                                        {{ (lang == 'English') ? subject.name : subject.name_mm }}
+                                    </span>
                                 </div>
-                                <div v-if="teacher.time_table_2 != 'null' && teacher.time_table_2 != ''"
-                                    class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
-                                        icon="fa-solid fa-calendar-days" />
-                                    {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
+                                <p class="teacher-name pt-2">{{ teacher.name }}</p>
+                                <div class="">
+                                    <span class="fw-normal"><i class="fa-solid fa-location-dot"
+                                            style="color:var(--primary)"></i> {{ (lang == 'English') ?
+                                                teacher.locations[0].region_state : teacher.locations[0].region_state_mm }}</span>
+                                </div>
+                                <div>
+                                    <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
+                                            icon="fa-solid fa-calendar-days" />
+                                        {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
+                                    </div>
+                                    <div v-if="teacher.time_table_2 != 'null' && teacher.time_table_2 != ''"
+                                        class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
+                                            icon="fa-solid fa-calendar-days" />
+                                        {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,7 +113,7 @@ export default {
         },
         imageDetector(token, pic) {
             let imageUrl = '/images/default/hero.png';
-            if (token) imageUrl = '/uploads/profile/' + token + '/' + pic;
+            if (pic) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
         },
         vuePaginate(e) {
@@ -131,13 +135,18 @@ export default {
 
 
 <style lang="scss" scoped>
-
-.explore-main{
+.explore-main {
     background-color: var(--bg);
 }
+
 .explore-container {
     background-color: var(--bg);
     padding-top: 40px;
+}
+
+.details-info-container{
+    min-height: 180px;
+    max-height: 200px;
 }
 
 .teacher-name {
@@ -146,17 +155,14 @@ export default {
     color: #141414;
     margin-bottom: 5px;
     white-space: nowrap;
-    /* Prevent text from wrapping */
     overflow: hidden;
-    /* Hide overflowed text */
     text-overflow: ellipsis;
-    /* Show ellipsis for overflowed text */
 }
 
 .teacher-image {
     width: 100%;
     min-height: 200px;
-    border-radius: 10px;
+    border-radius: 0x;
     background-color: #ffffff;
     background-position: center;
     background-size: cover;
@@ -187,7 +193,8 @@ export default {
         left: 8px;
         color: rgb(255, 255, 255);
     }
-    >span{
+
+    >span {
         position: relative;
         top: 5px;
         color: rgb(255, 255, 255);
@@ -240,27 +247,30 @@ export default {
 
 
 @media screen and (min-width:300px) and (max-width : 375px) {
-    .explore-main{
+    .explore-main {
         background-color: #fff;
     }
+
     .content-title {
         font-size: 7vw;
     }
 }
 
 @media screen and (min-width:376px) and (max-width : 500px) {
-    .explore-main{
+    .explore-main {
         background-color: #fff;
     }
+
     .content-title {
         font-size: 7vw;
     }
 }
 
 @media screen and (min-width:501px) and (max-width : 767px) {
-    .explore-main{
+    .explore-main {
         background-color: #fff;
     }
+
     .content-title {
         font-size: 5vw;
     }

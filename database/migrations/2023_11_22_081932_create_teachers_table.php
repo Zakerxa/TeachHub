@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('name_mm')->nullable();
             $table->integer('age');
-            $table->string('pic')->default('hero.png');
+            $table->string('pic')->nullable();
+            $table->string('tel')->nullable();
             $table->string('experience');
             $table->string('time_table_1')->nullable();
             $table->string('time_table_2')->nullable();

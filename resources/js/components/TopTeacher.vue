@@ -20,35 +20,37 @@
         <div class="container">
 
             <div class="row pt-5" v-if="topTeachers">
-                <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;" v-for="(teacher,i) in topTeachers" :key="i">
+
+                <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;" v-for="(teacher, i) in topTeachers" :key="i">
                     <div @click="routeTo(teacher.id)" class="row border-0">
                         <div class="col-6 col-md-12">
-                            <div class="teacher-image"
-                                :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
-                                 <div class="recommand-heart">
-                                     <span v-if="teacher.recommand == 1" class="ml-3">Recommand</span>
+                            <div class="teacher-image" :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                                <div class="recommand-heart">
+                                    <span v-if="teacher.recommand == 1" class="ml-3">Recommand</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-12 p-0">
-                            <div class="specialist mt-2 mb-2">
-                                <span v-for="(subject,i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
-                                  {{ (lang == 'English') ? subject.name : subject.name_mm  }}
-                                </span>
-                            </div>
-                            <p class="teacher-name pt-2">{{ teacher.name }}</p>
-                            <div class="">
-                                <span class="fw-normal"><i class="fa-solid fa-location-dot" style="color:var(--primary)"></i> {{ (lang == 'English') ? teacher.locations[0].region_state : teacher.locations[0].region_state_mm }}</span>
-                            </div>
-                            <div>
-                                <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
-                                        icon="fa-solid fa-clock" />
-                                    {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
+                        <div class="col-6 col-md-12 pl-0 pl-sm-2">
+                            <div class="details-info-container">
+                                <div class="specialist mt-2 mb-2">
+                                    <span v-for="(subject, i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
+                                        {{ (lang == 'English') ? subject.name : subject.name_mm }}
+                                    </span>
                                 </div>
-                                <div v-if="teacher.time_table_2"
-                                    class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
-                                        icon="fa-solid fa-clock" />
-                                    {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
+                                <p class="teacher-name pt-2">{{ teacher.name }}</p>
+                                <div class="">
+                                    <span class="fw-normal">
+                                        <i class="fa-solid fa-location-dot" style="color:var(--primary)"></i> {{ (lang == 'English') ? teacher.locations[0].region_state : teacher.locations[0].region_state_mm }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-clock" />
+                                        {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
+                                    </div>
+                                    <div v-if="teacher.time_table_2" class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-clock" />
+                                        {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +70,7 @@ export default {
             msg: 'Hello World',
         }
     },
-    computed: mapGetters(['topTeachers','lang']),
+    computed: mapGetters(['topTeachers', 'lang']),
     methods: {
         ...mapActions(['gettingTopTeachers', 'defaultTeacher']),
         routeTo(id) {
@@ -76,7 +78,7 @@ export default {
         },
         imageDetector(token, pic) {
             let imageUrl = '/images/default/hero.png';
-            if (token) imageUrl = '/uploads/profile/' + token + '/' + pic;
+            if (pic) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
         },
     },
@@ -93,6 +95,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .left-effect,
 .right-effect {
     width: 30px;
@@ -130,7 +133,8 @@ export default {
         left: 8px;
         color: rgb(255, 255, 255);
     }
-    >span{
+
+    >span {
         position: relative;
         top: 5px;
         color: rgb(255, 255, 255);
@@ -149,6 +153,11 @@ export default {
     transform: rotate(-10deg);
 }
 
+.details-info-container{
+    min-height: 180px;
+    max-height: 200px;
+}
+
 .specialist {
     >span {
         background-color: #FFEDAA;
@@ -164,17 +173,13 @@ export default {
     color: #141414;
     margin-bottom: 5px;
     white-space: nowrap;
-    /* Prevent text from wrapping */
     overflow: hidden;
-    /* Hide overflowed text */
     text-overflow: ellipsis;
-    /* Show ellipsis for overflowed text */
 }
 
 .teacher-image {
     width: 100%;
     min-height: 200px;
-    border-radius: 10px;
     background-color: #ffffff;
     background-position: center;
     background-size: cover;
@@ -186,7 +191,7 @@ export default {
     /* Responsive styles for medium-sized screens and larger */
     @media (min-width: 768px) {
         max-height: 300px;
-        height: 280px;
+        min-height: 280px;
         background-color: #fff;
     }
 }
@@ -235,5 +240,4 @@ export default {
         top: -10px;
         left: -8px;
     }
-}
-</style>
+}</style>

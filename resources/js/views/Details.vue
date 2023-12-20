@@ -5,13 +5,12 @@
             <div class="detailBackground"></div>
             <div class="col-12 col-md-8 col-lg-6 offset-lg-1 d-flex justify-content-start">
                 <div class="cover">
-                    <div v-if="teacher.pic" class="teacher-image"
-                        :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                    <div class="teacher-image" :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
                         <div class="recommand-heart">
-                            <i class="fa-regular fa-heart fa-2x"></i>
+                            <span v-if="teacher.recommand == 1" class="ml-3">Recommand</span>
                         </div>
                     </div>
-                    <img v-else src="" style="width:200px;height:200px" alt="Loading . . .">
+
                     <div v-if="teacher != null && teacher.name" class="detail-name-mobile">
                         <h3>{{ teacher.name }}</h3>
                         <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
@@ -217,7 +216,7 @@ export default {
         },
         imageDetector(token, pic) {
             let imageUrl = '/images/hero.png';
-            if (token) imageUrl = '/uploads/profile/' + token + '/' + pic;
+            if (pic) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
         },
     },
@@ -310,10 +309,11 @@ export default {
     }
     >span{
         position: relative;
-        top: -2px;
+        top: 5px;
         color: rgb(255, 255, 255);
-        font-weight: 600;
-
+        font-weight: bold;
+        font-size: 17px;
+        text-transform: uppercase;
     }
 }
 

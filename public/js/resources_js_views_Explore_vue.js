@@ -54,7 +54,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     imageDetector: function imageDetector(token, pic) {
       var imageUrl = '/images/default/hero.png';
-      if (token) imageUrl = '/uploads/profile/' + token + '/' + pic;
+      if (pic) imageUrl = '/uploads/profile/' + token + '/' + pic;
       return imageUrl;
     },
     vuePaginate: function vuePaginate(e) {
@@ -359,7 +359,7 @@ var _hoisted_6 = {
 };
 var _hoisted_7 = {
   key: 0,
-  "class": "row justify-content-center justify-content-md-start gy-2 p-0 m-0"
+  "class": "row justify-content-center justify-content-md-start gy-2"
 };
 var _hoisted_8 = ["onClick"];
 var _hoisted_9 = {
@@ -376,18 +376,21 @@ var _hoisted_12 = {
   "class": "col-6 col-md-12 text-start pl-0 pl-sm-2"
 };
 var _hoisted_13 = {
-  "class": "specialist mt-2 mb-2"
+  "class": "details-info-container"
 };
 var _hoisted_14 = {
-  "class": "teacher-name pt-2"
+  "class": "specialist mt-2 mb-2"
 };
 var _hoisted_15 = {
-  "class": ""
+  "class": "teacher-name pt-2"
 };
 var _hoisted_16 = {
+  "class": ""
+};
+var _hoisted_17 = {
   "class": "fw-normal"
 };
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "fa-solid fa-location-dot",
     style: {
@@ -395,30 +398,30 @@ var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
     }
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_18 = {
-  "class": "teacher-time mt-2 mb-1"
-};
 var _hoisted_19 = {
-  key: 0,
   "class": "teacher-time mt-2 mb-1"
 };
 var _hoisted_20 = {
+  key: 0,
+  "class": "teacher-time mt-2 mb-1"
+};
+var _hoisted_21 = {
   key: 1,
   "class": "row d-flex align-items-center",
   style: {
     "min-height": "40vh"
   }
 };
-var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "text-center col-11 col-md-6 col-lg-4 col-xl-3"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Loading . . .")], -1 /* HOISTED */);
 });
-var _hoisted_22 = [_hoisted_21];
-var _hoisted_23 = {
+var _hoisted_23 = [_hoisted_22];
+var _hoisted_24 = {
   "class": "row jsutify-content-center pb-4 pt-4"
 };
-var _hoisted_24 = {
+var _hoisted_25 = {
   key: 0,
   "class": "col-12 mb-5 mt-4 text-center"
 };
@@ -449,23 +452,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
         backgroundImage: "url(".concat($options.imageDetector(teacher.token, teacher.pic), ")")
       })
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [teacher.recommand == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_11, "Recommand")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 4 /* STYLE */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(teacher.subjects, function (subject, i) {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [teacher.recommand == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_11, "Recommand")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 4 /* STYLE */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(teacher.subjects, function (subject, i) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
         key: i,
         "class": "bg-warning badge mr-2"
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.lang == 'English' ? subject.name : subject.name_mm), 1 /* TEXT */);
-    }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(teacher.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.lang == 'English' ? teacher.locations[0].region_state : teacher.locations[0].region_state_mm), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
+    }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(teacher.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.lang == 'English' ? teacher.locations[0].region_state : teacher.locations[0].region_state_mm), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
       style: {
         "color": "var(--primary)"
       },
       icon: "fa-solid fa-calendar-days"
-    }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.lang == 'English' ? teacher.time_table_1 : teacher.time_table_1_mm), 1 /* TEXT */)]), teacher.time_table_2 != 'null' && teacher.time_table_2 != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
+    }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.lang == 'English' ? teacher.time_table_1 : teacher.time_table_1_mm), 1 /* TEXT */)]), teacher.time_table_2 != 'null' && teacher.time_table_2 != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_font_awesome_icon, {
       style: {
         "color": "var(--primary)"
       },
       icon: "fa-solid fa-calendar-days"
-    }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.lang == 'English' ? teacher.time_table_2 : teacher.time_table_2_mm), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])], 8 /* PROPS */, _hoisted_8)]);
-  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20, [].concat(_hoisted_22))), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_ctx.paginations ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_pagination, {
+    }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.lang == 'English' ? teacher.time_table_2 : teacher.time_table_2_mm), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])], 8 /* PROPS */, _hoisted_8)]);
+  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [].concat(_hoisted_23))), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pagination "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [_ctx.paginations ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_pagination, {
     onEvent: $options.vuePaginate,
     "meta-data": _ctx.paginations,
     onSides: 1,
@@ -982,7 +985,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".explore-main[data-v-f1998048] {\n  background-color: var(--bg);\n}\n.explore-container[data-v-f1998048] {\n  background-color: var(--bg);\n  padding-top: 40px;\n}\n.teacher-name[data-v-f1998048] {\n  font-size: 18px;\n  font-weight: 700;\n  color: #141414;\n  margin-bottom: 5px;\n  white-space: nowrap;\n  /* Prevent text from wrapping */\n  overflow: hidden;\n  /* Hide overflowed text */\n  text-overflow: ellipsis;\n  /* Show ellipsis for overflowed text */\n}\n.teacher-image[data-v-f1998048] {\n  width: 100%;\n  min-height: 200px;\n  border-radius: 10px;\n  background-color: #ffffff;\n  background-position: center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  position: relative;\n  left: 0;\n  top: 0;\n  /* Responsive styles for medium-sized screens and larger */\n}\n@media (min-width: 768px) {\n.teacher-image[data-v-f1998048] {\n    max-height: 300px;\n    height: 280px;\n    background-color: #fff;\n}\n}\n.recommand-heart[data-v-f1998048] {\n  top: 0;\n  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2549019608), rgba(27, 27, 27, 0.2470588235), rgba(27, 27, 27, 0.1764705882), rgba(80, 80, 80, 0.0862745098), rgba(96, 96, 96, 0.0039215686));\n  width: 100%;\n  height: 90px;\n  padding-top: 5px;\n  z-index: -1;\n}\n.recommand-heart > i[data-v-f1998048] {\n  position: relative;\n  top: 5px;\n  left: 8px;\n  color: rgb(255, 255, 255);\n}\n.recommand-heart > span[data-v-f1998048] {\n  position: relative;\n  top: 5px;\n  color: rgb(255, 255, 255);\n  font-weight: bold;\n  font-size: 17px;\n  text-transform: uppercase;\n}\n.backdropTop[data-v-f1998048] {\n  position: absolute;\n  top: 0;\n  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8784313725), rgba(0, 0, 0, 0.7764705882), rgba(0, 0, 0, 0.6705882353), rgba(0, 0, 0, 0.5607843137), rgba(27, 27, 27, 0.4039215686), rgba(27, 27, 27, 0.2392156863), rgba(80, 80, 80, 0.0745098039), rgba(80, 80, 80, 0.0117647059));\n  width: 100%;\n  height: 100px;\n  padding-top: 10px;\n  z-index: -1;\n}\n.backdrop[data-v-f1998048] {\n  position: absolute;\n  bottom: 0;\n  background: linear-gradient(to top, rgba(0, 0, 0, 0.8784313725), rgba(0, 0, 0, 0.7764705882), rgba(0, 0, 0, 0.6705882353), rgba(0, 0, 0, 0.5607843137), rgba(27, 27, 27, 0.4039215686), rgba(27, 27, 27, 0.2392156863), rgba(80, 80, 80, 0.0745098039), rgba(80, 80, 80, 0.0196078431));\n  color: #fff;\n  width: 100%;\n  height: 80px;\n  padding-top: 10px;\n  font-weight: bold;\n  z-index: 0;\n}\n.teacher-time[data-v-f1998048] {\n  font-size: 13px;\n  color: #555;\n}\n.content-title[data-v-f1998048] {\n  font-weight: 900;\n  font-family: sans-serif, Courier, monospace;\n  font-size: 3.4vw;\n  line-height: 5vw;\n  align-items: center;\n  margin-bottom: 20px;\n  left: 20px;\n  display: inline-block;\n  padding: 0;\n}\n@media screen and (min-width: 300px) and (max-width: 375px) {\n.explore-main[data-v-f1998048] {\n    background-color: #fff;\n}\n.content-title[data-v-f1998048] {\n    font-size: 7vw;\n}\n}\n@media screen and (min-width: 376px) and (max-width: 500px) {\n.explore-main[data-v-f1998048] {\n    background-color: #fff;\n}\n.content-title[data-v-f1998048] {\n    font-size: 7vw;\n}\n}\n@media screen and (min-width: 501px) and (max-width: 767px) {\n.explore-main[data-v-f1998048] {\n    background-color: #fff;\n}\n.content-title[data-v-f1998048] {\n    font-size: 5vw;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".explore-main[data-v-f1998048] {\n  background-color: var(--bg);\n}\n.explore-container[data-v-f1998048] {\n  background-color: var(--bg);\n  padding-top: 40px;\n}\n.details-info-container[data-v-f1998048] {\n  min-height: 180px;\n  max-height: 200px;\n}\n.teacher-name[data-v-f1998048] {\n  font-size: 18px;\n  font-weight: 700;\n  color: #141414;\n  margin-bottom: 5px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.teacher-image[data-v-f1998048] {\n  width: 100%;\n  min-height: 200px;\n  border-radius: 0x;\n  background-color: #ffffff;\n  background-position: center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  position: relative;\n  left: 0;\n  top: 0;\n  /* Responsive styles for medium-sized screens and larger */\n}\n@media (min-width: 768px) {\n.teacher-image[data-v-f1998048] {\n    max-height: 300px;\n    height: 280px;\n    background-color: #fff;\n}\n}\n.recommand-heart[data-v-f1998048] {\n  top: 0;\n  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2549019608), rgba(27, 27, 27, 0.2470588235), rgba(27, 27, 27, 0.1764705882), rgba(80, 80, 80, 0.0862745098), rgba(96, 96, 96, 0.0039215686));\n  width: 100%;\n  height: 90px;\n  padding-top: 5px;\n  z-index: -1;\n}\n.recommand-heart > i[data-v-f1998048] {\n  position: relative;\n  top: 5px;\n  left: 8px;\n  color: rgb(255, 255, 255);\n}\n.recommand-heart > span[data-v-f1998048] {\n  position: relative;\n  top: 5px;\n  color: rgb(255, 255, 255);\n  font-weight: bold;\n  font-size: 17px;\n  text-transform: uppercase;\n}\n.backdropTop[data-v-f1998048] {\n  position: absolute;\n  top: 0;\n  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8784313725), rgba(0, 0, 0, 0.7764705882), rgba(0, 0, 0, 0.6705882353), rgba(0, 0, 0, 0.5607843137), rgba(27, 27, 27, 0.4039215686), rgba(27, 27, 27, 0.2392156863), rgba(80, 80, 80, 0.0745098039), rgba(80, 80, 80, 0.0117647059));\n  width: 100%;\n  height: 100px;\n  padding-top: 10px;\n  z-index: -1;\n}\n.backdrop[data-v-f1998048] {\n  position: absolute;\n  bottom: 0;\n  background: linear-gradient(to top, rgba(0, 0, 0, 0.8784313725), rgba(0, 0, 0, 0.7764705882), rgba(0, 0, 0, 0.6705882353), rgba(0, 0, 0, 0.5607843137), rgba(27, 27, 27, 0.4039215686), rgba(27, 27, 27, 0.2392156863), rgba(80, 80, 80, 0.0745098039), rgba(80, 80, 80, 0.0196078431));\n  color: #fff;\n  width: 100%;\n  height: 80px;\n  padding-top: 10px;\n  font-weight: bold;\n  z-index: 0;\n}\n.teacher-time[data-v-f1998048] {\n  font-size: 13px;\n  color: #555;\n}\n.content-title[data-v-f1998048] {\n  font-weight: 900;\n  font-family: sans-serif, Courier, monospace;\n  font-size: 3.4vw;\n  line-height: 5vw;\n  align-items: center;\n  margin-bottom: 20px;\n  left: 20px;\n  display: inline-block;\n  padding: 0;\n}\n@media screen and (min-width: 300px) and (max-width: 375px) {\n.explore-main[data-v-f1998048] {\n    background-color: #fff;\n}\n.content-title[data-v-f1998048] {\n    font-size: 7vw;\n}\n}\n@media screen and (min-width: 376px) and (max-width: 500px) {\n.explore-main[data-v-f1998048] {\n    background-color: #fff;\n}\n.content-title[data-v-f1998048] {\n    font-size: 7vw;\n}\n}\n@media screen and (min-width: 501px) and (max-width: 767px) {\n.explore-main[data-v-f1998048] {\n    background-color: #fff;\n}\n.content-title[data-v-f1998048] {\n    font-size: 5vw;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
