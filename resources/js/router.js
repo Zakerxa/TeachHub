@@ -21,8 +21,7 @@ const routes = [{
     {
         path: "/contact",
         name: "contact",
-        component: () =>
-            import ('./views/ContactUs.vue')
+        component: require('./views/ContactUs.vue').default
     },
     {
         path: "/:pathMatch(.*)*",

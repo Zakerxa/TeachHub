@@ -7,9 +7,9 @@
                 </div>
                 <div class="col-12 col-md-7">
                     <p class="trial-text" v-html="$t('content.trial')"> </p>
-                    <button @click="contactus" class="trial-btn fw-bold"> {{ $t('btn.contactUs') }} <font-awesome-icon
+                    <router-link to="contact" class="trial-btn fw-bold"> {{ $t('btn.contactUs') }} <font-awesome-icon
                             icon="fa-solid fa-angle-right"
-                            style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></button>
+                            style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></router-link>
                 </div>
             </div>
         </div>
@@ -53,5 +53,7 @@ export default {
     background-color: #FFD32B;
     padding: 13px 16px;
     border: none;
+    text-decoration: none;
+    color: #111;
 }
 </style>
