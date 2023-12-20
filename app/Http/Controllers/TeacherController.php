@@ -19,9 +19,9 @@ class TeacherController extends Controller
             $query = Teacher::with(['locations', 'subjects']);
             $count = $query->count();
             $teachers = $query->orderByDesc('recommand')
-            ->orderByDesc('experience')
-            ->OrderByDesc('id')
-            ->paginate($request->per_page ?? 12);
+                ->orderByDesc('experience')
+                ->OrderByDesc('id')
+                ->paginate($request->per_page ?? 12);
             return ['teachers' => $teachers, 'count' => $count];
         });
         return response()->json($teachers);
@@ -31,10 +31,10 @@ class TeacherController extends Controller
     {
         $teachers = Cache::remember('top_teacher_list', 10, function () {
             return Teacher::with(['locations', 'subjects'])->orderByDesc('recommand')
-            ->orderByDesc('experience')
-            ->OrderByDesc('id')
-            ->take(4)
-            ->get();
+                ->orderByDesc('experience')
+                ->OrderByDesc('id')
+                ->take(4)
+                ->get();
         });
         return response()->json(['teachers' => $teachers]);
     }
@@ -121,13 +121,19 @@ class TeacherController extends Controller
             }
         }
 
+        if ($images) {
+            $teacher['pic'] = $images;
+        }else{
+            $teacher['pic'] = '';
+        }
+
         // Create the teacher without including 'pic' in the $request->only() call
         $teacher = $request->only([
-            'name', 'name_mm', 'age', 'token', 'experience', 'time_table_1', 'time_table_1_mm',
+            'name', 'name_mm', 'age', 'token', 'pic', 'experience', 'time_table_1', 'time_table_1_mm',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
-        $teacher['pic'] = $images;
+
 
         $townships =  explode(',', implode($request->township));
         $townships_mm =  explode(',', implode($request->township_mm));
