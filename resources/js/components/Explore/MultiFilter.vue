@@ -225,7 +225,8 @@
     <div class="row d-flex align-items-center justify-content-start p-0 m-0 mt-3" style="height:50px">
         <div class="col-1"></div>
         <div class="col-10 col-md-6 text-start fw-bold">
-            <p>{{ (searchCount >= 1) ? searchCount + '/' : '' }}{{ teacherCount }} Teachers |
+            <p>
+                <!-- {{ (searchCount >= 1) ? searchCount + '/' : '' }}{{ teacherCount }} Teachers | -->
                 <span
                     v-if="name == '' && (region == null || region.length < 1) && (status == null || status.length < 1) && (subjects == null || subjects.length < 1) && (townships == null || townships.length < 1) && (environment == null || environment.length < 1)"></span>
                 <span v-else @click="clearFilter('all')" class="alert alert-danger p-1 fw-normal" style="cursor:pointer" role="alert">

@@ -200,7 +200,6 @@ export default {
         color: rgb(255, 255, 255);
         font-weight: bold;
         font-size: 17px;
-        text-transform: uppercase;
     }
 }
 

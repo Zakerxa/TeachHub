@@ -8,8 +8,7 @@ const routes = [{
     {
         path: "/explore",
         name: "explore",
-        component: () =>
-            import ('./views/Explore.vue')
+        component: require('./views/Explore.vue').default
     },
     {
         path: "/detail/:id",
