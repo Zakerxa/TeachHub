@@ -13,8 +13,7 @@ const routes = [{
     {
         path: "/detail/:id",
         name: "details",
-        component: () =>
-            import ('./views/Details.vue'),
+        component: require('./views/Details.vue').default,
         props: true
     },
     {
