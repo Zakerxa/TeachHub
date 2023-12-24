@@ -6,7 +6,7 @@
 
     <top-teacher />
 
-    <show-rating />
+    <home-rating />
 
     <trial />
 
@@ -17,7 +17,7 @@
 import hero from '../components/Hero.vue';
 import divider from '../components/Divider.vue';
 import topTeacher from '../components/TopTeacher.vue';
-import showRating from '../components/ShowRating.vue';
+import homeRating from '../components/Home-Rating.vue';
 import trial from '../components/Trial.vue';
 import footerVue from '../components/Footer.vue';
 export default {
@@ -25,7 +25,7 @@ export default {
         hero,
         divider,
         topTeacher,
-        showRating,
+        homeRating,
         trial,
         footerVue
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="trial">
-        <div class="trial container">
+        <div class="container pb-4">
             <div class="row d-flex pt-4 pb-4 align-items-center justify-content-center" style="min-height:70vh">
                 <div class="col-12 col-md-4">
                     <img class="trial-img" src="/images/trialimg.png" alt="">
@@ -40,9 +40,9 @@ export default {
 
 .trial-text {
     color: #fff;
-    font-size: 42px;
+    font-size: 40px;
     font-weight: 700;
-    line-height: 60.9px;
+    // line-height: 60.9px;
 
     >span {
         color: #FFD32B;

@@ -117,7 +117,7 @@ export default {
             })
         },
         defaultTeacher({ commit, state, rootState }, payload) {
-            console.log("Getting Default Teacher . . .")
+            // console.log("Getting Default Teacher . . .")
             return new Promise((resolve, reject) => {
                 fetch('/api/teachers' + payload).then(res => res.json())
                     .then(res => {
@@ -128,7 +128,7 @@ export default {
             })
         },
         gettingTopTeachers({ commit, state }) {
-            console.log("Getting Top Teacher . . .")
+            // console.log("Getting Top Teacher . . .")
             return new Promise((resolve, reject) => {
                 fetch('/api/topteachers').then(res => res.json()).then(res => resolve(state.topTeachers = res.teachers));
             })

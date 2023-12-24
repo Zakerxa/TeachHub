@@ -22,7 +22,7 @@
             <div class="row pt-5" v-if="topTeachers">
 
                 <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;" v-for="(teacher, i) in topTeachers" :key="i">
-                    <div @click="routeTo(teacher.id)" class="row border-0">
+                    <div @click="routeTo(teacher.token)" class="row border-0">
                         <div class="col-6 col-md-12">
                             <div class="teacher-image" :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
                                 <div class="recommand-heart">
@@ -65,11 +65,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 export default {
-    data() {
-        return {
-            msg: 'Hello World',
-        }
-    },
     computed: mapGetters(['topTeachers', 'lang']),
     methods: {
         ...mapActions(['gettingTopTeachers', 'defaultTeacher']),
@@ -84,12 +79,6 @@ export default {
     },
     created() {
         this.gettingTopTeachers();
-    },
-    mounted() {
-        this.$nextTick(() => {
-            console.log('Top Teacher Working ', this.topTeachers);
-        })
-        console.log(this.msg);
     }
 }
 </script>

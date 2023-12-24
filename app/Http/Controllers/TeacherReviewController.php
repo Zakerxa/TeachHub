@@ -2,23 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
+use App\Models\TeacherReview;
 use Illuminate\Http\Request;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cache;
 
-class ReviewController extends Controller
+class TeacherReviewController extends Controller
 {
 
-    public function index($token)
+    public function index($token, $id)
     {
-        if ($token == 'null')  $reviews = Review::where('status', 1)->OrderBy('id', 'desc')->get();
-        else $reviews = Review::where('status', 1)->orWhere(function ($query) use ($token) {
-            $query->where('status', 0)->where('token', $token);
-        })->OrderBy('id', 'desc')->get();
+        if ($token == 'null') {
+            $reviews = TeacherReview::where('teacher_id', $id)
+            ->where('status', 1)
+            ->select('teacher_id', 'name', 'message', 'token', 'rating', 'status')
+            ->OrderBy('id', 'desc')
+            ->get();
+        }
 
-        session()->regenerateToken();
+        else {
+            $reviews = TeacherReview::where('teacher_id', $id)
+            ->where('status', 1)
+            ->select('teacher_id', 'name', 'message', 'token', 'rating', 'status')
+            ->orWhere(fn ($query) => $query->where('status', 0)->where('token', $token)->where('teacher_id', $id))
+            ->orderBy('id', 'desc')
+            ->get();
+        }
 
         if ($reviews) return response()->json(['data' => $reviews]);
     }
@@ -27,6 +36,7 @@ class ReviewController extends Controller
     {
         try {
             $review = $request->validate([
+                'teacher_id' => 'required',
                 'name' => ['required', 'min:1', 'max:100'],
                 'message' => ['required'],
                 'rating' => ['required'],
@@ -40,12 +50,12 @@ class ReviewController extends Controller
         if ($review['token'] == 'new') {
             $string     = 'QWERTYUIOPASDFGHJKLZXCVBNM0123456789';
             $review['token'] = substr(str_shuffle($string), 0, 12) . '-' . rand(10000, 99999);
-            $ContactForm = Review::create($review);
+            $ContactForm = TeacherReview::create($review);
             session()->regenerateToken();
             if ($ContactForm) return response()->json(['response' => 'success', 'data' => $ContactForm, 'token' =>  $review['token']]);
             else return response()->json(['response' => 'error']);
         } else {
-            $ContactForm = Review::create($review);
+            $ContactForm = TeacherReview::create($review);
             session()->regenerateToken();
             if ($ContactForm) return response()->json(['response' => 'success', 'data' => $ContactForm, 'token' =>  null]);
             else return response()->json(['response' => 'error']);
@@ -67,7 +77,7 @@ class ReviewController extends Controller
 
         if ($formData['token'] == 'null') return response()->json(['response' => 'error']);
 
-        $form = Review::find($formData['id']);
+        $form = TeacherReview::find($formData['id']);
 
         session()->regenerateToken();
 

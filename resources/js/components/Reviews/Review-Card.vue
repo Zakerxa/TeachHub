@@ -59,14 +59,10 @@
             </v-card>
         </v-expand-transition>
     </v-card>
-
 </div>
 </template>
 
 <script>
-import {
-    mapActions
-} from 'vuex';
 export default {
     data() {
         return {

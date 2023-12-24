@@ -16,13 +16,11 @@ class TeacherController extends Controller
     public function index(Request $request)
     {
         $teachers = Cache::remember('default_teacher_' . $request->page, 10, function () use ($request) {
-            $query = Teacher::with(['locations', 'subjects']);
-            $count = $query->count();
-            $teachers = $query->orderByDesc('recommand')
-                ->orderByDesc('experience')
+            $query = Teacher::orderByDesc('recommand');
+            $teachers = $query->orderByDesc('experience')
                 ->OrderByDesc('id')
                 ->paginate($request->per_page ?? 12);
-            return ['teachers' => $teachers, 'count' => $count];
+            return ['teachers' => $teachers, 'count' => $query->count()];
         });
         return response()->json($teachers);
     }
@@ -30,7 +28,7 @@ class TeacherController extends Controller
     public function topteacher()
     {
         $teachers = Cache::remember('top_teacher_list', 10, function () {
-            return Teacher::with(['locations', 'subjects'])->orderByDesc('recommand')
+            return Teacher::orderByDesc('recommand')
                 ->orderByDesc('experience')
                 ->OrderByDesc('id')
                 ->take(4)
@@ -45,21 +43,15 @@ class TeacherController extends Controller
         return response()->json($subjects);
     }
 
-    // Return a specific teacher
-    public function show($id)
+    public function show(Teacher $teacher)
     {
-        $teacher = Cache::remember('show_teacher_' . $id, 10, function () use ($id) {
-            return Teacher::with(['locations', 'subjects'])->find($id);
-        });
+        $details = Cache::remember('show_teacher_' . $teacher->token, 10, fn () => $teacher);
 
-        if (!$teacher) {
-            return response()->json(['error' => 'Teacher not found'], 404);
-        }
+        if (!$details) return response()->json(['error' => 'Teacher not found'], 404);
 
         return response()->json(['teacher' => $teacher]);
     }
 
-    // Return teachers based on multiple search criteria
     public function search(Request $request)
     {
         if ($request['name'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships'] || $request['status'] || $request['environment']) {
@@ -82,6 +74,7 @@ class TeacherController extends Controller
                 'age' => 'required|numeric',
                 'pic.*' => ['mimes:jpg,png,jpeg,svg'],
                 'region' => 'required',
+                'salary' => 'required',
                 'township' => 'required',
                 'subjects' => 'required|array',
                 'subjects.*' => 'exists:subjects,id',
@@ -101,7 +94,7 @@ class TeacherController extends Controller
         //  Random Token
         $string     = 'QWERTYUIOPASDFGHJKLZXCVBNM0123456789';
         $shuffle    = str_shuffle($string);
-        $token       = random_int(10000, 99999) . '-' . substr($shuffle, 0, 12) . '-' . rand(1000, 9999);
+        $token       = 'TeachHub-' . random_int(10000, 99999) . '-' . substr($shuffle, 0, 12) . '-' . rand(1000, 9999);
 
         $request['token'] = $token;
 
@@ -123,13 +116,13 @@ class TeacherController extends Controller
 
         if ($images) {
             $teacher['pic'] = $images;
-        }else{
+        } else {
             $teacher['pic'] = '';
         }
 
         // Create the teacher without including 'pic' in the $request->only() call
         $teacher = $request->only([
-            'name', 'name_mm', 'age', 'token', 'pic', 'experience', 'time_table_1', 'time_table_1_mm',
+            'name', 'name_mm', 'age', 'token', 'pic', 'experience', 'time_table_1', 'time_table_1_mm','salary',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
@@ -167,6 +160,7 @@ class TeacherController extends Controller
                 'age' => 'required|numeric',
                 'pic.*' => ['mimes:jpg,png,jpeg,svg'],
                 'region' => 'required',
+                'salary' => 'required',
                 'township' => 'required',
                 'subjects' => 'required|array',
                 'subjects.*' => 'exists:subjects,id',
@@ -197,7 +191,7 @@ class TeacherController extends Controller
 
 
         $teacherUpdate = $request->only([
-            'name', 'name_mm', 'age', 'experience', 'time_table_1', 'time_table_1_mm',
+            'name', 'name_mm', 'age', 'experience', 'time_table_1', 'time_table_1_mm','salary',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 

@@ -18,6 +18,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./slick/slick-theme.css">
+    {{-- <link rel="stylesheet" href="./css/slick.css"> --}}
     <link rel="shortcut icon" href="./favicon.jpg" type="image/x-icon">
     <link rel="preload" as="image" href="/images/hero.png">
     <style>

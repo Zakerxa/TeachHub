@@ -36,7 +36,7 @@ const store = createStore({
     actions: {
         csrf({ state, commit, rootState }) {
             return new Promise((resolve, reject) => {
-                fetch('api/v1/csrf').then(res => res.json()).then(res => {
+                fetch('/api/v1/csrf').then(res => res.json()).then(res => {
                     if (res != state.csrf) {
                         console.log("Generate CSRF => ", res)
                         commit('updatecsrf', res)

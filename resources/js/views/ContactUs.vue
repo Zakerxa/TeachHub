@@ -11,7 +11,7 @@
                             <p class="hero-title" v-html="$t('contactus.title')"></p>
                         </div>
                         <p class="hero-subtitle mr-5">
-                            {{ $t('hero.heroSubTitle') }}
+                            {{ $t('contactus.subtitle') }}
                         </p>
                         <div class="row pb-0 d-flex align-items-center footer-icon-container">
                             <div class="brands col-2">
@@ -138,8 +138,7 @@ export default {
     .hero-title {
         font-weight: 900;
         font-family: sans-serif, Courier, monospace;
-        font-size: 3.5vw;
-        line-height: 5vw;
+        font-size: 3.4vw;
         align-items: center;
         margin: 0;
         padding: 0;
@@ -186,8 +185,8 @@ export default {
 
         .hero-title {
             margin-top: 30px;
-            font-size: 6vw;
-            line-height: 7vw;
+            font-size: 5.8vw;
+            // line-height: 7vw;
         }
 
         .hero-subtitle {
@@ -228,8 +227,8 @@ export default {
 
         .hero-title {
             margin-top: 40px;
-            font-size: 7vw;
-            line-height: 10vw;
+            font-size: 6.8vw;
+            // line-height: 10vw;
         }
 
         .hero-subtitle {

@@ -5,7 +5,8 @@
             <div class="detailBackground"></div>
             <div class="col-12 col-md-8 col-lg-6 offset-lg-1 d-flex justify-content-start">
                 <div class="cover">
-                    <div class="teacher-image" :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                    <div class="teacher-image"
+                        :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
                         <div class="recommand-heart">
                             <span v-if="teacher.recommand == 1" class="ml-3">Recommand</span>
                         </div>
@@ -149,7 +150,11 @@
             </div>
             <div class="col-md-4 col-lg-5"></div>
         </div>
+
     </div>
+
+    <!-- <teacher-rating-vue v-if="teacher != null" :id="teacher.id"></teacher-rating-vue> -->
+
 
     <footer-vue></footer-vue>
 </template>
@@ -157,6 +162,7 @@
 import trial from '../components/Trial.vue';
 import { mapGetters } from 'vuex';
 import footerVue from '../components/Footer.vue';
+import TeacherRatingVue from '../components/TeacherRating.vue';
 export default {
     props: ['id'],
     data() {
@@ -166,7 +172,8 @@ export default {
     },
     components: {
         trial,
-        footerVue
+        footerVue,
+        TeacherRatingVue
     },
     computed: {
         ...mapGetters([
@@ -175,7 +182,7 @@ export default {
         dynamicTop() {
             const maxLength = this.description.length;
 
-            if(maxLength < 80) return `-${60 + (maxLength / 2)}px`;
+            if (maxLength < 80) return `-${60 + (maxLength / 2)}px`;
 
             else if (maxLength >= 80 && maxLength <= 199) return `-${(maxLength / 2)}px`;
 
@@ -207,8 +214,6 @@ export default {
         getTeacherDetails(id) {
             fetch('/api/teachers/details/' + id).then(res => res.json()).then(res => {
                 this.teacher = res.teacher
-            }).then(res => {
-                console.log("DOM has been updated", this.teacher);
             })
         },
         contactus() {
@@ -224,7 +229,7 @@ export default {
         this.getTeacherDetails(this.id);
     },
     mounted() {
-        // console.log("New Id ", this.$route.params.id);
+        console.log(this.$route.params.id);
     }
 }
 </script>
@@ -307,7 +312,8 @@ export default {
         left: 8px;
         color: rgb(255, 255, 255);
     }
-    >span{
+
+    >span {
         position: relative;
         top: 5px;
         color: rgb(255, 255, 255);

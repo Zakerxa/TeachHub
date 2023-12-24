@@ -1,8 +1,8 @@
 const mm = {
     hello: 'MinkalarPar',
     hero: {
-        heroTitle: '<span style="color:#8642DE">သင့်မြိုနယ်ရှိ </span>အသင်အပြ ထူးချွန်သော ဆရာမများကို ရှာဖွေလိုက်ပါ <img class="hero-title-image" style="width: 15%;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
-        heroSubTitle: 'သဘာဝပတ်​ဝန်းကျင်​၏ ဆန့်ကျင်ဘက်အရာသည် လုပ်ယူဖန်တီးထားသော ပတ်​ဝန်းကျင်​ဖြစ်​သည်​။ စိုက်ပျိုးမြေများနှင့် မြို့ပြနေရာများအဖြစ် ပြောင်းလဲခြင်းကဲ့သျ ပြောင်းလဲလူ့ပတ်ဝန်းကျင်အဖြစ်သို့ ပြောင်းလဲသွားပါသည်။'
+        heroTitle: '<span style="color:#8642DE">နီးစပ်ရာမြိုနယ်များရှိ </span>အရည်ချင်းပြည့်မှီသော ဆရာ၊ဆရာမများကို ကျွန်ုပ်တိုနှင့် ချိတ်ဆက်၍ ရှာဖွေလိုက်ပါ <img class="hero-title-image" style="width: 15%;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
+        heroSubTitle: 'သင့်ကလေး သိုမဟုတ် သင့် အတွက်  လှပသော အနာဂတ်ကို လက်ဆောင်အဖြစ်ပေးနိုင်ရန် ကျွန်ုပ်တိုအတူလက်တွဲ၍ သင့်စိတ်ကြိုက်ပညာရေးကို ပုံဖော်လိုက်ပါ'
     },
     divider: {
         sec1: 'သင်ယူနေသူများ',
@@ -11,7 +11,8 @@ const mm = {
         sec4: 'အတန်းများ'
     },
     contactus: {
-        title: 'ကူညီပေးဖိုအဆင်သင့်ပါပဲ <span style="color:#8642DE"> ဆက်သွယ်လိုက်ပါ </span> <img class="hero-title-image" style="width: 15%;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">'
+        title: 'အတူတကွသင်ယူခြင်းဖြင့် <span style="color:#8642DE"> အနာဂတ်ကိုပုံဖော်လိုက်ပါ။ </span> <img class="hero-title-image" style="width: 15%;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
+        subtitle: 'အမျိုးစားစုံလင်သော ပညာရပ်များ နှင့် အရည်ချင်းပြည့်မှီသော ဆရာဆရာမများက ဒီနေရာမှာသင့်အတွက်အသင့်ရှိနေပါတယ်'
     },
     content: {
         topTeacher: 'Teach<span style="color:#8642DE">Hub</span> ပေါ်မှ အတော်ဆုံးဆရာမများ',

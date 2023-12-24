@@ -1,4 +1,4 @@
-const DEFAULT_LANG = "en"; // default language
+const DEFAULT_LANG = "mm"; // default language
 
 const LanguageService = {
     setLanguage(lang) {

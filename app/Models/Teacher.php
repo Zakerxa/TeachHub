@@ -12,6 +12,8 @@ class Teacher extends Model
 
     protected $guarded = ['id'];
 
+    protected $with = ['subjects','locations'];
+
     public function subjects()
     {
         return $this->belongsToMany(Subject::class, 'teacher_subjects')->withTimestamps();

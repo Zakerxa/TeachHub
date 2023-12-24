@@ -79,8 +79,7 @@ export default {
     .hero-title {
         font-weight: 900;
         font-family: sans-serif, Courier, monospace;
-        font-size: 3.7vw;
-        line-height: 3vw;
+        font-size: 3vw;
         align-items: center;
         margin: 0;
         padding: 0;
@@ -99,7 +98,7 @@ export default {
         border: none;
         text-decoration: none;
         color: #000;
-        top: 10px;
+        top: 15px;
         position: relative;
     }
 }
@@ -138,8 +137,8 @@ export default {
 
         .hero-title {
             margin-top: 30px;
-            font-size: 7vw;
-            line-height: 10vw;
+            font-size: 6vw;
+            // line-height: 10vw;
         }
 
         .hero-subtitle {
@@ -179,8 +178,7 @@ export default {
 
         .hero-title {
             margin-top: 40px;
-            font-size: 7vw;
-            line-height: 10vw;
+            font-size: 6.2vw;
         }
 
         .hero-subtitle {

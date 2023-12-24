@@ -1,25 +1,12 @@
 <template>
     <div>
-        <div class="container">
-            <div class="row pt-4 d-flex align-items-center text-start" style="min-height: 30vh">
-                <div class="col-12 col-sm-6">
-                    <p class="rating-title" v-html="$t('content.rateTeacher')"></p>
-                </div>
-                <div class="col-12 col-sm-6">
-                    <p class="rating-description">
-                        {{ $t('content.rateDescription') }}
-                    </p>
-                </div>
-            </div>
-        </div>
 
         <div class="container">
+            <div class="row">
+                <h3>Reviews From Parents</h3>
+            </div>
             <div class="row pt-3" style="align-items: center">
-                <div v-if="reviews" class="slickSlider mt-2 mt-md-5 pb-3">
-                    <div v-for="(review, i) in reviews" :key="i" class="text-center">
-                        <Review-Card :review="review"></Review-Card>
-                    </div>
-                </div>
+                <slick-container slider="detailSlider" :reviews="teareviews"></slick-container>
             </div>
 
             <div class="row pt-5 pb-5 mb-5 justify-content-center">
@@ -80,58 +67,18 @@ import {
     mapGetters,
     mapActions
 } from 'vuex'
-import ReviewCard from '../components/Reviews/card.vue'
+import SlickContainer from './Reviews/Slick-Container.vue'
 export default {
+    props: ['id'],
     data: () => ({
         dialog: false,
         rating: 1.5,
-        readyCarousel: false,
-        owlCarouselInstance: null,
         disableSubmit: false,
         name: '',
-        message: '',
-        options: {
-            dots: true,
-            infinite: false,
-            speed: 300,
-            arrows: false,
-            centerMode: false,
-            centerPadding: '20px',
-            slidesToShow: 3,
-            slidesToScroll: 2,
-            responsive: [
-                {
-                    breakpoint: 992,
-                    settings: {
-                        arrows: false,
-                        centerPadding: '40px',
-                        slidesToShow: 3,
-                        slidesToScroll: 3
-                    }
-                },
-                {
-                    breakpoint: 991,
-                    settings: {
-                        arrows: false,
-                        slidesToShow: 2,
-                        slidesToScroll: 2,
-                        mobileFirst: true
-                    }
-                },
-                {
-                    breakpoint: 576,
-                    settings: {
-                        arrows: false,
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        mobileFirst: true
-                    }
-                }
-            ]
-        }
+        message: ''
     }),
     computed: {
-        ...mapGetters(['reviews']),
+        ...mapGetters(['teareviews']),
     },
     watch: {
         dialog(value) {
@@ -139,20 +86,13 @@ export default {
         },
     },
     components: {
-        ReviewCard
+        SlickContainer
     },
     mounted() {
-        this.getReviews().then(() => this.initializeSlider())
+        this.getTeaReviews(this.id).then(res=>console.log("Getting Teacher Reviews . . .")).catch(err=>console.log(err));
     },
     methods: {
-        ...mapActions(['csrf', 'getReviews', 'postReview']),
-        initializeSlider() {
-            this.dialog = false;
-            // Check if the slider is already initialized, and destroy it if necessary
-            if ($('.slickSlider').hasClass('slick-initialized')) $('.slickSlider').slick('unslick');
-            // InitializeSlider
-            $('.slickSlider').slick(this.options)
-        },
+        ...mapActions(['csrf', 'getTeaReviews', 'postTeaReview']),
         review() {
             this.disableSubmit = true;
             // Get Session If Exist
@@ -161,14 +101,14 @@ export default {
             else session = 'new';
             // Post Review With CSRF
             this.csrf().then((token) => {
-                this.postReview({ name: this.name, message: this.message, rating: this.rating, _token: token, token: session })
+                console.log("CSRF Token ",token);
+                this.postTeaReview({ teacher_id: this.id, name: this.name, message: this.message, rating: this.rating, _token: token, token: session })
                     .then(res => {
                         this.clear();
                         if (res.response == 'success') {
                             this.dialog = false;
-                             // Set New Session
+                            // Set New Session
                             if (res.token) localStorage.setItem('TeachubGlobalReviewToken', res.token);
-                            this.initializeSlider();
                         }
                     });
             }).catch(res => console.log("Error => ", res));
@@ -178,7 +118,6 @@ export default {
             this.message = '';
             this.rating = 1.5;
             this.disableSubmit = false;
-
         }
     }
 }
@@ -191,125 +130,6 @@ export default {
 </style>
 
 <style lang="scss">
-/* Slider */
-.slick-slider {
-    position: relative;
-
-    display: block;
-    box-sizing: border-box;
-
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
-    -webkit-touch-callout: none;
-    -khtml-user-select: none;
-    -ms-touch-action: pan-y;
-    touch-action: pan-y;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.slick-list {
-    position: relative;
-
-    display: block;
-    overflow: hidden;
-
-    margin: 0;
-    padding: 0;
-}
-
-.slick-list:focus {
-    outline: none;
-}
-
-.slick-list.dragging {
-    cursor: pointer;
-    cursor: hand;
-}
-
-.slick-slider .slick-track,
-.slick-slider .slick-list {
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    -o-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-}
-
-.slick-track {
-    position: relative;
-    top: 0;
-    left: 0;
-
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.slick-track:before,
-.slick-track:after {
-    display: table;
-
-    content: '';
-}
-
-.slick-track:after {
-    clear: both;
-}
-
-.slick-loading .slick-track {
-    visibility: hidden;
-}
-
-.slick-slide {
-    display: none;
-    float: left;
-
-    height: 100%;
-    min-height: 1px;
-}
-
-[dir='rtl'] .slick-slide {
-    float: right;
-}
-
-.slick-slide img {
-    display: block;
-}
-
-.slick-slide.slick-loading img {
-    display: none;
-}
-
-.slick-slide.dragging img {
-    pointer-events: none;
-}
-
-.slick-initialized .slick-slide {
-    display: block;
-}
-
-.slick-loading .slick-slide {
-    visibility: hidden;
-}
-
-.slick-vertical .slick-slide {
-    display: block;
-
-    height: auto;
-
-    border: 1px solid transparent;
-}
-
-.slick-arrow.slick-hidden {
-    display: none;
-}
-
-.slick-dots {
-    position: relative !important;
-}
 
 .rating-title {
     font-size: 3.4vw;
