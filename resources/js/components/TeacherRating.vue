@@ -2,8 +2,8 @@
     <div>
 
         <div class="container">
-            <div class="row">
-                <h3>Reviews From Parents</h3>
+            <div class="row mt-5">
+                <h3 class="fw-bold pt-5">Reviews From Parents</h3>
             </div>
             <div class="row pt-3" style="align-items: center">
                 <slick-container slider="detailSlider" :reviews="teareviews"></slick-container>

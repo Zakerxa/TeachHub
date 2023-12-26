@@ -1,7 +1,7 @@
 const en = {
     hello: 'Hello world!',
     hero: {
-        heroTitle: 'Connect with me and find qualified Teachers <span style="color: #8642DE;">In YourCity</span> <img class="hero-title-image" style="width: 15%;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
+        heroTitle: 'Discover Exceptional Educators <span style="color: #8642DE;">In YourCity</span> <img class="hero-title-image" style="width: 15%;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
         heroSubTitle: 'Discover qualified teachers in your city and give your child the gift of personalized learning.Connectwithus and let’s shape the future of education together'
     },
     divider: {

@@ -13,7 +13,7 @@
                         <p class="hero-subtitle mr-5 mb-4 pt-1">
                             {{ $t('hero.heroSubTitle') }}
                         </p>
-                        <router-link to="/explore" class="hero-btn fw-bold">Start Explore <font-awesome-icon
+                        <router-link to="/explore" class="hero-btn fw-bold">{{ $t('btn.explore') }} <font-awesome-icon
                                 icon="fa-solid fa-angle-right"
                                 style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></router-link>
                     </div>
@@ -137,7 +137,7 @@ export default {
 
         .hero-title {
             margin-top: 30px;
-            font-size: 6vw;
+            font-size: 6.3vw;
             // line-height: 10vw;
         }
 

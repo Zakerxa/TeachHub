@@ -153,6 +153,8 @@
 
     </div>
 
+    <v-divider></v-divider>
+
     <teacher-rating-vue v-if="teacher != null" :id="teacher.id"></teacher-rating-vue>
 
 

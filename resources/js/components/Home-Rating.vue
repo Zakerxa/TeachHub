@@ -2,14 +2,14 @@
     <div>
         <div class="container">
             <div class="row pt-4 d-flex align-items-center text-start" style="min-height: 30vh">
-                <div class="col-12 col-sm-6">
+                <div class="col-12">
                     <p class="rating-title" v-html="$t('content.rateTeacher')"></p>
                 </div>
-                <div class="col-12 col-sm-6">
+                <!-- <div class="col-12 col-sm-6">
                     <p class="rating-description">
                         {{ $t('content.rateDescription') }}
                     </p>
-                </div>
+                </div> -->
             </div>
         </div>
 
