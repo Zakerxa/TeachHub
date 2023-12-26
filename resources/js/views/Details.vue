@@ -153,7 +153,7 @@
 
     </div>
 
-    <!-- <teacher-rating-vue v-if="teacher != null" :id="teacher.id"></teacher-rating-vue> -->
+    <teacher-rating-vue v-if="teacher != null" :id="teacher.id"></teacher-rating-vue>
 
 
     <footer-vue></footer-vue>
