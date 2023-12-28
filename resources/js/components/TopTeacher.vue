@@ -99,7 +99,7 @@ export default {
 .corner-ribbon {
     position: absolute;
     top: -3px;
-    left: -3px;
+    left: -5px;
     height: 5em;
     width: 5em;
     padding: 8px;
