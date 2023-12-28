@@ -3,19 +3,19 @@
         <div class="row pt-4 pb-4 justify-content-center text-center">
             <div class="col-md-0 col-lg-2"></div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
-               <div class="dig">500+</div>
+               <CountdownVue :number="300"></CountdownVue>
                <div class="dig-text">{{ $t('divider.sec1') }}</div>
             </div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
-               <div class="dig">100+</div>
+                <CountdownVue :number="100"></CountdownVue>
                <div class="dig-text">{{ $t('divider.sec2') }}</div>
             </div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
-               <div class="dig">15+</div>
+                <CountdownVue :number="15"></CountdownVue>
                <div class="dig-text">{{ $t('divider.sec3') }}</div>
             </div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
-               <div class="dig">10+</div>
+                <CountdownVue :number="10"></CountdownVue>
                <div class="dig-text">{{ $t('divider.sec4') }}</div>
             </div>
             <div class="col-md-0 col-lg-2"></div>
@@ -23,8 +23,11 @@
     </div>
 </template>
 <script>
+import CountdownVue from './CountDown/Countdown.vue'
 export default {
-
+    components: {
+        CountdownVue
+    }
 }
 </script>
 <style lang="scss" scoped>

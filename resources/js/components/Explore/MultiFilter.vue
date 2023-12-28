@@ -169,17 +169,8 @@
         <div class="hide-filter col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
             <div>
                 <multiselect @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel"
-                    v-model="status" :multiple="true" :options="optionsStatus" placeholder="Status" label="name"
+                    v-model="status" :options="optionsStatus" placeholder="Status" label="name"
                     track-by="name" :show-labels="false">
-
-                    <template v-slot:selection="{ values, isOpen }">
-                        <span v-if="values.length >= 2">
-                            <span v-if="!isOpen" class="select-size">
-                                {{ values.length }} Status
-                            </span>
-                        </span>
-                    </template>
-
                 </multiselect>
             </div>
         </div>
@@ -249,10 +240,8 @@ export default {
     data() {
         return {
             optionsStatus: [
-                { id: 0, name: 'Select All' },
                 { id: 1, name: 'Online' },
-                { id: 2, name: 'Local' },
-                { id: 3, name: 'Online-Loc' }
+                { id: 2, name: 'Local' }
             ],
             optionsEnvironment: [
                 { id: 0, name: 'Select All', name_mm: 'အားလုံးကို ရွေးပါ' },
@@ -323,7 +312,7 @@ export default {
 
             if (e == 'region') this.townships = [];
 
-            if (e == 'status') if (this.isSelectedAll(this.status)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
+            // if (e == 'status') if (this.isSelectedAll(this.status)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
 
             if (e == 'env') if (this.isSelectedAll(this.environment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
 
@@ -333,7 +322,9 @@ export default {
 
             const subject = (this.subjects == null || this.subjects.length < 1) ? '' : this.subjects.map(sub => sub.id).join(',');
 
-            const status = (this.status == null || this.status.length < 1) ? '' : this.status.map(stat => stat.id).join(',');
+            // const status = (this.status == null || this.status.length < 1) ? '' : this.status.map(stat => stat.id).join(',');
+
+            const status = this.status;
 
             const environment = (this.environment == null || this.environment.length < 1) ? '' : this.environment.map(stat => stat.id).join(',');
 
@@ -381,7 +372,7 @@ export default {
             if (selectRegion != null) this.optionsTownship = selectRegion.districts;
         },
         status(selectStatus) {
-            if (this.isSelectedAll(selectStatus)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
+            // if (this.isSelectedAll(selectStatus)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
         },
         environment(selectEnvironment) {
             if (this.isSelectedAll(selectEnvironment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')

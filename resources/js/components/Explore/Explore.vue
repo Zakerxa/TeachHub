@@ -19,16 +19,18 @@
             <div v-if="teachers" class="row justify-content-center justify-content-md-start gy-2">
 
                 <div v-for="(teacher, i) in teachers" :key="i"
-                    class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0 pt-md-2 pb-md-2"
-                    style="cursor: pointer;">
+                    class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0" style="cursor: pointer;">
 
-                    <div @click="routeTo(teacher.token)" class="row justify-content-start mx-md-2 pt-3 pb-2"
+                    <div @click="routeTo(teacher.token)" class="row justify-content-start mx-md-2 p-0"
                         style="background:#fff">
-                        <div class="col-6 col-md-12 text-start">
+                        <div class="col-6 col-md-12 text-start p-md-0">
                             <div class="teacher-image"
                                 :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
-                                <div class="recommand-heart">
-                                    <span v-if="teacher.recommand == 1" class="ml-3">Recommand</span>
+                                <div v-if="teacher.recommand == 1" class="corner-ribbon">
+                                    <span class="cr-inner">
+                                        <span class="cr-text"><i class="icon fa-regular fa-circle-check"></i>
+                                            <strong>Recommand</strong></span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +146,7 @@ export default {
     padding-top: 40px;
 }
 
-.details-info-container{
+.details-info-container {
     min-height: 180px;
     max-height: 200px;
 }
@@ -273,4 +275,5 @@ export default {
     .content-title {
         font-size: 5vw;
     }
-}</style>
+}
+</style>

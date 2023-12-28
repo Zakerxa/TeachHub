@@ -7,8 +7,11 @@
                 <div class="cover">
                     <div class="teacher-image"
                         :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
-                        <div class="recommand-heart">
-                            <span v-if="teacher.recommand == 1" class="ml-3">Recommand</span>
+                        <div v-if="teacher.recommand == 1" class="corner-ribbon">
+                            <span class="cr-inner">
+                                <span class="cr-text"><i class="icon fa-regular fa-circle-check"></i>
+                                    <strong>Recommand</strong></span>
+                            </span>
                         </div>
                     </div>
 
@@ -236,6 +239,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.cr-inner {
+    position: absolute;
+    inset: 0;
+    border: 1px solid #ddd!important;
+    background: var(--primary);
+    color: white;
+    border-radius: 16px 8px 0 8px;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
 .detailBackground {
     position: relative;
     top: 0;
@@ -291,37 +304,13 @@ export default {
     position: relative;
     left: 0;
     top: 0;
+    border: 1px solid #ddd;
 
     /* Responsive styles for medium-sized screens and larger */
     @media (min-width: 768px) {
         width: 180px;
         height: 200px;
         background-color: #fff;
-    }
-}
-
-.recommand-heart {
-    top: 0;
-    background: linear-gradient(to bottom, #00000041, #1b1b1b3f, #1b1b1b2d, #50505016, #60606001);
-    width: 100%;
-    height: 90px;
-    padding-top: 5px;
-    z-index: -1;
-
-    >i {
-        position: relative;
-        top: 5px;
-        left: 8px;
-        color: rgb(255, 255, 255);
-    }
-
-    >span {
-        position: relative;
-        top: 5px;
-        color: rgb(255, 255, 255);
-        font-weight: bold;
-        font-size: 17px;
-        text-transform: uppercase;
     }
 }
 

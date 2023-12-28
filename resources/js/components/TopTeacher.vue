@@ -21,12 +21,17 @@
 
             <div class="row pt-5" v-if="topTeachers">
 
-                <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;" v-for="(teacher, i) in topTeachers" :key="i">
+                <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;"
+                    v-for="(teacher, i) in topTeachers" :key="i">
                     <div @click="routeTo(teacher.token)" class="row border-0">
                         <div class="col-6 col-md-12">
-                            <div class="teacher-image" :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
-                                <div class="recommand-heart">
-                                    <span v-if="teacher.recommand == 1" class="ml-3">Recommand</span>
+                            <div class="teacher-image"
+                                :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                                <div v-if="teacher.recommand == 1" class="corner-ribbon">
+                                    <span class="cr-inner">
+                                        <span class="cr-text"><i class="icon fa-regular fa-circle-check"></i>
+                                            <strong>Recommand</strong></span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -40,14 +45,18 @@
                                 <p class="teacher-name pt-2">{{ teacher.name }}</p>
                                 <div class="">
                                     <span class="fw-normal">
-                                        <i class="fa-solid fa-location-dot" style="color:var(--primary)"></i> {{ (lang == 'English') ? teacher.locations[0].region_state : teacher.locations[0].region_state_mm }}
+                                        <i class="fa-solid fa-location-dot" style="color:var(--primary)"></i> {{ (lang ==
+                                            'English') ? teacher.locations[0].region_state :
+                                            teacher.locations[0].region_state_mm }}
                                     </span>
                                 </div>
                                 <div>
-                                    <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-clock" />
+                                    <div class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
+                                            icon="fa-solid fa-clock" />
                                         {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
                                     </div>
-                                    <div v-if="teacher.time_table_2" class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)" icon="fa-solid fa-clock" />
+                                    <div v-if="teacher.time_table_2" class="teacher-time mt-2 mb-1"><font-awesome-icon
+                                            style="color:var(--primary)" icon="fa-solid fa-clock" />
                                         {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}
                                     </div>
                                 </div>
@@ -83,8 +92,80 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+/**
+ * Corner Ribbon Component
+ */
+.corner-ribbon {
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    height: 5em;
+    width: 5em;
+    padding: 8px;
 
+    .cr-inner {
+        position: absolute;
+        inset: 0;
+        background: var(--primary);
+        color: white;
+        border-radius: 16px 8px 0 8px;
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+
+    .cr-text {
+        display: block;
+        font-weight: bold;
+        font-size: 0.8em;
+        line-height: 1.3;
+        transform: rotate(314deg) translateY(0.1em) translateX(-1.8em);
+
+        .icon {
+            position: relative;
+            top: -10px;
+            left: 38px;
+            font-size: 20px;
+            transform: rotate(26deg);
+        }
+
+        strong {
+            display: block;
+            font-weight: bold;
+            /* font-size: 0.7em; */
+            position: relative;
+            top: -10px;
+            left: 12px;
+
+        }
+    }
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        background: #47469B;
+        z-index: -1;
+    }
+
+    &::before {
+        top: calc(100% - 8px);
+        left: 0;
+        height: 8px;
+        width: 3px;
+        border-radius: 0 0 0 50%;
+    }
+
+    &::after {
+        left: calc(100% - 8px);
+        top: 0;
+        width: 8px;
+        height: 3px;
+        border-radius: 0 50% 0 0;
+    }
+}
+</style>
+
+<style lang="scss" scoped>
 .left-effect,
 .right-effect {
     width: 30px;
@@ -108,31 +189,6 @@ export default {
     }
 }
 
-.recommand-heart {
-    top: 0;
-    background: linear-gradient(to bottom, #00000041, #1b1b1b3f, #1b1b1b2d, #50505016, #60606001);
-    width: 100%;
-    height: 90px;
-    padding-top: 5px;
-    z-index: -1;
-
-    >i {
-        position: relative;
-        top: 5px;
-        left: 8px;
-        color: rgb(255, 255, 255);
-    }
-
-    >span {
-        position: relative;
-        top: 5px;
-        color: rgb(255, 255, 255);
-        font-weight: bold;
-        font-size: 17px;
-    }
-}
-
-
 .content-title-image {
     width: 80px;
     position: relative;
@@ -141,7 +197,7 @@ export default {
     transform: rotate(-10deg);
 }
 
-.details-info-container{
+.details-info-container {
     min-height: 180px;
     max-height: 200px;
 }
@@ -166,6 +222,10 @@ export default {
 }
 
 .teacher-image {
+    overflow: visible;
+    position: relative;
+    display: inline-block;
+
     width: 100%;
     min-height: 200px;
     background-color: #ffffff;
@@ -228,4 +288,5 @@ export default {
         top: -10px;
         left: -8px;
     }
-}</style>
+}
+</style>

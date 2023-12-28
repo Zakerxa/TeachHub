@@ -12,7 +12,7 @@ class Teacher extends Model
 
     protected $guarded = ['id'];
 
-    protected $with = ['subjects','locations'];
+    protected $with = ['subjects', 'locations'];
 
     public function subjects()
     {
@@ -24,13 +24,20 @@ class Teacher extends Model
         return $this->hasMany(TeacherLocation::class, 'teacher_id');
     }
 
-    public function getEnvironmentAttribute($value){
-        if($value == 1) return $value = 'International School';
+    public function classTypes()
+    {
+        return $this->hasMany(ClassType::class);
+    }
+
+    public function getEnvironmentAttribute($value)
+    {
+        if ($value == 1) return $value = 'International School';
         else return $value = 'Government School';
     }
 
-    public function getEnvironmentMmAttribute($value){
-        if($value == 1) return $value = 'နိုင်ငံတကာကျောင်း';
+    public function getEnvironmentMmAttribute($value)
+    {
+        if ($value == 1) return $value = 'နိုင်ငံတကာကျောင်း';
         else return $value = 'အစိုးရကျောင်း';
     }
 
@@ -62,8 +69,13 @@ class Teacher extends Model
 
 
         $query->when($filter['status'] ?? false, function ($query, $status) {
-            $statusId = explode(',', $status);
-            $query->whereIn('online_or_local', $statusId);
+            $query->where('online_or_local', $status);
+        });
+
+        $query->when($filter['class'] ?? false, function ($query, $type) {
+            return $query->whereHas('classTypes', function ($query) use ($type) {
+                $query->where('class_type', $type);
+            });
         });
 
         $query->when($filter['environment'] ?? false, function ($query, $environment) {
