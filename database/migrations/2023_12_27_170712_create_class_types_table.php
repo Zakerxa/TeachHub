@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('class_types', function (Blueprint $table) {
             $table->id();
             $table->foreignId('teacher_id')->constrained();
-            $table->string('class_type'); // Add this column for class type (inperson, group, homeguide, onebyone)
-            $table->string('day')->nullable(); // Add this column for the day (Mon, Tue, etc.)
-            $table->string('time')->nullable(); // Add this column for the time (8:00 - 9:00 pm)
+            $table->string('class_type');
+            $table->tinyInteger('status');
+            $table->string('desc')->nullable();
             $table->timestamps();
         });
     }

@@ -23,8 +23,8 @@
 
                 <div class="col-12 col-md-6 col-lg-3 mt-2 mb-2" style="cursor: pointer!important;"
                     v-for="(teacher, i) in topTeachers" :key="i">
-                    <div @click="routeTo(teacher.token)" class="row border-0">
-                        <div class="col-6 col-md-12">
+                    <div class="row border-0">
+                        <div @click="routeTo(teacher.token)" class="col-6 col-md-12">
                             <div class="teacher-image"
                                 :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
                                 <div v-if="teacher.recommand == 1" class="corner-ribbon">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-12 pl-0 pl-sm-2">
+                        <div @click="routeTo(teacher.token)" class="col-6 col-md-12 pl-0 pl-sm-2">
                             <div class="details-info-container">
                                 <div class="specialist mt-2 mb-2">
                                     <span v-for="(subject, i) in teacher.subjects" :key="i" class="bg-warning badge mr-2">
@@ -61,6 +61,11 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div  class="col-12">
+                            <div class="d-flex">
+                                   <div class="ml-auto">Comment</div>
+                               </div>
                         </div>
                     </div>
                 </div>

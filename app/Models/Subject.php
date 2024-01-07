@@ -11,8 +11,8 @@ class Subject extends Model
 
     protected $guarded = [];
 
-    public function teachers()
-    {
-        return $this->belongsToMany(Teacher::class, 'teacher_subjects');
-    }
+    // public function teachers()
+    // {
+    //     return $this->belongsToMany(Teacher::class, 'teacher_subjects');
+    // }
 }

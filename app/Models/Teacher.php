@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TeacherLocation;
+use App\Models\ClassType;
 
 class Teacher extends Model
 {
@@ -26,7 +27,7 @@ class Teacher extends Model
 
     public function classTypes()
     {
-        return $this->hasMany(ClassType::class);
+        return $this->hasOne(ClassType::class);
     }
 
     public function getEnvironmentAttribute($value)
@@ -67,9 +68,8 @@ class Teacher extends Model
             });
         });
 
-
         $query->when($filter['status'] ?? false, function ($query, $status) {
-            $query->where('online_or_local', $status);
+            $query->where('online_or_local', $status['id']);
         });
 
         $query->when($filter['class'] ?? false, function ($query, $type) {
@@ -82,13 +82,6 @@ class Teacher extends Model
             $environmentId = explode(',', $environment);
             $query->whereIn('environment', $environmentId);
         });
-
-        // $query->when($filter['locations'] ?? false, function ($query, $locationId) {
-        //     $locationId = explode(',', $locationId);
-        //     return $query->whereHas('locations', function ($query) use ($locationId) {
-        //         $query->whereIn('location_id', $locationId);
-        //     });
-        // });
 
         $query->when($filter['subjects'] ?? false, function ($query, $subjectId) {
             $subjectId = explode(',', $subjectId);

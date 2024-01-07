@@ -75,6 +75,7 @@ class TeacherController extends Controller
                 'pic.*' => ['mimes:jpg,png,jpeg,svg'],
                 'region' => 'required',
                 'salary' => 'required',
+                'classType' => 'required',
                 'township' => 'required',
                 'subjects' => 'required|array',
                 'subjects.*' => 'exists:subjects,id',
@@ -122,7 +123,7 @@ class TeacherController extends Controller
 
         // Create the teacher without including 'pic' in the $request->only() call
         $teacher = $request->only([
-            'name', 'name_mm', 'age', 'token', 'pic', 'experience', 'time_table_1', 'time_table_1_mm','salary',
+            'name', 'name_mm', 'age', 'token', 'pic', 'experience', 'time_table_1', 'time_table_1_mm', 'salary',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
@@ -134,6 +135,14 @@ class TeacherController extends Controller
 
         // Create the teacher
         $teacher = Teacher::create($teacher);
+
+        // Assuming class_type is the selected class type
+        $classType = $request->input('classType');
+        $className = $request->input('className');
+
+
+        // Associate the class type with the teacher
+        $teacher->classTypes()->create(['class_type' => $classType, 'desc' => $className, 'status' => $request['online_or_local']]);
 
         // Attach locations and subjects
         foreach ($townships as $key => $township) {
@@ -161,6 +170,7 @@ class TeacherController extends Controller
                 'pic.*' => ['mimes:jpg,png,jpeg,svg'],
                 'region' => 'required',
                 'salary' => 'required',
+                'classType' => 'required',
                 'township' => 'required',
                 'subjects' => 'required|array',
                 'subjects.*' => 'exists:subjects,id',
@@ -191,7 +201,7 @@ class TeacherController extends Controller
 
 
         $teacherUpdate = $request->only([
-            'name', 'name_mm', 'age', 'experience', 'time_table_1', 'time_table_1_mm','salary',
+            'name', 'name_mm', 'age', 'experience', 'time_table_1', 'time_table_1_mm', 'salary',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
@@ -231,8 +241,6 @@ class TeacherController extends Controller
             $teacherUpdate['pic'] = $images;
             $teacherUpdate['token'] = $token;
         }
-
-
 
         // Detach existing relationships
         $teacher->subjects()->detach();
@@ -276,6 +284,26 @@ class TeacherController extends Controller
         foreach ($subjectsArray as $key => $subject) {
             $teacher->subjects()->attach($subject);
         }
+
+        // Assuming class_type is the selected class type
+        $classType = $request->input('classType');
+        $className = $request->input('className');
+
+        // Find the existing record associated with the teacher
+        $existingRecord = $teacher->classTypes()->first();
+
+        if ($existingRecord) {
+            // Update the existing record
+            $existingRecord->update([
+                'class_type' => $classType,
+                'desc'       => $className,
+                'status'     => $request['online_or_local'],
+            ]);
+        } else {
+            // Associate the class type with the teacher
+            $teacher->classTypes()->create(['class_type' => $classType, 'desc' => $className, 'status' => $request['online_or_local']]);
+        }
+
 
         $status = $teacher->update($teacherUpdate);
 

@@ -16,6 +16,7 @@
                         <router-link to="/explore" class="hero-btn fw-bold">{{ $t('btn.explore') }} <font-awesome-icon
                                 icon="fa-solid fa-angle-right"
                                 style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></router-link>
+
                     </div>
                 </div>
             </div>
@@ -45,7 +46,7 @@
 export default {
     data() {
         return {
-
+            postContent: 'This is a post.',
         }
     }
 }
