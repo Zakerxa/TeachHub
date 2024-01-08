@@ -11,7 +11,7 @@ export default {
             // Check if the user is on a mobile device
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                 try {
-                    window.location.href = fbAppURL;
+                    window.location.href = "https://www.facebook.com/profile.php?id=" + fbPageID;
                 } catch (error) {
                     window.location.href = "intent://page/" + fbPageURL.substr(fbPageURL.lastIndexOf('/') + 1) + "#Intent;package=com.facebook.katana;scheme=https;end";
                 }
