@@ -21,7 +21,8 @@ export default {
                 townships: '',
                 subjects: '',
                 status: '',
-                environment: ''
+                environment: '',
+                classType: ''
             }
         }
     },
@@ -61,7 +62,8 @@ export default {
                 townships: res.townships,
                 subjects: res.subjects,
                 status: res.status,
-                environment: res.environment
+                environment: res.environment,
+                classType: res.classType
             }
         },
         updatePagination(state, res) {
@@ -83,7 +85,8 @@ export default {
                 townships: '',
                 subjects: '',
                 status: '',
-                environment: ''
+                environment: '',
+                classType: ''
             };
             state.searchCount = null;
         }

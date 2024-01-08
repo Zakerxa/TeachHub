@@ -62,11 +62,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div  class="col-12">
-                            <div class="d-flex">
-                                   <div class="ml-auto">Comment</div>
-                               </div>
-                        </div>
                     </div>
                 </div>
             </div>

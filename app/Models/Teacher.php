@@ -68,14 +68,16 @@ class Teacher extends Model
             });
         });
 
-        $query->when($filter['status'] ?? false, function ($query, $status) {
+        $query->when($filter['status'] ?? false, function ($query, &$status) {
             $query->where('online_or_local', $status['id']);
         });
 
-        $query->when($filter['class'] ?? false, function ($query, $type) {
-            return $query->whereHas('classTypes', function ($query) use ($type) {
-                $query->where('class_type', $type);
-            });
+        $query->when($filter['classType'] ?? false, function ($query, $type) use ($filter) {
+            if ($filter['status'] ?? false) {
+                return $query->whereHas('classTypes', function ($query) use ($type, $filter) {
+                    $query->where('status', $filter['status']['id'])->where('class_type', $type);
+                });
+            }
         });
 
         $query->when($filter['environment'] ?? false, function ($query, $environment) {

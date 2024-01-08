@@ -17,7 +17,8 @@
             <div class="d-none d-lg-block navbar-collapse" :style="{ zIndex: 1 }">
                 <ul class="m-auto"> </ul>
                 <ul class="navbar-nav ml-auto my-2 my-md-0" style="--bs-scroll-height: 100px;">
-                    <router-link v-for="(route, i) in router" :key="i" class="nav-link p-4 pt-3 pb-3 pt-md-2 pb-md-0" active-class="active" aria-current="page" :to="route.path">
+                    <router-link v-for="(route, i) in router" :key="i" class="nav-link p-4 pt-3 pb-3 pt-md-2 pb-md-0"
+                        active-class="active" aria-current="page" :to="route.path">
                         {{ route.name }}
                     </router-link>
 
@@ -25,7 +26,7 @@
                 </ul>
             </div>
 
-           <!-- Mobile -->
+            <!-- Mobile -->
             <transition name="custom-collapse" @enter="enter" @before-enter="beforeEnter" @after-enter="afterEnter"
                 @after-leave="afterLeave">
                 <div v-if="isCollapseOpen" key="collapse" class="collapse navbar-collapse" :style="{ zIndex: 1 }"
@@ -42,26 +43,26 @@
                     </ul>
 
                     <ul class="d-block d-lg-none p-0">
-                      <div class="row mt-3 p-2 pb-0">
-                         <div class="brands-container">
-                            <font-awesome-icon class="brands-color" icon="fa-brands fa-facebook" />
-                         </div>
-                         <div class="brands-container">
-                            <font-awesome-icon class="brands-color" icon="fa-brands fa-twitter" />
-                         </div>
-                         <div class="brands-container">
-                            <font-awesome-icon class="brands-color" icon="fa-brands fa-instagram" />
-                         </div>
-                         <div class="brands-container">
-                            <font-awesome-icon class="brands-color" icon="fa-brands fa-youtube" />
-                         </div>
-                      </div>
+                        <div class="row mt-3 p-2 pb-0">
+                            <div class="brands-container">
+                                <i @click="openInFacebookApp()" class="brands-color fa-brands fa-facebook"></i>
+                            </div>
+                            <div class="brands-container">
+                                <i @click="openInTelegram()" class="brands-color fa-brands fa-telegram"></i>
+                            </div>
+                            <div class="brands-container">
+                                <i @click="openInWhatsApp()" class="brands-color fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div class="brands-container">
+                                <i @click="openInPhone()" class="brands-color fa-solid fa-phone-flip"></i>
+                            </div>
+                        </div>
 
-                      <div class="row p-3 pt-2">
-                          <div class="" style="font-size: 12px;">
-                            All Rights Reserved. Copyright @ 2023 TeachHub
-                          </div>
-                      </div>
+                        <div class="row p-3 pt-2">
+                            <div class="" style="font-size: 12px;">
+                                All Rights Reserved. Copyright @ 2024 TeachHub
+                            </div>
+                        </div>
                     </ul>
 
                     <!--  <ul class="navbar-nav my-2 my-md-0 pt-3 pb-3 pt-md-0 pb-md-0" style="--bs-scroll-height: 100px;">
@@ -75,8 +76,7 @@
 </template>
 
 <script>
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/js/dist/collapse';
+import { mapActions } from 'vuex'
 import Language from '../settings/Language.vue'
 export default {
     data() {
@@ -103,17 +103,16 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['openInFacebookApp', 'openInWhatsApp', 'openInTelegram', 'openInPhone']),
         toggleCollapse() {
-            // Toggle the collapse manually
             $('#navbarScroll').collapse('toggle');
-
             this.isCollapseOpen = !this.isCollapseOpen;
             if (this.isCollapseOpen) this.navIcon = 'fas fa-xmark';
             else this.navIcon = 'fas fa-bars';
         },
-        langclick(e){
-           console.log("work",e);
-           $('#navbarScroll').collapse('hide');
+        langclick(e) {
+            console.log("work", e);
+            $('#navbarScroll').collapse('hide');
             this.navIcon = 'fas fa-bars';
             this.isCollapseOpen = false;
         },
@@ -139,22 +138,17 @@ export default {
             el.style.height = '0';
         }
     },
-    computed: {
-
-    },
-    components: {
-        Language
-    },
+    components: { Language }
 }
 </script>
 
 
 <style lang="scss" scoped>
-
-.brands-container{
-  width: 45px;
+.brands-container {
+    width: 45px;
 }
-.brands-color{
+
+.brands-color {
     color: #8642DE;
     border: 1px solid #8642DE;
     font-size: 17px;

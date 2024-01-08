@@ -7,9 +7,9 @@
                     <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                 </div>
 
-                <input v-model="name" v-on:keyup.enter="dispatchAction" type="text" placeholder="Search . . .">
+                <input v-model="name" v-on:keyup.enter="dispatchAction('explore')" type="text" placeholder="Search . . .">
 
-                <button @click="dispatchAction" class="explore-btn">
+                <button @click="dispatchAction('explore')" class="explore-btn">
                     <span class="explore-btn-text fw-bold">{{ $t('btn.explore') }}</span>
                     <font-awesome-icon class="explore-btn-icon" icon="fa-solid fa-magnifying-glass" />
                 </button>
@@ -74,20 +74,23 @@
                         <div class="modal-filter col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
                             <div>
                                 <multiselect @select="dispatchAction('status')" @remove="removeAction"
-                                    :custom-label="customLabel" v-model="status" :multiple="true" :options="optionsStatus"
+                                    :custom-label="customLabel" v-model="status" :options="optionsStatus"
                                     placeholder="Status" label="name" track-by="name" :show-labels="false">
-
-                                    <template v-slot:selection="{ values, isOpen }">
-                                        <span v-if="values.length >= 2">
-                                            <span v-if="!isOpen" class="select-size">
-                                                {{ values.length }} Status
-                                            </span>
-                                        </span>
-                                    </template>
-
                                 </multiselect>
                             </div>
                         </div>
+
+
+                        <div class="modal-filter col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
+                            <div>
+                                <multiselect @select="dispatchAction('classType')"
+                                    :disabled="status == null || status == ''" @remove="removeAction" v-model="classType"
+                                    :options="optionsClassType" :placeholder="pClassType" label="name" track-by="value"
+                                    :show-labels="false">
+                                </multiselect>
+                            </div>
+                        </div>
+
 
                         <div class="modal-filter col-md-4 col-lg-3 col-xl-2 mt-2">
                             <div>
@@ -169,13 +172,22 @@
         <div class="hide-filter col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
             <div>
                 <multiselect @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel"
-                    v-model="status" :options="optionsStatus" placeholder="Status" label="name"
-                    track-by="name" :show-labels="false">
+                    v-model="status" :options="optionsStatus" placeholder="Status" label="name" track-by="name"
+                    :show-labels="false">
                 </multiselect>
             </div>
         </div>
 
-        <div class="hide-filter col-md-4 col-lg-3 col-xl-3 mt-2">
+        <div class="hide-filter col-md-3 col-lg-2 col-xl-2 mt-2 pr-md-0">
+            <div>
+                <multiselect @select="dispatchAction('classType')" :disabled="status == null || status == ''"
+                    @remove="removeAction" v-model="classType" :options="optionsClassType" :placeholder="pClassType"
+                    label="name" track-by="value" :show-labels="false">
+                </multiselect>
+            </div>
+        </div>
+
+        <div class="hide-filter col-md-4 col-lg-2 col-xl-2 mt-2">
             <div>
                 <multiselect @select="dispatchAction('env')" @remove="removeAction" :custom-label="customLabelEvnironment"
                     v-model="environment" :multiple="true" :options="optionsEnvironment" :placeholder="pEnvironment"
@@ -220,7 +232,8 @@
                 <!-- {{ (searchCount >= 1) ? searchCount + '/' : '' }}{{ teacherCount }} Teachers | -->
                 <span
                     v-if="name == '' && (region == null || region.length < 1) && (status == null || status.length < 1) && (subjects == null || subjects.length < 1) && (townships == null || townships.length < 1) && (environment == null || environment.length < 1)"></span>
-                <span v-else @click="clearFilter('all')" class="alert alert-danger p-1 fw-normal" style="cursor:pointer" role="alert">
+                <span v-else @click="clearFilter('all')" class="alert alert-danger p-1 fw-normal" style="cursor:pointer"
+                    role="alert">
                     Clear Filter <v-icon icon="fa-solid fa-xmark"></v-icon>
                 </span>
             </p>
@@ -229,8 +242,6 @@
 
         </div>
     </div>
-
-
 </template>
 <script>
 import MyanmarApi from './myanmar.json';
@@ -239,9 +250,22 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 export default {
     data() {
         return {
-            optionsStatus: [
-                { id: 1, name: 'Online' },
-                { id: 2, name: 'Local' }
+            optionsStatus: [{
+                id: 1,
+                name: 'Online',
+                classType: [
+                    { name: 'In-Person Class', status: 1, value: 'inperson_class' },
+                    { name: 'Group Session', status: 1, value: 'group_session' },
+                ]
+            },
+            {
+                id: 2,
+                name: 'Local',
+                classType: [
+                    { name: 'Home Guide', status: 2, value: 'homeguide' },
+                    { name: 'One by One', status: 2, value: 'one_by_one' },
+                ]
+            }
             ],
             optionsEnvironment: [
                 { id: 0, name: 'Select All', name_mm: 'အားလုံးကို ရွေးပါ' },
@@ -252,11 +276,13 @@ export default {
             region: [],
             status: [],
             subjects: [],
+            classType: [],
             townships: [],
             environment: [],
             optionsRegion: [],
             optionsSubject: [],
-            optionsTownship: []
+            optionsTownship: [],
+            optionsClassType: []
         }
     },
     async created() {
@@ -281,7 +307,7 @@ export default {
             return option => this.lang == 'English' ? option.name : option.name_mm
         },
         pEnvironment() {
-            return this.lang == "English" ? 'Teaching Environment' : 'သင်ကြားမှုနယ်ပယ်'
+            return this.lang == "English" ? 'Environment' : 'သင်ကြားမှုနယ်ပယ်'
         },
         pRegion() {
             return this.lang == "English" ? 'Region' : 'တိုင်းဒေသကြီး'
@@ -291,6 +317,9 @@ export default {
         },
         pSubject() {
             return this.lang == "English" ? 'Subjects' : 'ဘာသာရပ်များ'
+        },
+        pClassType() {
+            return this.lang == "English" ? 'ClassType' : 'အတန်းအမျိုးအစား'
         }
 
     },
@@ -310,7 +339,11 @@ export default {
         },
         filters(e) {
 
+            if (e == 'explore' && this.name.length < 1) return null
+
             if (e == 'region') this.townships = [];
+
+            if (e == 'status') this.classType = [];
 
             // if (e == 'status') if (this.isSelectedAll(this.status)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
 
@@ -322,15 +355,15 @@ export default {
 
             const subject = (this.subjects == null || this.subjects.length < 1) ? '' : this.subjects.map(sub => sub.id).join(',');
 
-            // const status = (this.status == null || this.status.length < 1) ? '' : this.status.map(stat => stat.id).join(',');
-
             const status = this.status;
+
+            const classType = this.classType ? this.classType.value : null;
 
             const environment = (this.environment == null || this.environment.length < 1) ? '' : this.environment.map(stat => stat.id).join(',');
 
-            this.updateFiltersQuery({ name: this.name, region: region, townships: townshipsParam, subjects: subject, status: status, environment: environment });
+            this.updateFiltersQuery({ name: this.name, region: region, townships: townshipsParam, subjects: subject, status: status, classType: classType, environment: environment });
 
-            if (this.name == '' && region == '' && townshipsParam == '' && subject == '' && status == '' && environment == '') {
+            if (this.name == '' && region == '' && townshipsParam == '' && subject == '' && status == '' && environment == '' && classType == '') {
                 this.clearFilterQuery();
                 this.defaultTeacher('?page=1&per_page=' + this.perPage);
                 console.log("Nothing state");
@@ -341,13 +374,12 @@ export default {
         },
         dispatchAction(e) {
             this.$nextTick(() => {
-                console.log("DOM has been updated");
                 this.filters(e);
             });
         },
-        removeAction() {
+        removeAction(e) {
             this.$nextTick(() => {
-                console.log("DOM has been updated");
+                console.log("Remove Filter ", e);
                 this.filters();
             });
         },
@@ -361,6 +393,7 @@ export default {
             this.subjects = [];
             this.townships = [];
             this.environment = [];
+            this.classType = [];
             this.clearFilterQuery();
             if (e == 'all') {
                 this.defaultTeacher('?page=1&per_page=' + this.perPage);
@@ -371,11 +404,16 @@ export default {
         region(selectRegion, oldRegion) {
             if (selectRegion != null) this.optionsTownship = selectRegion.districts;
         },
-        status(selectStatus) {
-            // if (this.isSelectedAll(selectStatus)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
-        },
         environment(selectEnvironment) {
             if (this.isSelectedAll(selectEnvironment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
+        },
+        status(selectStatus) {
+            console.log(selectStatus, "Select Status");
+            if (selectStatus != null) return this.optionsClassType = selectStatus.classType;
+            else {
+                this.optionsClassType = [];
+                this.classType = [];
+            }
         }
     },
     mounted() {

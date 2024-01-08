@@ -12,16 +12,16 @@
             <div class="col-10 col-md-3 col-lg-4 text-start footer-brands-container">
                 <div class="row pb-0 d-flex align-items-center footer-icon-container">
                     <div class="brands col-2">
-                        <font-awesome-icon class="brands-color" icon="fa-brands fa-facebook" />
+                        <i @click="openInFacebookApp()" class="brands-color fa-brands fa-facebook"></i>
                     </div>
                     <div class="brands col-2">
-                        <font-awesome-icon class="brands-color" icon="fa-brands fa-twitter" />
+                        <i @click="openInTelegram()" class="brands-color fa-brands fa-telegram"></i>
                     </div>
                     <div class="brands col-2">
-                        <font-awesome-icon class="brands-color" icon="fa-brands fa-instagram" />
+                        <i @click="openInWhatsApp()" class="brands-color fa-brands fa-whatsapp"></i>
                     </div>
                     <div class="brands col-2">
-                        <font-awesome-icon class="brands-color" icon="fa-brands fa-youtube" />
+                        <i @click="openInPhone()" class="brands-color fa-solid fa-phone-flip"></i>
                     </div>
                 </div>
             </div>
@@ -31,14 +31,17 @@
     <div class="container-fluid">
         <div class="row d-flex align-items-center" style="background-color: #FFD32B;height:50px">
             <div class="col text-center">
-                <p class="m-0">All Rights Reserved. Copyright @ 2023 <span class="fw-bold">TeachHub</span></p>
+                <p class="m-0">All Rights Reserved. Copyright @ 2024 <span class="fw-bold">TeachHub</span></p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {}
+import { mapActions } from 'vuex';
+export default {
+    methods: mapActions(['openInFacebookApp', 'openInWhatsApp', 'openInTelegram', 'openInPhone'])
+}
 </script>
 
 <style lang="scss" scoped>

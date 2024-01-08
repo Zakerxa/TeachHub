@@ -15,16 +15,16 @@
                         </p>
                         <div class="row pb-0 d-flex align-items-center footer-icon-container">
                             <div class="brands col-2">
-                                <font-awesome-icon class="brands-color" icon="fa-brands fa-facebook" />
+                                <i @click="openInFacebookApp()" class="brands-color fa-brands fa-facebook"></i>
                             </div>
                             <div class="brands col-2">
-                                <font-awesome-icon class="brands-color" icon="fa-brands fa-twitter" />
+                                <i @click="openInTelegram()" class="brands-color fa-brands fa-telegram"></i>
                             </div>
                             <div class="brands col-2">
-                                <font-awesome-icon class="brands-color" icon="fa-brands fa-instagram" />
+                                <i @click="openInWhatsApp()" class="brands-color fa-brands fa-whatsapp"></i>
                             </div>
                             <div class="brands col-2">
-                                <font-awesome-icon class="brands-color" icon="fa-brands fa-youtube" />
+                                <i @click="openInPhone()" class="brands-color fa-solid fa-phone-flip"></i>
                             </div>
                         </div>
                     </div>
@@ -55,19 +55,24 @@
 <script>
 import trial from '../components/Trial.vue';
 import footerVue from '../components/Footer.vue';
+import { mapActions } from 'vuex';
 export default {
     components: {
         trial,
         footerVue
     },
-    methods:{
-        contactus(){
-            window.location.href = "tel:+959777637858";
-        }
-    }
+    methods: mapActions(['openInFacebookApp', 'openInWhatsApp', 'openInTelegram', 'openInPhone'])
 }
 </script>
 <style lang="scss" scoped>
+.brands-color {
+    border: 1px solid #464646;
+    font-size: 17px;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
 .image {
     position: absolute;
     overflow: hidden;
