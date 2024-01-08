@@ -19,12 +19,14 @@
                         <h3>{{ teacher.name }}</h3>
                         <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
                         <p class="badge text-bg-warning p-2 fw-normal">{{ online_or_local }}</p>
+                        <p v-if="teacher.class_types" class="badge text-bg-warning p-2 fw-normal ml-2">{{ teacher.class_types.desc }}</p>
                     </div>
                 </div>
                 <div class="detail-name">
                     <h3>{{ teacher.name }}</h3>
                     <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
                     <p class="badge text-bg-light p-2 fw-normal">{{ online_or_local }}</p>
+                    <p v-if="teacher.class_types" class="badge text-bg-light p-2 fw-normal ml-2">{{ teacher.class_types.desc }}</p>
                 </div>
             </div>
             <div class="col-md-4 col-lg-5"></div>

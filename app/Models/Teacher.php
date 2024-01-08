@@ -13,7 +13,7 @@ class Teacher extends Model
 
     protected $guarded = ['id'];
 
-    protected $with = ['subjects', 'locations'];
+    protected $with = ['subjects', 'locations', 'classTypes'];
 
     public function subjects()
     {
