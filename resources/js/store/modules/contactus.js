@@ -6,7 +6,7 @@ export default {
     },
     actions: {
         openInFacebookApp({ state, commit, rootState }) {
-            var fbPageID = 61554458446614;
+            var fbPageID = '61554458446614';
             var fbAppURL = "fb://page/" + fbPageID;
             // Check if the user is on a mobile device
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -22,7 +22,8 @@ export default {
             window.location.href = "https://t.me/" + encodeURIComponent(state.phone);
         },
         openInWhatsApp({ state, commit, rootState }) {
-            window.open(`https://api.whatsapp.com/send?phone=${state.phone}`, '_blank');
+            window.location.href = "https://wa.me/" + encodeURIComponent(state.phone);
+            // window.open(`https://api.whatsapp.com/send?phone=${encodeURIComponent(state.phone)}`, '_blank');
         },
         openInPhone({ state, commit, rootState }) {
             window.location.href = `tel:${state.phone}`;
