@@ -30,6 +30,17 @@ class Teacher extends Model
         return $this->hasOne(ClassType::class);
     }
 
+    // Register the deleting event to handle cascading delete
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($teacher) {
+            // Delete associated classTypes
+            $teacher->classTypes()->delete();
+        });
+    }
+
     public function getEnvironmentAttribute($value)
     {
         if ($value == 1) return $value = 'International School';
