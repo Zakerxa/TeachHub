@@ -3,19 +3,19 @@
         <div class="row pt-4 pb-4 justify-content-center text-center">
             <div class="col-md-0 col-lg-2"></div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
-               <CountdownVue :number="300"></CountdownVue>
+               <CountdownVue :number="metrics.learners"></CountdownVue>
                <div class="dig-text">{{ $t('divider.sec1') }}</div>
             </div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
-                <CountdownVue :number="100"></CountdownVue>
+                <CountdownVue :number="metrics.teachers"></CountdownVue>
                <div class="dig-text">{{ $t('divider.sec2') }}</div>
             </div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
-                <CountdownVue :number="15"></CountdownVue>
+                <CountdownVue :number="metrics.subjects"></CountdownVue>
                <div class="dig-text">{{ $t('divider.sec3') }}</div>
             </div>
             <div class="col-12 col-md-3 col-lg-2 pt-3 pb-3">
-                <CountdownVue :number="10"></CountdownVue>
+                <CountdownVue :number="metrics.grades"></CountdownVue>
                <div class="dig-text">{{ $t('divider.sec4') }}</div>
             </div>
             <div class="col-md-0 col-lg-2"></div>
@@ -23,11 +23,13 @@
     </div>
 </template>
 <script>
-import CountdownVue from './CountDown/Countdown.vue'
+import { mapGetters } from 'vuex';
+import CountdownVue from './CountDown/Countdown.vue';
 export default {
     components: {
         CountdownVue
-    }
+    },
+    computed: mapGetters(['metrics']),
 }
 </script>
 <style lang="scss" scoped>

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherReviewController;
 use App\Http\Middleware\AuthTokenMiddleware;
-use App\Models\TeacherReview;
+use App\Models\EducationalMetrics;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,21 +41,23 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/client/teareview', [TeacherReviewController::class, 'store']);
 });
 
-Route::get('/test', function (Request $request) {
-    return response()->json(200);
-});
-
 // Review
 Route::get('/client/reviews/{token}', [ReviewController::class, 'index']);
 Route::get('/client/teareviews/{token}/{id}', [TeacherReviewController::class, 'index']);
+
 // Subject
 Route::get('/subjects', [TeacherController::class, 'subjects']);
+
 // Teacher
 Route::get('/teachers', [TeacherController::class, 'index']);
 Route::get('/topteachers', [TeacherController::class, 'topteacher']);
 Route::post('/teachers/search', [TeacherController::class, 'search']);
 Route::get('/teachers/details/{teacher:token}', [TeacherController::class, 'show']);
 
+// Metrics
+Route::get('/metrics', function(){
+    return response()->json(EducationalMetrics::first());
+});
 // Test
 Route::get('/test', function (Request $request) {
     return response()->json(200);

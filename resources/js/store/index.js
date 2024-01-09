@@ -9,13 +9,14 @@ const store = createStore({
         return {
             auth: localStorage.getItem('auth') || null,
             authUser: null,
-
+            metrics: null
         }
     },
     getters: {
         auth: state => state.auth,
         authUser: state => state.authUser,
         csrf: state => state.csrf,
+        metrics: state => state.metrics
     },
     mutations: {
         updateAuthorize(state, payload) {
@@ -45,7 +46,10 @@ const store = createStore({
                     } else reject(state.csrf);
                 })
             })
-        }
+        },
+        async getMetrics({ state }) {
+            return await fetch('/api/metrics').then(res => res.json()).then(res => state.metrics = res)
+        },
     }
 });
 

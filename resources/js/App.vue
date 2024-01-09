@@ -22,15 +22,14 @@
 <script>
 import Navigation from './components/Navigation.vue';
 import Footer from './components/Footer.vue';
-import { mapActions } from 'vuex';
-import {
-    mapGetters
-} from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
     data() {
         return {
             loadingIcon: '<Teach-Hub/>',
             loading: true,
+            fetchMetrics: false,
+            DOMContentLoaded: false
         }
     },
     components: {
@@ -42,14 +41,30 @@ export default {
 
         }
     },
-    methods:{
-        ...mapActions(['defaultTeacher'])
+    methods: {
+        ...mapActions(['defaultTeacher', 'getMetrics']),
+        waitingDomContentLoaded() {
+            return new Promise((res, rej) => {
+                document.addEventListener('DOMContentLoaded', () => {
+                    res(console.log("DOMContentLoaded => ", 200));
+                });
+            })
+        },
+        async watingMetricsLoaded() {
+            return await this.getMetrics().then(res => console.log("MetricsLoaded => ", 200));
+        }
     },
-    mounted() {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(() => this.loading = false, 1000));
+    async mounted() {
+
+        await this.waitingDomContentLoaded();
+
+        await this.watingMetricsLoaded();
+
+        await this.defaultTeacher('?page=1&per_page=' + 12);
+
         this.$nextTick(() => {
             console.log("Render has been loaded");
-            this.defaultTeacher('?page=1&per_page=' + 12);
+            this.loading = false;
         });
     }
 }
