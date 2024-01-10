@@ -1,7 +1,7 @@
 export default {
     state() {
         return {
-            phone: '+959777637858'
+            phone: '+959962330407'
         }
     },
     actions: {
@@ -19,10 +19,10 @@ export default {
 
         },
         openInTelegram({ state, commit, rootState }) {
-            window.location.href = "https://t.me/" + encodeURIComponent(state.phone);
+            // window.location.href = "https://t.me/" + encodeURIComponent(state.phone);
         },
         openInWhatsApp({ state, commit, rootState }) {
-            window.location.href = "https://wa.me/" + encodeURIComponent(state.phone);
+            // window.location.href = "https://wa.me/" + encodeURIComponent(state.phone);
             // window.open(`https://api.whatsapp.com/send?phone=${encodeURIComponent(state.phone)}`, '_blank');
         },
         openInPhone({ state, commit, rootState }) {
