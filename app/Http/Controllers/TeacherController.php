@@ -120,8 +120,8 @@ class TeacherController extends Controller
         }
 
         if(!$request->environment){
-            $request['environment'] = 0;
-            $request['environment_mm'] = 0;
+            $request['environment'] = 3;
+            $request['environment_mm'] = 3;
         }
 
         // Create the teacher without including 'pic' in the $request->only() call
@@ -203,8 +203,8 @@ class TeacherController extends Controller
         }
 
         if(!$request->environment){
-            $request['environment'] = 0;
-            $request['environment_mm'] = 0;
+            $request['environment'] = 3;
+            $request['environment_mm'] = 3;
         }
 
         $teacherUpdate = $request->only([
