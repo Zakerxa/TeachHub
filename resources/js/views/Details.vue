@@ -97,6 +97,15 @@
                                     <v-list-item-subtitle class="mt-1">{{ timetable2 }}</v-list-item-subtitle>
                                 </v-list-item>
 
+                                <v-list-item v-if="teacher.age" class="pt-2 pb-5" color="primary" rounded="shaped">
+                                    <template v-slot:prepend>
+                                        <v-icon class="details-info-icon-bg" icon=""></v-icon>
+                                        <i class="details-info-icon fa-regular fa-face-smile"></i>
+                                    </template>
+
+                                    <v-list-item-title>Age</v-list-item-title>
+                                    <v-list-item-subtitle>{{ teacher.age }}</v-list-item-subtitle>
+                                </v-list-item>
 
                                 <v-list-item class="pt-2 pb-5" color="primary" rounded="shaped">
                                     <template v-slot:prepend>
@@ -113,7 +122,7 @@
                                     </v-list-item-subtitle>
                                 </v-list-item>
 
-                                <v-list-item class="pt-2 pb-5" color="primary" rounded="shaped">
+                                <v-list-item v-if="teacher.salary" class="pt-2 pb-5" color="primary" rounded="shaped">
                                     <template v-slot:prepend>
                                         <v-icon class="details-info-icon-bg" icon="fa-dollar-sing"></v-icon>
                                         <font-awesome-icon class="details-info-icon pl-1" icon="fa-solid fa-dollar-sign" />

@@ -32,8 +32,8 @@ class Teacher extends Model
 
     public function getEnvironmentAttribute($value)
     {
-        if ($value == 1) return $value = 'International School';
-        else if($value == 2) return $value = 'Government School';
+        if ($value == 1) return $value = 'International Schools';
+        else if($value == 2) return $value = 'Government Schools';
         else return $value = null;
     }
 

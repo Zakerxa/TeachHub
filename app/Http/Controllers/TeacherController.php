@@ -119,7 +119,7 @@ class TeacherController extends Controller
             $teacher['pic'] = '';
         }
 
-        if($request->environment){
+        if(!$request->environment){
             $request['environment'] = 0;
             $request['environment_mm'] = 0;
         }
@@ -202,9 +202,9 @@ class TeacherController extends Controller
             $request['time_table_2_mm'] = '';
         }
 
-        if(empty($request->environment)){
-            $request['environment'] = null;
-            $request['environment_mm'] = null;
+        if(!$request->environment){
+            $request['environment'] = 0;
+            $request['environment_mm'] = 0;
         }
 
         $teacherUpdate = $request->only([
