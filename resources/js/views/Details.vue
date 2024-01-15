@@ -236,7 +236,7 @@ export default {
             window.location.href = "tel:+959777637858";
         },
         imageDetector(token, pic) {
-            let imageUrl = '/images/hero.png';
+            let imageUrl = '/images/default/teacher.jpg';
             if (pic) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
         },
