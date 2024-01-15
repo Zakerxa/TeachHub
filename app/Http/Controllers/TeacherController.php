@@ -119,7 +119,7 @@ class TeacherController extends Controller
             $teacher['pic'] = '';
         }
 
-        if(!$request->environment){
+        if($request->environment == 'undefined'){
             $request['environment'] = 3;
             $request['environment_mm'] = 3;
         }
@@ -202,7 +202,7 @@ class TeacherController extends Controller
             $request['time_table_2_mm'] = '';
         }
 
-        if(!$request->environment){
+        if($request->environment == 'undefined'){
             $request['environment'] = 3;
             $request['environment_mm'] = 3;
         }
