@@ -84,9 +84,7 @@ class TeacherController extends Controller
                 'time_table_1_mm' => 'required|string',
                 'description' => 'required|string',
                 'description_mm' => 'required|string',
-                'online_or_local' => 'required|numeric',
-                'environment' => 'required|numeric',
-                'environment_mm' => 'required|numeric',
+                'online_or_local' => 'required|numeric'
             ]);
         } catch (ValidationException $th) {
             return $th->validator->errors();
@@ -119,6 +117,11 @@ class TeacherController extends Controller
             $teacher['pic'] = $images;
         } else {
             $teacher['pic'] = '';
+        }
+
+        if($request->environment){
+            $request['environment'] = 0;
+            $request['environment_mm'] = 0;
         }
 
         // Create the teacher without including 'pic' in the $request->only() call
@@ -180,8 +183,8 @@ class TeacherController extends Controller
                 'description' => 'required|string',
                 'description_mm' => 'required|string',
                 'online_or_local' => 'required|numeric',
-                'environment' => 'required|numeric',
-                'environment_mm' => 'required|numeric',
+                'environment' => 'numeric',
+                'environment_mm' => 'numeric',
             ]);
         } catch (ValidationException $th) {
             return $th->validator->errors();
@@ -199,6 +202,10 @@ class TeacherController extends Controller
             $request['time_table_2_mm'] = '';
         }
 
+        if(empty($request->environment)){
+            $request['environment'] = null;
+            $request['environment_mm'] = null;
+        }
 
         $teacherUpdate = $request->only([
             'name', 'name_mm', 'age', 'experience', 'time_table_1', 'time_table_1_mm', 'salary',

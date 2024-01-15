@@ -33,13 +33,15 @@ class Teacher extends Model
     public function getEnvironmentAttribute($value)
     {
         if ($value == 1) return $value = 'International School';
-        else return $value = 'Government School';
+        else if($value == 2) return $value = 'Government School';
+        else return $value = null;
     }
 
     public function getEnvironmentMmAttribute($value)
     {
         if ($value == 1) return $value = 'နိုင်ငံတကာကျောင်း';
-        else return $value = 'အစိုးရကျောင်း';
+        else if($value == 2) return $value = 'အစိုးရကျောင်း';
+        else return $value = null;
     }
 
     function scopeFilter($query, $filter)

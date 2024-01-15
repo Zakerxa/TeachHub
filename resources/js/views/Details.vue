@@ -49,7 +49,7 @@
                             <v-list style="border-radius: 8px;">
                                 <!-- <v-list-subheader>REPORTS</v-list-subheader> -->
 
-                                <v-list-item class="pt-5 pb-5" color="primary" rounded="shaped">
+                                <v-list-item v-if="teacher.environment" class="pt-5 pb-5" color="primary" rounded="shaped">
                                     <template v-slot:prepend>
                                         <v-icon class="details-info-icon-bg" icon=""></v-icon>
                                         <font-awesome-icon class="details-info-icon" icon="fa-solid fa-user" />
