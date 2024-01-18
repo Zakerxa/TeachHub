@@ -139,9 +139,9 @@
         </div>
     </div>
 
-    <div id="filter-teacher" class="row justify-content-center p-0 m-0 mt-3">
+    <div id="filter-teacher" class="row p-5 pt-0 pb-0 justify-content-center m-0 mt-2">
 
-        <div class="hide-filter col-md-5 col-lg-2 col-xl-2 mt-2 pr-md-0">
+        <div class="hide-filter col-md-4 col-lg-3 col-xl-3 mt-2 pr-md-0">
             <div>
                 <multiselect @select="dispatchAction('region')" @remove="removeAction" v-if="optionsRegion.length >= 1"
                     v-model="region" :options-limit="300" :custom-label="customLabelCity" :options="optionsRegion"
@@ -150,9 +150,9 @@
             </div>
         </div>
 
-        <div class="hide-filter col-md-5 col-lg-2 col-xl-2 mt-2 township-container">
+        <div class="hide-filter col-md-4 col-lg-3 col-xl-3 mt-2 township-container">
             <div>
-                <multiselect @select="dispatchAction('townships')" @remove="removeAction"
+                <multiselect @select="dispatchAction('townships')" :close-on-select="false" @remove="removeAction"
                     :disabled="region == null || region.length < 1" :custom-label="customLabelTownShip" v-model="townships"
                     :multiple="true" :options="optionsTownship" group-values="townships" group-label="eng"
                     :group-select="true" :placeholder="pTownship" label="name" track-by="eng" :show-labels="false">
@@ -169,28 +169,10 @@
             </div>
         </div>
 
-        <div class="hide-filter col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
-            <div>
-                <multiselect @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel"
-                    v-model="status" :options="optionsStatus" placeholder="Status" label="name" track-by="name"
-                    :show-labels="false">
-                </multiselect>
-            </div>
-        </div>
-
-        <div class="hide-filter col-md-3 col-lg-2 col-xl-2 mt-2 pr-md-0">
-            <div>
-                <multiselect @select="dispatchAction('classType')" :disabled="status == null || status == ''"
-                    @remove="removeAction" v-model="classType" :options="optionsClassType" :placeholder="pClassType"
-                    label="name" track-by="value" :show-labels="false">
-                </multiselect>
-            </div>
-        </div>
-
-        <div class="hide-filter col-md-4 col-lg-2 col-xl-2 mt-2">
+        <div class="hide-filter col-md-4 col-lg-3 col-xl-3 mt-2">
             <div>
                 <multiselect @select="dispatchAction('env')" @remove="removeAction" :custom-label="customLabelEvnironment"
-                    v-model="environment" :multiple="true" :options="optionsEnvironment" :placeholder="pEnvironment"
+                    v-model="environment" :multiple="false" :options="optionsEnvironment" :placeholder="pEnvironment"
                     label="name" track-by="name" :show-labels="false">
 
                     <template v-slot:selection="{ values, isOpen }">
@@ -205,11 +187,29 @@
             </div>
         </div>
 
+        <div class="hide-filter col-md-4 col-lg-2 col-xl-2 mt-2">
+            <div>
+                <multiselect :disabled="environment == null || environment == ''" :close-on-select="false" @select="dispatchAction('')" @remove="removeAction"
+                    :custom-label="customLabelEvnironment" v-model="education" :multiple="true"
+                    :options="optionsEducation" placeholder="Education" label="name" track-by="name" :show-labels="false">
+
+                    <template v-slot:selection="{ values, isOpen }">
+                        <span v-if="values.length >= 2">
+                            <span v-if="!isOpen" class="select-size">
+                                {{ values.length }} Selected
+                            </span>
+                        </span>
+                    </template>
+
+                </multiselect>
+            </div>
+        </div>
+
         <div class="hide-filter col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
             <div>
-                <multiselect @select="dispatchAction" @remove="removeAction" :custom-label="customLabelSubject"
-                    v-model="subjects" :multiple="true" :options="optionsSubject" :placeholder="pSubject" label="name"
-                    track-by="name" :show-labels="false">
+                <multiselect @select="dispatchAction" @remove="removeAction" :close-on-select="false"
+                    :custom-label="customLabelSubject" v-model="subjects" :multiple="true" :options="optionsSubject"
+                    :placeholder="pSubject" label="name" track-by="name" :show-labels="false">
 
                     <template v-slot:selection="{ values, isOpen }">
                         <span v-if="values.length >= 2">
@@ -219,6 +219,34 @@
                         </span>
                     </template>
 
+                </multiselect>
+            </div>
+        </div>
+
+
+        <div class="hide-filter col-md-3 col-lg-2    col-xl-2 mt-2 pr-md-0">
+            <div>
+                <multiselect disabled @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel"
+                    v-model="status" :options="optionsStatus" placeholder="Gender" label="name" track-by="name"
+                    :show-labels="false">
+                </multiselect>
+            </div>
+        </div>
+
+        <div class="hide-filter col-md-3 col-lg-3 col-xl-3 mt-2 pr-md-0">
+            <div>
+                <multiselect @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel"
+                    v-model="status" :options="optionsStatus" placeholder="Status" label="name" track-by="name"
+                    :show-labels="false">
+                </multiselect>
+            </div>
+        </div>
+
+        <div class="hide-filter col-md-3 col-lg-3 col-xl-3 mt-2 pr-md-0">
+            <div>
+                <multiselect @select="dispatchAction('classType')" :disabled="status == null || status == ''"
+                    @remove="removeAction" v-model="classType" :options="optionsClassType" :placeholder="pClassType"
+                    label="name" track-by="value" :show-labels="false">
                 </multiselect>
             </div>
         </div>
@@ -251,6 +279,16 @@ export default {
     data() {
         return {
             optionsStatus: [{
+                id: 3,
+                name: 'Select All',
+                classType: [
+                    { name: 'In-Person Class', status: 1, value: 'inperson_class' },
+                    { name: 'Group Session', status: 1, value: 'group_session' },
+                    { name: 'Home Guide', status: 2, value: 'homeguide' },
+                    { name: 'One by One', status: 2, value: 'one_by_one' },
+                ]
+            }, {
+
                 id: 1,
                 name: 'Online',
                 classType: [
@@ -268,9 +306,29 @@ export default {
             }
             ],
             optionsEnvironment: [
-                { id: 0, name: 'Select All', name_mm: 'အားလုံးကို ရွေးပါ' },
-                { id: 1, name: 'International Schools', name_mm: 'နိုင်ငံတကာကျောင်း' },
-                { id: 2, name: 'Government Schools', name_mm: 'အစိုးရကျောင်း' },
+                // { id: 0, name: 'Select All', name_mm: 'အားလုံးကို ရွေးပါ' },
+                {
+                    id: 1, name: 'International Schools', name_mm: 'နိုင်ငံတကာကျောင်း', envType: [
+
+                    ]
+                },
+                {
+                    id: 2, name: 'Government Schools', name_mm: 'အစိုးရကျောင်း', envType: [
+                        { name: 'KG', value: '1' },
+                        { name: 'Grade-1', value: '1' },
+                        { name: 'Grade-2', value: '2' },
+                        { name: 'Grade-3', value: '3' },
+                        { name: 'Grade-4', value: '4' },
+                        { name: 'Grade-5', value: '5' },
+                        { name: 'Grade-6', value: '6' },
+                        { name: 'Grade-7', value: '7' },
+                        { name: 'Grade-8', value: '8' },
+                        { name: 'Grade-9', value: '9' },
+                        { name: 'Grade-10', value: '10' },
+                        { name: 'Grade-11', value: '11' },
+                        { name: 'Grade-12', value: '12' },
+                    ]
+                },
             ],
             name: '',
             region: [],
@@ -278,11 +336,13 @@ export default {
             subjects: [],
             classType: [],
             townships: [],
+            education: [],
             environment: [],
             optionsRegion: [],
             optionsSubject: [],
             optionsTownship: [],
-            optionsClassType: []
+            optionsClassType: [],
+            optionsEducation: []
         }
     },
     async created() {
@@ -333,6 +393,9 @@ export default {
             this.isModalOpen = !this.isModalOpen;
             document.body.style.overflow = 'hidden';
         },
+        isObjectEmpty(obj) {
+            return Object.keys(obj).length === 0;
+        },
         closeModal() {
             this.isModalOpen = false;
             document.body.style.overflow = 'auto';
@@ -344,8 +407,6 @@ export default {
             if (e == 'region') this.townships = [];
 
             if (e == 'status') this.classType = [];
-
-            // if (e == 'status') if (this.isSelectedAll(this.status)) this.status = this.optionsStatus.filter(option => option.name != 'Select All')
 
             if (e == 'env') if (this.isSelectedAll(this.environment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
 
@@ -363,13 +424,17 @@ export default {
 
             this.updateFiltersQuery({ name: this.name, region: region, townships: townshipsParam, subjects: subject, status: status, classType: classType, environment: environment });
 
-            if (this.name == '' && region == '' && townshipsParam == '' && subject == '' && status == '' && environment == '' && classType == '') {
+
+            if (this.name == '' && region == '' && townshipsParam == '' && subject == '' && (status == '' || status == null) && environment == '' && classType == undefined) {
                 this.clearFilterQuery();
                 this.defaultTeacher('?page=1&per_page=' + this.perPage);
                 console.log("Nothing state");
                 return null;
             }
-            else this.gettingTeacher();
+            else {
+                // console.log("Name ",this.name,"region ",region,"townships",townshipsParam,"Subjects ,",subject, "Status",status,"Env",environment, "ClassType" ,classType);
+                this.gettingTeacher();
+            }
 
         },
         dispatchAction(e) {
@@ -394,6 +459,7 @@ export default {
             this.townships = [];
             this.environment = [];
             this.classType = [];
+            this.education = [];
             this.clearFilterQuery();
             if (e == 'all') {
                 this.defaultTeacher('?page=1&per_page=' + this.perPage);
@@ -405,10 +471,14 @@ export default {
             if (selectRegion != null) this.optionsTownship = selectRegion.districts;
         },
         environment(selectEnvironment) {
-            if (this.isSelectedAll(selectEnvironment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
+            // if (this.isSelectedAll(selectEnvironment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
+            if (selectEnvironment != null) return this.optionsEducation = selectEnvironment.envType;
+            else {
+                this.optionsEducation = [];
+                this.education = [];
+            }
         },
         status(selectStatus) {
-            console.log(selectStatus, "Select Status");
             if (selectStatus != null) return this.optionsClassType = selectStatus.classType;
             else {
                 this.optionsClassType = [];
@@ -614,5 +684,4 @@ input[type="text"]::placeholder {
         font-size: 20px;
     }
 
-}
-</style>
+}</style>

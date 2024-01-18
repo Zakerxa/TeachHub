@@ -1,10 +1,11 @@
 <template>
     <div class="explore-main">
+
         <div class="explore-container container-fluid">
             <div class="row justify-content-center text-center p-0 m-0">
                 <!-- EXplore Title -->
                 <div class="col-12 text-center">
-                    <h3 class="ml-3 ml-sm-0 content-title" v-html="$t('explore.title')"> </h3>
+                    <h3 class="ml-3 mb-1 ml-sm-0 content-title" v-html="$t('explore.title')"> </h3>
                 </div>
             </div>
 
@@ -143,7 +144,7 @@ export default {
 
 .explore-container {
     background-color: var(--bg);
-    padding-top: 40px;
+    padding-top: 30px;
 }
 
 .details-info-container {

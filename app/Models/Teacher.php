@@ -33,14 +33,14 @@ class Teacher extends Model
     public function getEnvironmentAttribute($value)
     {
         if ($value == 1) return $value = 'International Schools';
-        else if($value == 2) return $value = 'Government Schools';
+        else if ($value == 2) return $value = 'Government Schools';
         else return $value = null;
     }
 
     public function getEnvironmentMmAttribute($value)
     {
         if ($value == 1) return $value = 'နိုင်ငံတကာကျောင်း';
-        else if($value == 2) return $value = 'အစိုးရကျောင်း';
+        else if ($value == 2) return $value = 'အစိုးရကျောင်း';
         else return $value = null;
     }
 
@@ -71,13 +71,21 @@ class Teacher extends Model
         });
 
         $query->when($filter['status'] ?? false, function ($query, &$status) {
-            $query->where('online_or_local', $status['id']);
+            if ($status['id'] == 3) {
+                $query->whereIn('online_or_local',[1,2,3]);
+            } else {
+                $query->where('online_or_local', $status['id']);
+            }
         });
 
         $query->when($filter['classType'] ?? false, function ($query, $type) use ($filter) {
             if ($filter['status'] ?? false) {
                 return $query->whereHas('classTypes', function ($query) use ($type, $filter) {
-                    $query->where('status', $filter['status']['id'])->where('class_type', $type);
+                    if ($filter['status']['id'] == 3) {
+                        $query->whereIn('status', [1,2,3])->where('class_type', $type);
+                    } else {
+                        $query->where('status', $filter['status']['id'])->where('class_type', $type);
+                    }
                 });
             }
         });
