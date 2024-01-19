@@ -441,7 +441,7 @@ export default {
 
             if (e == 'status') this.classType = [];
 
-            if (e == 'env') if (this.isSelectedAll(this.environment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
+            // if (e == 'env') if (this.isSelectedAll(this.environment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
 
             const region = (this.region == null || this.region.length < 1) ? '' : this.region.eng;
 
@@ -453,7 +453,7 @@ export default {
 
             const classType = this.classType ? this.classType.value : null;
 
-            const environment = (this.environment == null || this.environment.length < 1) ? '' : this.environment.map(stat => stat.id).join(',');
+            const environment = (this.environment == null || this.environment.length < 1) ? '' : this.environment.id;
 
             this.updateFiltersQuery({ name: this.name, region: region, townships: townshipsParam, subjects: subject, status: status, classType: classType, environment: environment });
 

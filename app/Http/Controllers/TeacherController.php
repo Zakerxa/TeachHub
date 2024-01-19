@@ -15,7 +15,7 @@ class TeacherController extends Controller
     // Return a list of teachers
     public function index(Request $request)
     {
-        $teachers = Cache::remember('default_teacher_' . $request->page, 10, function () use ($request) {
+        $teachers = Cache::remember('default_teacher_' . $request->page, 5, function () use ($request) {
             $query = Teacher::orderByDesc('recommand');
             $teachers = $query->orderByDesc('experience')
                 ->OrderByDesc('id')
@@ -27,7 +27,7 @@ class TeacherController extends Controller
 
     public function topteacher()
     {
-        $teachers = Cache::remember('top_teacher_list', 10, function () {
+        $teachers = Cache::remember('top_teacher_list', 5, function () {
             return Teacher::orderByDesc('recommand')
                 ->orderByDesc('experience')
                 ->OrderByDesc('id')
@@ -45,7 +45,7 @@ class TeacherController extends Controller
 
     public function show(Teacher $teacher)
     {
-        $details = Cache::remember('show_teacher_' . $teacher->token, 10, fn () => $teacher);
+        $details = Cache::remember('show_teacher_' . $teacher->token, 5, fn () => $teacher);
 
         if (!$details) return response()->json(['error' => 'Teacher not found'], 404);
 
