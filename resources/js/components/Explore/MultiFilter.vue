@@ -80,7 +80,6 @@
                             </div>
                         </div>
 
-
                         <div class="modal-filter col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
                             <div>
                                 <multiselect @select="dispatchAction('classType')"
@@ -91,13 +90,12 @@
                             </div>
                         </div>
 
-
                         <div class="modal-filter col-md-4 col-lg-3 col-xl-2 mt-2">
                             <div>
                                 <multiselect @select="dispatchAction('env')" @remove="removeAction"
-                                    :custom-label="customLabel" v-model="environment" :multiple="true"
-                                    :options="optionsEnvironment" placeholder="Teaching Environment" label="name"
-                                    track-by="name" :show-labels="false">
+                                    :custom-label="customLabelEvnironment" v-model="environment" :multiple="false"
+                                    :options="optionsEnvironment" :placeholder="pEnvironment" label="name" track-by="name"
+                                    :show-labels="false">
 
                                     <template v-slot:selection="{ values, isOpen }">
                                         <span v-if="values.length >= 2">
@@ -111,11 +109,32 @@
                             </div>
                         </div>
 
+                        <!-- <div class="modal-filter col-md-4 col-lg-3 col-xl-2 mt-2">
+                            <div>
+                                <multiselect :disabled="environment == null || environment == ''" :close-on-select="false"
+                                    @select="dispatchAction('')" @remove="removeAction"
+                                    :custom-label="customLabelEvnironment" v-model="education" :multiple="true"
+                                    :options="optionsEducation" placeholder="Education" label="name" track-by="name"
+                                    :show-labels="false">
+
+                                    <template v-slot:selection="{ values, isOpen }">
+                                        <span v-if="values.length >= 2">
+                                            <span v-if="!isOpen" class="select-size">
+                                                {{ values.length }} Selected
+                                            </span>
+                                        </span>
+                                    </template>
+
+                                </multiselect>
+                            </div>
+                        </div> -->
+
                         <div class="modal-filter col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
                             <div>
-                                <multiselect @select="dispatchAction" @remove="removeAction" :custom-label="customLabel"
-                                    v-model="subjects" :multiple="true" :options="optionsSubject" placeholder="Subject"
-                                    label="name" track-by="name" :show-labels="false">
+                                <multiselect @select="dispatchAction" :close-on-select="false" @remove="removeAction"
+                                    :custom-label="customLabel" v-model="subjects" :multiple="true"
+                                    :options="optionsSubject" placeholder="Subject" label="name" track-by="name"
+                                    :show-labels="false">
 
                                     <template v-slot:selection="{ values, isOpen }">
                                         <span v-if="values.length >= 2">
@@ -187,11 +206,12 @@
             </div>
         </div>
 
-        <div class="hide-filter col-md-4 col-lg-2 col-xl-2 mt-2">
+        <!-- <div class="hide-filter col-md-4 col-lg-2 col-xl-2 mt-2">
             <div>
-                <multiselect :disabled="environment == null || environment == ''" :close-on-select="false" @select="dispatchAction('')" @remove="removeAction"
-                    :custom-label="customLabelEvnironment" v-model="education" :multiple="true"
-                    :options="optionsEducation" placeholder="Education" label="name" track-by="name" :show-labels="false">
+                <multiselect :disabled="environment == null || environment == ''" :close-on-select="false"
+                    @select="dispatchAction('')" @remove="removeAction" :custom-label="customLabelEvnironment"
+                    v-model="education" :multiple="true" :options="optionsEducation" placeholder="Education" label="name"
+                    track-by="name" :show-labels="false">
 
                     <template v-slot:selection="{ values, isOpen }">
                         <span v-if="values.length >= 2">
@@ -203,7 +223,7 @@
 
                 </multiselect>
             </div>
-        </div>
+        </div> -->
 
         <div class="hide-filter col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
             <div>
@@ -224,14 +244,14 @@
         </div>
 
 
-        <div class="hide-filter col-md-3 col-lg-2    col-xl-2 mt-2 pr-md-0">
+        <!-- <div class="hide-filter col-md-3 col-lg-2    col-xl-2 mt-2 pr-md-0">
             <div>
-                <multiselect disabled @select="dispatchAction('status')" @remove="removeAction" :custom-label="customLabel"
-                    v-model="status" :options="optionsStatus" placeholder="Gender" label="name" track-by="name"
+                <multiselect disabled @select="dispatchAction('gender')" @remove="removeAction" :custom-label="customLabel"
+                    v-model="gender" :options="optionsStatus" placeholder="Gender" label="name" track-by="name"
                     :show-labels="false">
                 </multiselect>
             </div>
-        </div>
+        </div> -->
 
         <div class="hide-filter col-md-3 col-lg-3 col-xl-3 mt-2 pr-md-0">
             <div>
@@ -306,31 +326,44 @@ export default {
             }
             ],
             optionsEnvironment: [
-                // { id: 0, name: 'Select All', name_mm: 'အားလုံးကို ရွေးပါ' },
                 {
                     id: 1, name: 'International Schools', name_mm: 'နိုင်ငံတကာကျောင်း', envType: [
-
+                        { name: 'Pre-Kg', value: '1', status: 1 },
+                        { name: 'Kg', value: '2', status: 1 },
+                        { name: 'YEAR-1', value: '3', status: 1 },
+                        { name: 'YEAR-2', value: '4', status: 1 },
+                        { name: 'YEAR-3', value: '5', status: 1 },
+                        { name: 'YEAR-4', value: '6', status: 1 },
+                        { name: 'YEAR-5', value: '7', status: 1 },
+                        { name: 'YEAR-6', value: '8', status: 1 },
+                        { name: 'YEAR-7', value: '9', status: 1 },
+                        { name: 'YEAR-8', value: '10', status: 1 },
+                        { name: 'YEAR-9', value: '11', status: 1 },
+                        { name: 'YEAR-10', value: '12', status: 1 },
+                        { name: 'YEAR-11', value: '13', status: 1 },
+                        { name: 'IGCSE', value: '14', status: 1 }
                     ]
                 },
                 {
                     id: 2, name: 'Government Schools', name_mm: 'အစိုးရကျောင်း', envType: [
-                        { name: 'KG', value: '1' },
-                        { name: 'Grade-1', value: '1' },
-                        { name: 'Grade-2', value: '2' },
-                        { name: 'Grade-3', value: '3' },
-                        { name: 'Grade-4', value: '4' },
-                        { name: 'Grade-5', value: '5' },
-                        { name: 'Grade-6', value: '6' },
-                        { name: 'Grade-7', value: '7' },
-                        { name: 'Grade-8', value: '8' },
-                        { name: 'Grade-9', value: '9' },
-                        { name: 'Grade-10', value: '10' },
-                        { name: 'Grade-11', value: '11' },
-                        { name: 'Grade-12', value: '12' },
+                        { name: 'Kg', value: '1', status: 2 },
+                        { name: 'GRADE-1', value: '2', status: 2 },
+                        { name: 'GRADE-2', value: '3', status: 2 },
+                        { name: 'GRADE-3', value: '4', status: 2 },
+                        { name: 'GRADE-4', value: '5', status: 2 },
+                        { name: 'GRADE-5', value: '6', status: 2 },
+                        { name: 'GRADE-6', value: '7', status: 2 },
+                        { name: 'GRADE-7', value: '8', status: 2 },
+                        { name: 'GRADE-8', value: '9', status: 2 },
+                        { name: 'GRADE-9', value: '10', status: 2 },
+                        { name: 'GRADE-10', value: '11', status: 2 },
+                        { name: 'GRADE-11', value: '12', status: 2 },
+                        { name: 'GRADE-12', value: '13', status: 2 }
                     ]
                 },
             ],
             name: '',
+            gender: 'Gender',
             region: [],
             status: [],
             subjects: [],
@@ -684,4 +717,5 @@ input[type="text"]::placeholder {
         font-size: 20px;
     }
 
-}</style>
+}
+</style>

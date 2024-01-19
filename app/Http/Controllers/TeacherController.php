@@ -80,6 +80,7 @@ class TeacherController extends Controller
                 'subjects' => 'required|array',
                 'subjects.*' => 'exists:subjects,id',
                 'experience' => 'required',
+                'extra' => 'required|string',
                 'time_table_1' => 'required|string',
                 'time_table_1_mm' => 'required|string',
                 'description' => 'required|string',
@@ -90,15 +91,14 @@ class TeacherController extends Controller
             return $th->validator->errors();
         }
 
-        //  Random Token
+        // Generate Random Token
         $string     = 'QWERTYUIOPASDFGHJKLZXCVBNM0123456789';
         $shuffle    = str_shuffle($string);
         $token       = 'TeachHub-' . random_int(10000, 99999) . '-' . substr($shuffle, 0, 12) . '-' . rand(1000, 9999);
-
         $request['token'] = $token;
 
-        $imagepath  = public_path("/uploads/profile/$token");
         // File Input System
+        $imagepath  = public_path("/uploads/profile/$token");
         if (!file_exists($imagepath)) {
             if (!mkdir($imagepath, 0777, true)) die('Failed to create folders...');
             else chmod("$imagepath", 0777);
@@ -113,50 +113,59 @@ class TeacherController extends Controller
             }
         }
 
-        if ($images) {
-            $teacher['pic'] = $images;
-        } else {
-            $teacher['pic'] = '';
-        }
+        if ($images) $teacher['pic'] = $images;
+        else $teacher['pic'] = '';
 
-        if($request->environment == 'undefined'){
+        if ($request->environment == 'undefined') {
             $request['environment'] = 3;
             $request['environment_mm'] = 3;
         }
 
         // Create the teacher without including 'pic' in the $request->only() call
         $teacher = $request->only([
-            'name', 'name_mm', 'age', 'token', 'pic', 'experience', 'time_table_1', 'time_table_1_mm', 'salary',
+            'name', 'name_mm', 'age', 'extra', 'token', 'pic', 'experience', 'time_table_1', 'time_table_1_mm', 'salary',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
-
-
-        $townships =  explode(',', implode($request->township));
-        $townships_mm =  explode(',', implode($request->township_mm));
-        $subjects =  explode(',', implode($request->subjects));
-
         // Create the teacher
         $teacher = Teacher::create($teacher);
+
 
         // Assuming class_type is the selected class type
         $classType = $request->input('classType');
         $className = $request->input('className');
 
-
         // Associate the class type with the teacher
         $teacher->classTypes()->create(['class_type' => $classType, 'desc' => $className, 'status' => $request['online_or_local']]);
 
-        // Attach locations and subjects
+
+        // Attach Locations
+        $townships =  explode(',', implode($request->township));
+        $townships_mm =  explode(',', implode($request->township_mm));
         foreach ($townships as $key => $township) {
             $teacher->locations()->create(['region_state' => $request->region, 'region_state_mm' => $request->region_mm, 'capital' => '200', 'township' => $township, 'township_mm' => $townships_mm[$key]]);
         }
 
+        // Attach Subjects
+        $subjects =  explode(',', implode($request->subjects));
         foreach ($subjects as $key => $subject) {
             $teacher->subjects()->attach($subject);
         }
 
-        if ($teacher)   return response()->json('success', 201);
+        if ($request->education) {
+            // Attach Education Levels
+            $education = json_decode($request->education);
+            // Create new education levels based on the selected environment
+            foreach ($education as $item) {
+                $teacher->educationLevels()->create([
+                    'name' => $item->name,
+                    'value' => $item->value,
+                    'environment_id' => $request->environment,
+                ]);
+            }
+        }
+
+        if ($teacher) return response()->json('success', 201);
 
         else  return response()->json('error');
     }
@@ -178,6 +187,7 @@ class TeacherController extends Controller
                 'subjects' => 'required|array',
                 'subjects.*' => 'exists:subjects,id',
                 'experience' => 'required',
+                'extra' => 'required',
                 'time_table_1' => 'required|string',
                 'time_table_1_mm' => 'required|string',
                 'description' => 'required|string',
@@ -202,13 +212,13 @@ class TeacherController extends Controller
             $request['time_table_2_mm'] = '';
         }
 
-        if($request->environment == 'undefined'){
+        if ($request->environment == 'undefined') {
             $request['environment'] = 3;
             $request['environment_mm'] = 3;
         }
 
         $teacherUpdate = $request->only([
-            'name', 'name_mm', 'age', 'experience', 'time_table_1', 'time_table_1_mm', 'salary',
+            'name', 'name_mm', 'age', 'experience', 'extra', 'time_table_1', 'time_table_1_mm', 'salary',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
@@ -311,6 +321,21 @@ class TeacherController extends Controller
             $teacher->classTypes()->create(['class_type' => $classType, 'desc' => $className, 'status' => $request['online_or_local']]);
         }
 
+        if ($request->education) {
+
+            // Attach Education Levels
+            $education = json_decode($request->education);
+            // Delete existing education levels for the current teacher and environment
+            $teacher->educationLevels()->where('environment_id', $request->environment)->delete();
+            // Create new education levels based on the selected environment
+            foreach ($education as $item) {
+                $teacher->educationLevels()->create([
+                    'name' => $item->name,
+                    'value' => $item->value,
+                    'environment_id' => $request->environment,
+                ]);
+            }
+        }
 
         $status = $teacher->update($teacherUpdate);
 

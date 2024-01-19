@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TeacherLocation;
+
 use App\Models\ClassType;
 
 class Teacher extends Model
@@ -13,7 +14,7 @@ class Teacher extends Model
 
     protected $guarded = ['id'];
 
-    protected $with = ['subjects', 'locations', 'classTypes'];
+    protected $with = ['subjects', 'locations', 'classTypes', 'educationLevels'];
 
     public function subjects()
     {
@@ -28,6 +29,11 @@ class Teacher extends Model
     public function classTypes()
     {
         return $this->hasOne(ClassType::class);
+    }
+
+    public function educationLevels()
+    {
+        return $this->hasMany(EducationLevel::class, 'teacher_id');
     }
 
     public function getEnvironmentAttribute($value)
