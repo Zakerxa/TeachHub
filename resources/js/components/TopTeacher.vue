@@ -26,7 +26,7 @@
                     <div class="row border-0">
                         <div @click="routeTo(teacher.token)" class="col-6 col-md-12">
                             <div class="teacher-image"
-                                :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                                :style="{ backgroundImage: `url(${imageDetector(teacher.extra, teacher.token, teacher.pic)})` }">
                                 <div v-if="teacher.recommand == 1" class="corner-ribbon">
                                     <span class="cr-inner">
                                         <span class="cr-text"><i class="icon fa-regular fa-circle-check"></i>
@@ -55,8 +55,9 @@
                                             icon="fa-solid fa-clock" />
                                         {{ (lang == 'English') ? teacher.time_table_1 : teacher.time_table_1_mm }}
                                     </div>
-                                    <div v-if="teacher.time_table_2 && teacher.time_table_2 != 'null'" class="teacher-time mt-2 mb-1"><font-awesome-icon
-                                            style="color:var(--primary)" icon="fa-solid fa-clock" />
+                                    <div v-if="teacher.time_table_2 && teacher.time_table_2 != 'null'"
+                                        class="teacher-time mt-2 mb-1"><font-awesome-icon style="color:var(--primary)"
+                                            icon="fa-solid fa-clock" />
                                         {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}
                                     </div>
                                 </div>
@@ -80,8 +81,12 @@ export default {
         routeTo(id) {
             this.$router.push({ name: 'details', params: { id } });
         },
-        imageDetector(token, pic) {
+        imageDetector(gender ,token, pic) {
             let imageUrl = '/images/default/teacher.jpg';
+
+            if(gender == 'Male') imageUrl = '/images/default/teacher-men.jpg';
+            else imageUrl = '/images/default/teacher.jpg';
+
             if (pic) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
         },

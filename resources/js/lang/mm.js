@@ -25,6 +25,7 @@ const mm = {
         title: '<span style="color:#8642DE">ဆရာမများ</span> ရှာဖွေမည် <img class="content-title-image" style="width: 65px;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src="/images/Particle.png" alt="">',
     },
     details: {
+        education: 'သင်ကြားသည့်အတန်းများ',
         description: 'အချက်အလက်များ',
         environment: 'သင်ကြားမှုနယ်ပယ်',
         subject: 'ဘာသာရပ်',

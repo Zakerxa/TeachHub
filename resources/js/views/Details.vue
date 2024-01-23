@@ -6,7 +6,7 @@
             <div class="col-12 col-md-8 col-lg-6 offset-lg-1 d-flex justify-content-start">
                 <div class="cover">
                     <div class="teacher-image"
-                        :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                        :style="{ backgroundImage: `url(${imageDetector(teacher.extra, teacher.token, teacher.pic)})` }">
                         <div v-if="teacher.recommand == 1" class="corner-ribbon">
                             <span class="cr-inner">
                                 <span class="cr-text"><i class="icon fa-regular fa-circle-check"></i>
@@ -19,14 +19,16 @@
                         <h3>{{ teacher.name }}</h3>
                         <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
                         <p class="badge text-bg-warning p-2 fw-normal">{{ online_or_local }}</p>
-                        <p v-if="teacher.class_types" class="badge text-bg-warning p-2 fw-normal ml-2">{{ teacher.class_types.desc }}</p>
+                        <p v-if="teacher.class_types" class="badge text-bg-warning p-2 fw-normal ml-2">{{
+                            teacher.class_types.desc }}</p>
                     </div>
                 </div>
                 <div class="detail-name">
                     <h3>{{ teacher.name }}</h3>
                     <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
                     <p class="badge text-bg-light p-2 fw-normal">{{ online_or_local }}</p>
-                    <p v-if="teacher.class_types" class="badge text-bg-light p-2 fw-normal ml-2">{{ teacher.class_types.desc }}</p>
+                    <p v-if="teacher.class_types" class="badge text-bg-light p-2 fw-normal ml-2">{{ teacher.class_types.desc
+                    }}</p>
                 </div>
             </div>
             <div class="col-md-4 col-lg-5"></div>
@@ -35,6 +37,13 @@
         <div v-if="teacher != null" class="row position-relative justify-content-center second-details-section"
             :style="{ top: dynamicTop }">
             <div v-if="teacher != null && teacher.description" class="col-12 col-md-5" style="min-height:50px">
+                <div class="border-bottom pb-2 mb-3">
+                    <h4>{{ $t('details.education') }}</h4>
+                    <p class="mb-1" v-for="edc in teacher.education_levels" :key="edc">
+                        {{ edc.name }}
+                    </p>
+                </div>
+
                 <h4>{{ $t('details.description') }}</h4>
                 <p>{{ description }}</p>
             </div>
@@ -103,8 +112,9 @@
                                         <i class="details-info-icon fa-regular fa-face-smile"></i>
                                     </template>
 
-                                    <v-list-item-title>Age</v-list-item-title>
-                                    <v-list-item-subtitle>{{ teacher.age }}</v-list-item-subtitle>
+                                    <v-list-item-title> <span v-if="teacher.extra">Gender -</span> Age</v-list-item-title>
+                                    <v-list-item-subtitle><span v-if="teacher.extra">{{ teacher.extra }} - </span> {{
+                                        teacher.age }}</v-list-item-subtitle>
                                 </v-list-item>
 
                                 <v-list-item class="pt-2 pb-5" color="primary" rounded="shaped">
@@ -235,8 +245,12 @@ export default {
         contactus() {
             window.location.href = "tel:+959777637858";
         },
-        imageDetector(token, pic) {
+        imageDetector(gender, token, pic) {
             let imageUrl = '/images/default/teacher.jpg';
+
+            if (gender == 'Male') imageUrl = '/images/default/teacher-men.jpg';
+            else imageUrl = '/images/default/teacher.jpg';
+
             if (pic) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
         },
@@ -253,7 +267,7 @@ export default {
 .cr-inner {
     position: absolute;
     inset: 0;
-    border: 1px solid #ddd!important;
+    border: 1px solid #ddd !important;
     background: var(--primary);
     color: white;
     border-radius: 16px 8px 0 8px;

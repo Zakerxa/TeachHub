@@ -19,14 +19,14 @@
         <div class="container pt-5 mt-3">
             <div v-if="teachers" class="row justify-content-center justify-content-md-start gy-2">
 
-                <div v-for="(teacher, i) in teachers" :key="i"
-                    class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0" style="cursor: pointer;">
+                <div v-for="(teacher, i) in teachers" :key="i" class="text-start col-11 col-md-6 col-lg-4 col-xl-3 p-0"
+                    style="cursor: pointer;">
 
                     <div @click="routeTo(teacher.token)" class="row justify-content-start mx-md-2 p-0"
                         style="background:#fff">
                         <div class="col-6 col-md-12 text-start p-md-0">
                             <div class="teacher-image"
-                                :style="{ backgroundImage: `url(${imageDetector(teacher.token, teacher.pic)})` }">
+                                :style="{ backgroundImage: `url(${imageDetector(teacher.extra, teacher.token, teacher.pic)})` }">
                                 <div v-if="teacher.recommand == 1" class="corner-ribbon">
                                     <span class="cr-inner">
                                         <span class="cr-text"><i class="icon fa-regular fa-circle-check"></i>
@@ -114,8 +114,12 @@ export default {
         routeTo(id) {
             this.$router.push({ name: 'details', params: { id } });
         },
-        imageDetector(token, pic) {
+        imageDetector(gender ,token, pic) {
             let imageUrl = '/images/default/teacher.jpg';
+
+            if(gender == 'Male') imageUrl = '/images/default/teacher-men.jpg';
+            else imageUrl = '/images/default/teacher.jpg';
+
             if (pic) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
         },
