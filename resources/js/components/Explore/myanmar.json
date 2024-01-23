@@ -1,5 +1,5 @@
 {
-    "data" : [
+    "data": [
         {
             "eng": "Yangon Region",
             "mm": "ရန်ကုန်တိုင်းဒေသကြီး",
@@ -732,7 +732,624 @@
                     ]
                 }
             ]
+        },
+        {
+            "eng": "Shan State",
+            "mm": "ရှမ်းပြည်နယ်",
+            "lat": "20.7833",
+            "lng": "96.9667",
+            "capital": "Taunggyi",
+            "districts": [
+                {
+                    "eng": "Kengtung",
+                    "mm": "ကျိုင်းတုံခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Kengtung",
+                            "mm": "ကျိုင်းတုံ"
+                        },
+                        {
+                            "eng": "Mine Khet",
+                            "mm": "မိုင်းခတ်"
+                        },
+                        {
+                            "eng": "Mine Pyin",
+                            "mm": "မိုင်းပြင်း"
+                        },
+                        {
+                            "eng": "Mine Yang",
+                            "mm": "မိုင်းယန်း"
+                        },
+                        {
+                            "eng": "Mine lar",
+                            "mm": "မိုင်းလား"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Mine Hpayak",
+                    "mm": "မိုင်းဖြတ်ခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Mineyu",
+                            "mm": "မိုင်းရှုး"
+                        },
+                        {
+                            "eng": "Mine Hpayak",
+                            "mm": "မိုင်းဖျန်"
+                        },
+                        {
+                            "eng": "Mine Yawng",
+                            "mm": "မိုင်းယန်း"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Mine Hsat",
+                    "mm": "မိုင်းဆတ်ခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Minekoke",
+                            "mm": "မိုင်းခုတ်"
+                        },
+                        {
+                            "eng": "Monehta",
+                            "mm": "မုံးထ"
+                        },
+                        {
+                            "eng": "Mine Hsat",
+                            "mm": "မိုင်းဆတ်"
+                        },
+                        {
+                            "eng": "Mine Ping",
+                            "mm": "မိုင်းပန်"
+                        },
+                        {
+                            "eng": "Mine Tong",
+                            "mm": "မိုင်းတုံ"
+                        },
+                        {
+                            "eng": "Ponparkyin",
+                            "mm": "ပုံပါကျင်"
+                        },
+                        {
+                            "eng": "Tontar",
+                            "mm": "တုံတာ"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Tachileik",
+                    "mm": "တာချီလိတ်ခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Tachi leik",
+                            "mm": "တာချီလိတ်"
+                        },
+                        {
+                            "eng": "Mine Phyat",
+                            "mm": " မိုင်းဖြတ်"
+                        },
+                        {
+                            "eng": "Mine Yong",
+                            "mm": " မိုင်းယောင်"
+                        },
+                        {
+                            "eng": "KyaingLap",
+                            "mm": "ကျိုင်းလပ်"
+                        },
+                        {
+                            "eng": "Talay",
+                            "mm": "တာလေ"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Kyaukme",
+                    "mm": "ကျောက်မဲခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Kyaukme",
+                            "mm": "ကျောက်မဲ"
+                        },
+                        {
+                            "eng": "NaungCho",
+                            "mm": "နောင်ချို"
+                        },
+                        {
+                            "eng": "Hsipaw",
+                            "mm": "သီပေါ"
+                        },
+                        {
+                            "eng": "Namtu",
+                            "mm": "နမ္မတူ"
+                        },
+                        {
+                            "eng": "Namhsan",
+                            "mm": "နမ့်ဆန်"
+                        },
+                        {
+                            "eng": "Mantong",
+                            "mm": "မန်တုံ"
+                        },
+                        {
+                            "eng": "Minelon",
+                            "mm": "မိုင်းလုံ"
+                        },
+                        {
+                            "eng": "Minengaw",
+                            "mm": "မိုင်းငေါ"
+                        },
+                        {
+                            "eng": "Nawnghkio",
+                            "mm": "နောင်ခစ်"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Lashio",
+                    "mm": "လားရှိုးခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Lashio",
+                            "mm": "လားရှိုး"
+                        },
+                        {
+                            "eng": "Kwanlon",
+                            "mm": "ကွမ်းလုံ"
+                        },
+                        {
+                            "eng": "Mineyai",
+                            "mm": "မိုင်းရယ်"
+                        },
+                        {
+                            "eng": "Tangyan",
+                            "mm": "တန့်ယန်"
+                        },
+                        {
+                            "eng": "Thani",
+                            "mm": "သိန္"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Laukkaing",
+                    "mm": "လောက်ကိုင်ခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Laukkaing",
+                            "mm": "လောက်ကိုင်"
+                        },
+                        {
+                            "eng": "Chinshwehaw",
+                            "mm": "ချင်းရွှေဟော်"
+                        },
+                        {
+                            "eng": "Konkyan",
+                            "mm": "ကုန်းကြမ်း"
+                        },
+                        {
+                            "eng": "Mawhtike",
+                            "mm": "မော်ထိုက်"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Mu Se",
+                    "mm": "မူဆယ်ခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Kutkai",
+                            "mm": "ကွတ်ခိုင်"
+                        },
+                        {
+                            "eng": "Mu Se",
+                            "mm": "မူဆယ်"
+                        },
+                        {
+                            "eng": "Namhkam",
+                            "mm": "နမ့်ခမ်း"
+                        },
+                        {
+                            "eng": "Manhero",
+                            "mm": "မန့်ဟီးရိုး (မန်ဟျှိုး)"
+                        },
+                        {
+                            "eng": "Monekoe",
+                            "mm": "မုန်းကိုး"
+                        },
+                        {
+                            "eng": "Pansai",
+                            "mm": "ပန်ဆိုင်း (ကြူကုတ်)"
+                        },
+                        {
+                            "eng": "Tamoenye",
+                            "mm": "တာမိုးညဲ"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Hopang",
+                    "mm": "ဟိုပန်ခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Hopang",
+                            "mm": "ဟိုပန်"
+                        },
+                        {
+                            "eng": "Namtit",
+                            "mm": "နမ့်တစ်"
+                        },
+                        {
+                            "eng": "Panlong",
+                            "mm": "ပန်လုံ"
+                        },
+                        {
+                            "eng": "Pansang",
+                            "mm": "ပန်ဆန်း"
+                        },
+                        {
+                            "eng": "Mankan",
+                            "mm": "မန်ကန်"
+                        },
+                        {
+                            "eng": "Nahpahn",
+                            "mm": "နားဖန်း"
+                        },
+                        {
+                            "eng": "Pangwaun",
+                            "mm": "ပန်ဝိုင်"
+                        },
+                        {
+                            "eng": "Mongmao",
+                            "mm": "မိုင်းမော"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Matman",
+                    "mm": "မက်မန်းခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "ManKan",
+                            "mm": "မန်ကန်"
+                        },
+                        {
+                            "eng": "Matman",
+                            "mm": "မက်မန်း"
+                        },
+                        {
+                            "eng": "Namphan",
+                            "mm": "နားဖန်း"
+                        },
+                        {
+                            "eng": "Pangsang",
+                            "mm": "ပန်ဆမ်း (ပန်ခမ်း)"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Mongmit",
+                    "mm": "မိုးမိတ်",
+                    "townships": [
+                        {
+                            "eng": "Mongmit",
+                            "mm": "မိုးမိတ်"
+                        },
+                        {
+                            "eng": "Mabein",
+                            "mm": "မဘိမ်း"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Langkho",
+                    "mm": "လင်းခေး",
+                    "townships": [
+                        {
+                            "eng": "Langkho",
+                            "mm": "လင်းခေး"
+                        },
+                        {
+                            "eng": "Mawkmai",
+                            "mm": "မောက်မယ်"
+                        },
+                        {
+                            "eng": "MongNai",
+                            "mm": "မိုးနဲ"
+                        },
+                        {
+                            "eng": "MongPan",
+                            "mm": "မိုင်းပန်"
+                        },
+                        {
+                            "eng": "Homane",
+                            "mm": "ဟိုမိန်း"
+                        },
+                        {
+                            "eng": "Kengtaung",
+                            "mm": "ကျိုင်းတောင်း"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Loilen",
+                    "mm": "လွိုင်လင်ခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Kunhing",
+                            "mm": "ကွန်ဟိန်း"
+                        },
+                        {
+                            "eng": "Kyethi",
+                            "mm": "ကျေးသီး"
+                        },
+                        {
+                            "eng": "LaiHka",
+                            "mm": "လဲချား"
+                        },
+                        {
+                            "eng": "Loilen",
+                            "mm": "လွိုင်လင်"
+                        },
+                        {
+                            "eng": "MongHsu",
+                            "mm": "မိုင်းရှူး"
+                        },
+                        {
+                            "eng": "MongKung",
+                            "mm": "မိုင်းကိုင်"
+                        },
+                        {
+                            "eng": "Nansang",
+                            "mm": "နမ့်စန်"
+                        },
+                        {
+                            "eng": "Karli",
+                            "mm": "ကာလိ"
+                        },
+                        {
+                            "eng": "Kholan",
+                            "mm": "ခိုလမ်"
+                        },
+                        {
+                            "eng": "Minenaung",
+                            "mm": "မိုင်းနောင်"
+                        },
+                        {
+                            "eng": "Minesan",
+                            "mm": "မိုင်းစံ (မုန်းဆန်းမြို့)"
+                        },
+                        {
+                            "eng": "Panglong",
+                            "mm": "ပင်လုံ"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Taunggyi",
+                    "mm": "တောင်ကြီးခရိုင်",
+                    "townships": [
+                        {
+                            "eng": "Taunggyi",
+                            "mm": "တောင်ကြီး"
+                        },
+                        {
+                            "eng": "Aye Thar Yar",
+                            "mm": "အေးသာယာ (တောင်ကြီးမြို့သစ်)"
+                        },
+                        {
+                            "eng": "Kyauktalongyi",
+                            "mm": "ကျောက်တလုံးကြီး"
+                        },
+                        {
+                            "eng": "Shwe Nyaung",
+                            "mm": "ရွှေညောင်"
+                        },
+                        {
+                            "eng": "Nyaung Shwe",
+                            "mm": "ညောင်ရွှေ"
+                        },
+                        {
+                            "eng": "Nangpan",
+                            "mm": "နန်းပန်"
+                        },
+                        {
+                            "eng": "Kalaw",
+                            "mm": "ကလော"
+                        },
+                        {
+                            "eng": "Aungpan",
+                            "mm": "အောင်ပန်း "
+                        },
+                        {
+                            "eng": "Yetsouk",
+                            "mm": "ရပ်စောက်"
+                        },
+                        {
+                            "eng": "Indaw",
+                            "mm": "အင်တော"
+                        },
+                        {
+                            "eng": "Pekon",
+                            "mm": "ဖယ်ခုံ"
+                        },
+                        {
+                            "eng": "Hopong",
+                            "mm": "ဟိုပုံး"
+                        },
+                        {
+                            "eng": "Hsi Hseng",
+                            "mm": "ဆီဆိုင်"
+                        },
+                        {
+                            "eng": "Pinlaung",
+                            "mm": "ပင်လောင်း"
+                        },
+                        {
+                            "eng": "Naungtayar",
+                            "mm": "နောင်တရား"
+                        },
+                        {
+                            "eng": "Pingdaya",
+                            "mm": "ပင်းတယ"
+                        },
+                        {
+                            "eng": "Ywangan",
+                            "mm": "ရွာငံ"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eng": "Ayeyawady Region",
+            "mm": "ဧရာဝတီတိုင်းဒေသကြီး",
+            "lat": "16.7667",
+            "lng": "94.7333",
+            "capital": "Pathein",
+            "districts": [
+                {
+                    "eng": "Hinthada",
+                    "mm": "ဟင်္သာတ",
+                    "townships": [
+                        {
+                            "eng": "Hinthada",
+                            "mm": "ဟင်္သာတ"
+                        },
+                        {
+                            "eng": "Zalun",
+                            "mm": "ဇလွန်"
+                        },
+                        {
+                            "eng": "Lemyethna",
+                            "mm": "လေးမျက်နှာ"
+                        },
+                        {
+                            "eng": "Myanaung",
+                            "mm": "မြန်အောင်"
+                        },
+                        {
+                            "eng": "Kyangin",
+                            "mm": "ကြံခင်း"
+                        },
+                        {
+                            "eng": "Ingapu",
+                            "mm": "အင်္ဂပူ"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Labutta",
+                    "mm": "လပွတ္တာ",
+                    "townships": [
+                        {
+                            "eng": "Labutta",
+                            "mm": "လပွတ္တာ"
+                        },
+                        {
+                            "eng": "Mawlamyinegyun",
+                            "mm": "မော်လမြိုင်ကျွန်း"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Ma-ubin",
+                    "mm": "မအူပင်",
+                    "townships": [
+                        {
+                            "eng": "Ma-ubin",
+                            "mm": "မအူပင်"
+                        },
+                        {
+                            "eng": "Pantanaw",
+                            "mm": "ပန်းတနော်"
+                        },
+                        {
+                            "eng": "Nyaungdon",
+                            "mm": "ညောင်တုန်း"
+                        },
+                        {
+                            "eng": "Danuphyu",
+                            "mm": "ဓနုဖြူ"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Myaungmya",
+                    "mm": "မြောင်းမြ",
+                    "townships": [
+                        {
+                            "eng": "Einme",
+                            "mm": "အိမ်မဲ"
+                        },
+                        {
+                            "eng": "Myaungmya",
+                            "mm": "မြောင်းမြ"
+                        },
+                        {
+                            "eng": "Wakema",
+                            "mm": "ဝါးခယ်မ"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Pathein",
+                    "mm": "ပုသိမ်",
+                    "townships": [
+                        {
+                            "eng": "Pathein",
+                            "mm": "ပုသိမ်"
+                        },
+                        {
+                            "eng": "Kangyidaunk",
+                            "mm": "ကန်ကြီးထောင့်"
+                        },
+                        {
+                            "eng": "Ngapudaw",
+                            "mm": "ငပုတော"
+                        },
+                        {
+                            "eng": "Thabaung",
+                            "mm": "သာပေါင်း"
+                        },
+                        {
+                            "eng": "Kyaunggon",
+                            "mm": "ကျောင်းကုန်း"
+                        },
+                        {
+                            "eng": "Kyonpyaw",
+                            "mm": "ကျုံပျော်"
+                        },
+                        {
+                            "eng": "Yekyi",
+                            "mm": "ရေကြည်"
+                        }
+                    ]
+                },
+                {
+                    "eng": "Pyapon",
+                    "mm": "ဖျာပုံ",
+                    "townships": [
+                        {
+                            "eng": "Pyapon",
+                            "mm": "ဖျာပုံ"
+                        },
+                        {
+                            "eng": "Bogale",
+                            "mm": "ဘိုကလေး"
+                        },
+                        {
+                            "eng": "Kyaiklat",
+                            "mm": "ကျိုက်လတ်"
+                        },
+                        {
+                            "eng": "Dedaye",
+                            "mm": "ဒေးဒရဲ"
+                        }
+                    ]
+                }
+            ]
         }
     ]
-
 }

@@ -62,3 +62,7 @@ Route::get('/metrics', function(){
 Route::get('/test', function (Request $request) {
     return response()->json(200);
 });
+
+Route::get('/myanmar', function () {
+    return response()->file(storage_path('app/myanmar.json'));
+});

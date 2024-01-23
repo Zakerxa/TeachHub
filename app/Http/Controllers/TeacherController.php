@@ -54,8 +54,8 @@ class TeacherController extends Controller
 
     public function search(Request $request)
     {
-        if ($request['name'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships'] || $request['status'] || $request['classType'] || $request['environment']) {
-            $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'subjects', 'region', 'capital', 'townships', 'status', 'classType', 'environment']))->orderBy('id', 'ASC');
+        if ($request['name'] || $request['gender'] || $request['education'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships'] || $request['status'] || $request['classType'] || $request['environment']) {
+            $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'gender', 'subjects', 'education','region', 'capital', 'townships', 'status', 'classType', 'environment']))->orderBy('id', 'ASC');
             $searchCount = $query->count();
             $teacher = $query->paginate($request['per_page'] ?? 12, ['*'], '', $request['page']);
             return response()->json(['teachers' => $teacher, 'searchCount' => $searchCount]);

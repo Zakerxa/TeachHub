@@ -63,6 +63,10 @@ class Teacher extends Model
             });
         });
 
+        $query->when($filter['gender'] ?? false, function ($query, $gender) {
+            return $query->where('extra',  $gender);
+        });
+
         $query->when($filter['capital'] ?? false, function ($query, $capital) {
             return $query->whereHas('locations', function ($query) use ($capital) {
                 $query->where('capital', $capital);
@@ -78,7 +82,7 @@ class Teacher extends Model
 
         $query->when($filter['status'] ?? false, function ($query, &$status) {
             if ($status['id'] == 3) {
-                $query->whereIn('online_or_local',[1,2,3]);
+                $query->whereIn('online_or_local', [1, 2, 3]);
             } else {
                 $query->where('online_or_local', $status['id']);
             }
@@ -88,7 +92,7 @@ class Teacher extends Model
             if ($filter['status'] ?? false) {
                 return $query->whereHas('classTypes', function ($query) use ($type, $filter) {
                     if ($filter['status']['id'] == 3) {
-                        $query->whereIn('status', [1,2,3])->where('class_type', $type);
+                        $query->whereIn('status', [1, 2, 3])->where('class_type', $type);
                     } else {
                         $query->where('status', $filter['status']['id'])->where('class_type', $type);
                     }
@@ -96,13 +100,24 @@ class Teacher extends Model
             }
         });
 
-        $query->when($filter['environment'] ?? false, function ($query, $environment) {
-            $environmentId = explode(',', $environment);
-            $query->whereIn('environment', $environmentId);
+
+        $query->when($filter['environment'] ?? false, function ($query, &$environment) {
+            // $environmentId = explode(',', $environment);
+            $query->where('environment', $environment);
+        });
+
+        $query->when($filter['education'] ?? false, function ($query, $education) use ($filter) {
+            $educationId = explode(',', $education);
+            if ($filter['environment'] ?? false) {
+                return $query->whereHas('educationLevels', function ($query) use ($educationId, $filter) {
+                    $query->whereIn('value', $educationId)->where('environment_id', $filter['environment']);
+                });
+            }
         });
 
         $query->when($filter['subjects'] ?? false, function ($query, $subjectId) {
             $subjectId = explode(',', $subjectId);
+            $subjectId[] = '1';
             return $query->whereHas('subjects', function ($query) use ($subjectId) {
                 $query->whereIn('subject_id', $subjectId);
             });

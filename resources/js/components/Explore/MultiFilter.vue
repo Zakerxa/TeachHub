@@ -206,10 +206,10 @@
             </div>
         </div>
 
-        <!-- <div class="hide-filter col-md-4 col-lg-2 col-xl-2 mt-2">
+        <div class="hide-filter col-md-4 col-lg-2 col-xl-2 mt-2">
             <div>
                 <multiselect :disabled="environment == null || environment == ''" :close-on-select="false"
-                    @select="dispatchAction('')" @remove="removeAction" :custom-label="customLabelEvnironment"
+                    @select="dispatchAction('')" @remove="removeAction" :custom-label="customLabelEducation"
                     v-model="education" :multiple="true" :options="optionsEducation" placeholder="Education" label="name"
                     track-by="name" :show-labels="false">
 
@@ -223,7 +223,7 @@
 
                 </multiselect>
             </div>
-        </div> -->
+        </div>
 
         <div class="hide-filter col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
             <div>
@@ -244,14 +244,14 @@
         </div>
 
 
-        <!-- <div class="hide-filter col-md-3 col-lg-2    col-xl-2 mt-2 pr-md-0">
+        <div class="hide-filter col-md-3 col-lg-2    col-xl-2 mt-2 pr-md-0">
             <div>
-                <multiselect disabled @select="dispatchAction('gender')" @remove="removeAction" :custom-label="customLabel"
-                    v-model="gender" :options="optionsStatus" placeholder="Gender" label="name" track-by="name"
+                <multiselect @select="dispatchAction('gender')" @remove="removeAction" :custom-label="customLabel"
+                    v-model="gender" :options="optionsGender" placeholder="Gender" label="name" track-by="name"
                     :show-labels="false">
                 </multiselect>
             </div>
-        </div> -->
+        </div>
 
         <div class="hide-filter col-md-3 col-lg-3 col-xl-3 mt-2 pr-md-0">
             <div>
@@ -325,6 +325,14 @@ export default {
                 ]
             }
             ],
+            optionsGender: [{
+                id: 1,
+                name: 'Female'
+            },
+            {
+                id: 2,
+                name: 'Male'
+            }],
             optionsEnvironment: [
                 {
                     id: 1, name: 'International Schools', name_mm: 'နိုင်ငံတကာကျောင်း', envType: [
@@ -363,7 +371,7 @@ export default {
                 },
             ],
             name: '',
-            gender: 'Gender',
+            gender: '',
             region: [],
             status: [],
             subjects: [],
@@ -381,14 +389,32 @@ export default {
     async created() {
         console.log("Open Explore & Getting Map");
         await fetch('/api/subjects').then(res => res.json()).then(sub => {
-            this.optionsSubject = sub;
+            this.optionsSubject = sub.filter(item => item.id !== 1);
         });
-        MyanmarApi.data.map(region => this.optionsRegion.push(region))
+        await fetch('/api/myanmar').then(res => res.json()).then(res => {
+            const regions = res.data.filter(region => {
+                // Check if at least one teacher has a location in the current region
+                return this.teachers.some(teacher => {
+                    return teacher.locations.some(location => location.region_state === region.eng);
+                });
+            });
+            console.log("Regions:", regions);
+            this.optionsRegion = regions;
+        });
+        // const regions = MyanmarApi.data.filter(region => {
+        //     return this.teachers.some(teacher => {
+        //         return teacher.locations.some(location => location.region_state === region.eng);
+        //     });
+        // })
+        // this.optionsRegion = regions;
     },
     computed: {
         ...mapGetters(['teachers', 'teacherCount', 'searchCount', 'perPage', 'lang']),
         customLabelCity() {
             return option => this.lang == 'English' ? option.eng : option.mm
+        },
+        customLabelEducation() {
+            return option => this.lang == 'English' ? option.name : option.name
         },
         customLabelTownShip() {
             return option => this.lang == 'English' ? option.eng : option.mm
@@ -437,7 +463,10 @@ export default {
 
             if (e == 'explore' && this.name.length < 1) return null
 
-            if (e == 'region') this.townships = [];
+            if (e == 'region') {
+                this.townships = [];
+                console.log("Clear Township");
+            }
 
             if (e == 'status') this.classType = [];
 
@@ -449,26 +478,26 @@ export default {
 
             const subject = (this.subjects == null || this.subjects.length < 1) ? '' : this.subjects.map(sub => sub.id).join(',');
 
+            const education = (this.education == null || this.education.length < 1) ? '' : this.education.map(edc => edc.value).join(',');
+
             const status = this.status;
+
+            const gender = this.gender ? this.gender.name : '';
 
             const classType = this.classType ? this.classType.value : null;
 
             const environment = (this.environment == null || this.environment.length < 1) ? '' : this.environment.id;
 
-            this.updateFiltersQuery({ name: this.name, region: region, townships: townshipsParam, subjects: subject, status: status, classType: classType, environment: environment });
+            this.updateFiltersQuery({ name: this.name, education: education, region: region, gender: gender, townships: townshipsParam, subjects: subject, status: status, classType: classType, environment: environment });
 
 
-            if (this.name == '' && region == '' && townshipsParam == '' && subject == '' && (status == '' || status == null) && environment == '' && classType == undefined) {
+            if (this.name == '' && region == '' && townshipsParam == '' && education == '' && gender == '' && subject == '' && (status == '' || status == null) && environment == '' && classType == undefined) {
                 this.clearFilterQuery();
                 this.defaultTeacher('?page=1&per_page=' + this.perPage);
                 console.log("Nothing state");
                 return null;
             }
-            else {
-                // console.log("Name ",this.name,"region ",region,"townships",townshipsParam,"Subjects ,",subject, "Status",status,"Env",environment, "ClassType" ,classType);
-                this.gettingTeacher();
-            }
-
+            else this.gettingTeacher();
         },
         dispatchAction(e) {
             this.$nextTick(() => {
@@ -501,11 +530,33 @@ export default {
     },
     watch: {
         region(selectRegion, oldRegion) {
-            if (selectRegion != null) this.optionsTownship = selectRegion.districts;
+            this.optionsTownship = [];
+            if (selectRegion != null) {
+
+                this.optionsTownship = selectRegion.districts;
+
+                // let districts = selectRegion.districts.filter(region => {
+                //     // Check if at least one teacher has a location in the current region
+                //     return this.teachers.some(teacher => {
+                //         console.log(teacher.locations,region)
+                //         return teacher.locations.some(location => location.township === region.eng);
+                //     });
+                // });
+
+                // // Convert objects to plain JavaScript objects
+                // const plainDistricts = JSON.parse(JSON.stringify(districts));
+                // console.log("Districts ", plainDistricts);
+                // // Update this.optionsTownship in a reactive manner
+                // this.optionsTownship = plainDistricts;
+            }
         },
         environment(selectEnvironment) {
+
             // if (this.isSelectedAll(selectEnvironment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
-            if (selectEnvironment != null) return this.optionsEducation = selectEnvironment.envType;
+            if (selectEnvironment != null) {
+                console.log("SELECT ENVIRONMENT ", selectEnvironment.envType);
+                return this.optionsEducation = selectEnvironment.envType;
+            }
             else {
                 this.optionsEducation = [];
                 this.education = [];
