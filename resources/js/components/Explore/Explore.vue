@@ -42,7 +42,7 @@
                                         {{ (lang == 'English') ? subject.name : subject.name_mm }}
                                     </span>
                                 </div>
-                                <p class="teacher-name pt-2">{{ teacher.name }}</p>
+                                <p class="teacher-name pt-2">{{ (lang == 'English') ? teacher.name : teacher.name_mm }}</p>
                                 <div class="">
                                     <span class="fw-normal"><i class="fa-solid fa-location-dot"
                                             style="color:var(--primary)"></i> {{ (lang == 'English') ?

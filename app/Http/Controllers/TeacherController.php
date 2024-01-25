@@ -67,6 +67,7 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
 
+
         try {
             $request->validate([
                 'name' => 'required|string',
@@ -109,12 +110,9 @@ class TeacherController extends Controller
             foreach ($request->file('pic') as $image) {
                 $fileName = rand(1000, 9999) . '-' . $image->getClientOriginalName();
                 $image->move($imagepath, $fileName);
-                $images = $fileName;
+                $images[] = $fileName;
             }
         }
-
-        if ($images) $teacher['pic'] = $images;
-        else $teacher['pic'] = '';
 
         if ($request->environment == 'undefined') {
             $request['environment'] = 3;
@@ -123,13 +121,18 @@ class TeacherController extends Controller
 
         // Create the teacher without including 'pic' in the $request->only() call
         $teacher = $request->only([
-            'name', 'name_mm', 'age', 'extra', 'token', 'pic', 'experience', 'time_table_1', 'time_table_1_mm', 'salary',
+            'name', 'name_mm', 'age', 'extra', 'token','experience', 'time_table_1', 'time_table_1_mm', 'salary',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
+        if ($images) {
+            $teacher['pic'] = implode(',', $images);
+        } else {
+            $teacher['pic'] = '';
+        }
+
         // Create the teacher
         $teacher = Teacher::create($teacher);
-
 
         // Assuming class_type is the selected class type
         $classType = json_decode($request->classType);
@@ -193,9 +196,7 @@ class TeacherController extends Controller
                 'time_table_1_mm' => 'required|string',
                 'description' => 'required|string',
                 'description_mm' => 'required|string',
-                'online_or_local' => 'required|numeric',
-                'environment' => 'numeric',
-                'environment_mm' => 'numeric',
+                'online_or_local' => 'required|numeric'
             ]);
         } catch (ValidationException $th) {
             return $th->validator->errors();

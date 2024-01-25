@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-center p-0 m-0">
 
-        <div class="col-10 col-lg-6">
+        <div class="col-10 col-lg-6 mt-2">
             <div class="search-local">
                 <div class="explore-search-icon">
                     <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
@@ -289,47 +289,11 @@
     </div>
 </template>
 <script>
-import MyanmarApi from './myanmar.json';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
     data() {
         return {
-            optionsStatus: [{
-                id: 3,
-                name: 'Select All',
-                classType: [
-                    { name: 'In-Person Class', status: 1, value: 'inperson_class' },
-                    { name: 'Group Session', status: 1, value: 'group_session' },
-                    { name: 'Home Guide', status: 2, value: 'homeguide' },
-                    { name: 'One by One', status: 2, value: 'one_by_one' },
-                ]
-            }, {
-
-                id: 1,
-                name: 'Online',
-                classType: [
-                    { name: 'In-Person Class', status: 1, value: 'inperson_class' },
-                    { name: 'Group Session', status: 1, value: 'group_session' },
-                ]
-            },
-            {
-                id: 2,
-                name: 'Local',
-                classType: [
-                    { name: 'Home Guide', status: 2, value: 'homeguide' },
-                    { name: 'One by One', status: 2, value: 'one_by_one' },
-                ]
-            }
-            ],
-            optionsGender: [{
-                id: 1,
-                name: 'Female'
-            },
-            {
-                id: 2,
-                name: 'Male'
-            }],
             optionsEnvironment: [
                 {
                     id: 1, name: 'International Schools', name_mm: 'နိုင်ငံတကာကျောင်း', envType: [
@@ -346,7 +310,12 @@ export default {
                         { name: 'YEAR-9', value: '11', status: 1 },
                         { name: 'YEAR-10', value: '12', status: 1 },
                         { name: 'YEAR-11', value: '13', status: 1 },
-                        { name: 'IGCSE', value: '14', status: 1 }
+                        { name: 'IGCSE', value: '14', status: 1 },
+                        { name: 'US', value: '15', status: 1 },
+                        { name: 'UK', value: '16', status: 1 },
+                        { name: 'GED', value: '17', status: 1 },
+                        { name: 'Primary', value: '18', status: 1 },
+                        { name: 'Secondary', value: '19', status: 1 },
                     ]
                 },
                 {
@@ -363,9 +332,41 @@ export default {
                         { name: 'GRADE-9', value: '10', status: 2 },
                         { name: 'GRADE-10', value: '11', status: 2 },
                         { name: 'GRADE-11', value: '12', status: 2 },
-                        { name: 'GRADE-12', value: '13', status: 2 }
+                        { name: 'GRADE-12', value: '13', status: 2 },
+                        { name: 'Primary', value: '14', status: 2 },
+                        { name: 'Secondary', value: '15', status: 2 },
                     ]
                 },
+            ],
+            optionsStatus: [{
+                id: 3,
+                name: 'Select All',
+                classType: [
+                    // { name: 'All Section', status: 3, value: 'all_section' },
+                    { name: 'In-Person Class', status: 1, value: 'inperson_class' },
+                    { name: 'Group Session', status: 1, value: 'group_session' },
+                    { name: 'Home Guide', status: 2, value: 'homeguide' },
+                    { name: 'One by One', status: 2, value: 'one_by_one' },
+                    { name: 'On campus', status: 2, value: 'on_campus' },
+                ]
+            }, {
+
+                id: 1,
+                name: 'Online',
+                classType: [
+                    { name: 'In-Person Class', status: 1, value: 'inperson_class' },
+                    { name: 'Group Session', status: 1, value: 'group_session' },
+                ]
+            },
+            {
+                id: 2,
+                name: 'Local',
+                classType: [
+                    { name: 'Home Guide', status: 2, value: 'homeguide' },
+                    { name: 'One by One', status: 2, value: 'one_by_one' },
+                    { name: 'On campus', status: 2, value: 'on_campus' },
+                ]
+            }
             ],
             name: '',
             gender: '',
@@ -467,6 +468,8 @@ export default {
             }
 
             if (e == 'status') this.classType = [];
+
+            if(e == 'env') this.education = [];
 
             // if (e == 'env') if (this.isSelectedAll(this.environment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
 

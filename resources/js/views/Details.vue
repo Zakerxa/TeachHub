@@ -16,7 +16,7 @@
                     </div>
 
                     <div v-if="teacher != null && teacher.name" class="detail-name-mobile">
-                        <h3>{{ teacher.name }}</h3>
+                        <h3>{{ (lang == 'English') ? teacher.name : teacher.name_mm }}</h3>
                         <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
                         <p class="badge text-bg-warning p-2 fw-normal">{{ online_or_local }}</p>
                         <p v-if="teacher.class_types" class="badge text-bg-warning p-2 fw-normal ml-2">{{
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="detail-name">
-                    <h3>{{ teacher.name }}</h3>
+                    <h3>{{ (lang == 'English') ? teacher.name : teacher.name_mm }}</h3>
                     <p class="mb-2"><font-awesome-icon icon="fa-solid fa-circle-check" /> Verified</p>
                     <p class="badge text-bg-light p-2 fw-normal">{{ online_or_local }}</p>
                     <p v-if="teacher.class_types" class="badge text-bg-light p-2 fw-normal ml-2">{{ teacher.class_types.desc
