@@ -55,7 +55,7 @@ class TeacherController extends Controller
     public function search(Request $request)
     {
         if ($request['name'] || $request['gender'] || $request['education'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships'] || $request['status'] || $request['classType'] || $request['environment']) {
-            $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'gender', 'subjects', 'education','region', 'capital', 'townships', 'status', 'classType', 'environment']))->orderBy('id', 'ASC');
+            $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'gender', 'subjects', 'education', 'region', 'capital', 'townships', 'status', 'classType', 'environment']))->orderBy('id', 'ASC');
             $searchCount = $query->count();
             $teacher = $query->paginate($request['per_page'] ?? 12, ['*'], '', $request['page']);
             return response()->json(['teachers' => $teacher, 'searchCount' => $searchCount]);
@@ -132,12 +132,13 @@ class TeacherController extends Controller
 
 
         // Assuming class_type is the selected class type
-        $classType = $request->input('classType');
-        $className = $request->input('className');
-
-        // Associate the class type with the teacher
-        $teacher->classTypes()->create(['class_type' => $classType, 'desc' => $className, 'status' => $request['online_or_local']]);
-
+        $classType = json_decode($request->classType);
+        // Delete existing ClassType for the current teacher
+        $teacher->classTypes()->delete();
+        foreach ($classType as $value) {
+            // Associate the class type with the teacher
+            $teacher->classTypes()->create(['class_type' => $value->value, 'desc' => $value->name, 'status' => $value->status]);
+        }
 
         // Attach Locations
         $townships =  explode(',', implode($request->township));
@@ -302,23 +303,14 @@ class TeacherController extends Controller
             $teacher->subjects()->attach($subject);
         }
 
-        // Assuming class_type is the selected class type
-        $classType = $request->input('classType');
-        $className = $request->input('className');
 
-        // Find the existing record associated with the teacher
-        $existingRecord = $teacher->classTypes()->first();
-
-        if ($existingRecord) {
-            // Update the existing record
-            $existingRecord->update([
-                'class_type' => $classType,
-                'desc'       => $className,
-                'status'     => $request['online_or_local'],
-            ]);
-        } else {
+        // Attach ClassType
+        $classType = json_decode($request->classType);
+        // Delete existing ClassType for the current teacher
+        $teacher->classTypes()->delete();
+        foreach ($classType as $value) {
             // Associate the class type with the teacher
-            $teacher->classTypes()->create(['class_type' => $classType, 'desc' => $className, 'status' => $request['online_or_local']]);
+            $teacher->classTypes()->create(['class_type' => $value->value, 'desc' => $value->name, 'status' => $value->status]);
         }
 
         if ($request->education) {

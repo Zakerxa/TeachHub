@@ -28,7 +28,7 @@ class Teacher extends Model
 
     public function classTypes()
     {
-        return $this->hasOne(ClassType::class);
+        return $this->hasMany(ClassType::class, 'teacher_id');
     }
 
     public function educationLevels()
@@ -89,13 +89,10 @@ class Teacher extends Model
         });
 
         $query->when($filter['classType'] ?? false, function ($query, $type) use ($filter) {
+            $classTypeId = explode(',', $type);
             if ($filter['status'] ?? false) {
-                return $query->whereHas('classTypes', function ($query) use ($type, $filter) {
-                    if ($filter['status']['id'] == 3) {
-                        $query->whereIn('status', [1, 2, 3])->where('class_type', $type);
-                    } else {
-                        $query->where('status', $filter['status']['id'])->where('class_type', $type);
-                    }
+                return $query->whereHas('classTypes', function ($query) use ($classTypeId, $filter) {
+                    $query->whereIn('class_type', $classTypeId);
                 });
             }
         });
@@ -117,10 +114,17 @@ class Teacher extends Model
 
         $query->when($filter['subjects'] ?? false, function ($query, $subjectId) {
             $subjectId = explode(',', $subjectId);
-            $subjectId[] = '1';
-            return $query->whereHas('subjects', function ($query) use ($subjectId) {
-                $query->whereIn('subject_id', $subjectId);
-            });
+
+            if (in_array('1', $subjectId)) {
+                return $query->whereHas('subjects', function ($query) use ($subjectId) {
+                    $query->whereIn('subject_id', $subjectId);
+                });
+            }else{
+                $subjectId[] = '1';
+                return $query->whereHas('subjects', function ($query) use ($subjectId) {
+                    $query->whereIn('subject_id', $subjectId);
+                });
+            }
         });
     }
 

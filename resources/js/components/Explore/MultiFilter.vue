@@ -83,9 +83,9 @@
                         <div class="modal-filter col-md-3 col-lg-2 col-xl-1 mt-2 pr-md-0">
                             <div>
                                 <multiselect @select="dispatchAction('classType')"
-                                    :disabled="status == null || status == ''" @remove="removeAction" v-model="classType"
-                                    :options="optionsClassType" :placeholder="pClassType" label="name" track-by="value"
-                                    :show-labels="false">
+                                    :disabled="status == null || status == ''" @remove="removeAction" multiple="true"
+                                    v-model="classType" :options="optionsClassType" :placeholder="pClassType" label="name"
+                                    track-by="value" :show-labels="false">
                                 </multiselect>
                             </div>
                         </div>
@@ -104,18 +104,16 @@
                                             </span>
                                         </span>
                                     </template>
-
                                 </multiselect>
                             </div>
                         </div>
 
-                        <!-- <div class="modal-filter col-md-4 col-lg-3 col-xl-2 mt-2">
+                        <div class="modal-filter col-md-4 col-lg-3 col-xl-2 mt-2">
                             <div>
                                 <multiselect :disabled="environment == null || environment == ''" :close-on-select="false"
-                                    @select="dispatchAction('')" @remove="removeAction"
-                                    :custom-label="customLabelEvnironment" v-model="education" :multiple="true"
-                                    :options="optionsEducation" placeholder="Education" label="name" track-by="name"
-                                    :show-labels="false">
+                                    @select="dispatchAction('')" @remove="removeAction" :custom-label="customLabelEducation"
+                                    v-model="education" :multiple="true" :options="optionsEducation" placeholder="Education"
+                                    label="name" track-by="name" :show-labels="false">
 
                                     <template v-slot:selection="{ values, isOpen }">
                                         <span v-if="values.length >= 2">
@@ -127,7 +125,7 @@
 
                                 </multiselect>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="modal-filter col-md-3 col-lg-2 col-xl-2 mt-2 subject-container">
                             <div>
@@ -201,7 +199,6 @@
                             </span>
                         </span>
                     </template>
-
                 </multiselect>
             </div>
         </div>
@@ -265,8 +262,8 @@
         <div class="hide-filter col-md-3 col-lg-3 col-xl-3 mt-2 pr-md-0">
             <div>
                 <multiselect @select="dispatchAction('classType')" :disabled="status == null || status == ''"
-                    @remove="removeAction" v-model="classType" :options="optionsClassType" :placeholder="pClassType"
-                    label="name" track-by="value" :show-labels="false">
+                    @remove="removeAction" multiple="true" v-model="classType" :options="optionsClassType"
+                    :placeholder="pClassType" label="name" track-by="value" :show-labels="false">
                 </multiselect>
             </div>
         </div>
@@ -389,7 +386,8 @@ export default {
     async created() {
         console.log("Open Explore & Getting Map");
         await fetch('/api/subjects').then(res => res.json()).then(sub => {
-            this.optionsSubject = sub.filter(item => item.id !== 1);
+            // this.optionsSubject = sub.filter(item => item.id !== 1);
+            this.optionsSubject = sub
         });
         await fetch('/api/myanmar').then(res => res.json()).then(res => {
             const regions = res.data.filter(region => {
@@ -484,14 +482,14 @@ export default {
 
             const gender = this.gender ? this.gender.name : '';
 
-            const classType = this.classType ? this.classType.value : null;
+            const classType = (this.classType == null || this.classType.length < 1) ? '' : this.classType.map(ct => ct.value).join(',');
 
             const environment = (this.environment == null || this.environment.length < 1) ? '' : this.environment.id;
 
             this.updateFiltersQuery({ name: this.name, education: education, region: region, gender: gender, townships: townshipsParam, subjects: subject, status: status, classType: classType, environment: environment });
 
 
-            if (this.name == '' && region == '' && townshipsParam == '' && education == '' && gender == '' && subject == '' && (status == '' || status == null) && environment == '' && classType == undefined) {
+            if (this.name == '' && region == '' && townshipsParam == '' && education == '' && gender == '' && subject == '' && (status == '' || status == null) && environment == '' && classType == '') {
                 this.clearFilterQuery();
                 this.defaultTeacher('?page=1&per_page=' + this.perPage);
                 console.log("Nothing state");
