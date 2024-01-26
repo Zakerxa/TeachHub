@@ -61,6 +61,12 @@
                                         {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}
                                     </div>
                                 </div>
+                                <div class="d-block mb-2 pb-1">
+                                    <span class="bg-primary badge mr-2" style="font-size:12px;font-weight:normal"
+                                        v-for="edc in teacher.education_levels" :key="edc">
+                                        {{ displayText(edc.name) }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -81,14 +87,19 @@ export default {
         routeTo(id) {
             this.$router.push({ name: 'details', params: { id } });
         },
-        imageDetector(gender ,token, pic) {
+        imageDetector(gender, token, pic) {
             let imageUrl = '/images/default/teacher.jpg';
 
-            if(gender == 'Male') imageUrl = '/images/default/teacher-men.jpg';
+            if (gender == 'Male') imageUrl = '/images/default/teacher-men.jpg';
             else imageUrl = '/images/default/teacher.jpg';
 
             if (pic) imageUrl = '/uploads/profile/' + token + '/' + pic;
             return imageUrl;
+        },
+        displayText(text) {
+            if(text.includes('GRADE')) return text.replace('GRADE', 'G');
+            if(text.includes('YEAR')) return text.replace('YEAR', 'Y');
+            return text;
         },
     },
     created() {
@@ -204,7 +215,7 @@ export default {
 
 .details-info-container {
     min-height: 180px;
-    max-height: 200px;
+    max-height: 250px;
 }
 
 .specialist {

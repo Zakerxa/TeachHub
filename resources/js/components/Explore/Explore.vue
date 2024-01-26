@@ -58,6 +58,11 @@
                                             icon="fa-solid fa-calendar-days" />
                                         {{ (lang == 'English') ? teacher.time_table_2 : teacher.time_table_2_mm }}</div>
                                 </div>
+                                <div class="d-block mb-2 pb-1">
+                                    <span class="bg-primary badge mr-2" style="font-size:12px;font-weight:normal" v-for="edc in teacher.education_levels" :key="edc">
+                                        {{ displayText(edc.name) }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -131,7 +136,12 @@ export default {
 
             else this.defaultTeacher('?page=' + e[0] + e[1]);
 
-        }
+        },
+        displayText(text) {
+            if(text.includes('GRADE')) return text.replace('GRADE', 'G');
+            if(text.includes('YEAR')) return text.replace('YEAR', 'Y');
+            return text;
+        },
     },
     created() {
         this.updatePerPage(this.items);
@@ -153,7 +163,7 @@ export default {
 
 .details-info-container {
     min-height: 180px;
-    max-height: 200px;
+    max-height: 250px;
 }
 
 .teacher-name {

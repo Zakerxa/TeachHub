@@ -563,7 +563,7 @@ export default {
 
             // if (this.isSelectedAll(selectEnvironment)) this.environment = this.optionsEnvironment.filter(option => option.name != 'Select All')
             if (selectEnvironment != null) {
-                console.log("SELECT ENVIRONMENT ", selectEnvironment.envType);
+                // console.log("SELECT ENVIRONMENT ", selectEnvironment.envType);
                 return this.optionsEducation = selectEnvironment.envType;
             }
             else {
