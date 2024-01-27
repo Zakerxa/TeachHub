@@ -228,7 +228,7 @@ export default {
             else return 'Online-Local'
         },
         description() {
-            return (this.lang == 'English') ? this.teacher.description : this.teacher.description_mm
+            return this.teacher.description;
         },
         environment() {
             return (this.lang == 'English') ? this.teacher.environment : this.teacher.environment_mm
