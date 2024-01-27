@@ -15,7 +15,7 @@ const mm = {
         subtitle: 'အမျိုးစားစုံလင်သော ပညာရပ်များ နှင့် အရည်ချင်းပြည့်မှီသော ဆရာဆရာမများက ဒီနေရာမှာသင့်အတွက်အသင့်ရှိနေပါတယ်'
     },
     content: {
-        topTeacher: 'Teach<span style="color:#8642DE">Hub</span> ပေါ်မှ အတော်ဆုံးဆရာမများ',
+        topTeacher: 'Teach<span style="color:#8642DE">Hub</span> ပေါ်မှ ဆရာ ဆရာမများ',
         rateTeacher: 'လူအများ၏ Teach<span style="color:#8642DE">Hub</span>ပေါ် စကားသံများ <img class="rating-title-image" style="width: 70px;position: relative;top: -20px;left: -20px;transform: rotate(-10deg);" src = "/images/Particle.png" alt = "" >',
         rateDescription: 'သဘာဝပတ်​ဝန်းကျင်​၏ ဆန့်ကျင်ဘက်အရာသည် လုပ်ယူဖန်တီးထားသော ပတ်​ဝန်းကျင်​ဖြစ်​သည်​။ စိုက်ပျိုးမြေများနှင့် မြို့ပြနေရာများအဖြစ် ပြောင်းလဲခြင်းကဲ့သျ ပြောင်းလဲလူ့ပတ်ဝန်းကျင်အဖြစ်သို့ ပြောင်းလဲသွားပါသည်။',
         trial: 'သင်တန်းအတွက် ဆရာမများထံမှ <span style="color:#FFD32B"> တနာရီစာ </span> အခမဲ့ရယူလိုက်ပါ',

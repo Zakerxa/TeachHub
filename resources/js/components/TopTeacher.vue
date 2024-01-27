@@ -72,6 +72,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row justify-content-center p-0 m-0 pb-5">
+
+                <div class="col-12 text-center mt-2">
+                    <router-link to="/explore" class="hero-btn fw-bold">{{ $t('btn.explore') }} <font-awesome-icon
+                            icon="fa-solid fa-angle-right"
+                            style="font-size: 17px;top:0px;right:0;"></font-awesome-icon></router-link>
+                </div>
+            </div>
+
         </div>
 
 
@@ -79,11 +89,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 export default {
+    data() {
+        return {
+            name: '',
+        }
+    },
     computed: mapGetters(['topTeachers', 'lang']),
     methods: {
-        ...mapActions(['gettingTopTeachers', 'defaultTeacher']),
+        ...mapActions(['gettingTopTeachers', 'defaultTeacher', 'gettingTeacher']),
+        ...mapMutations(['updateFiltersQuery', 'clearFilterQuery']),
         routeTo(id) {
             this.$router.push({ name: 'details', params: { id } });
         },
@@ -97,10 +113,10 @@ export default {
             return imageUrl;
         },
         displayText(text) {
-            if(text.includes('GRADE')) return text.replace('GRADE', 'G');
-            if(text.includes('YEAR')) return text.replace('YEAR', 'Y');
+            if (text.includes('GRADE')) return text.replace('GRADE', 'G');
+            if (text.includes('YEAR')) return text.replace('YEAR', 'Y');
             return text;
-        },
+        }
     },
     created() {
         this.gettingTopTeachers();
@@ -109,6 +125,16 @@ export default {
 </script>
 
 <style lang="scss">
+.hero-btn {
+    background-color: #FFD32B;
+    padding: 13px 16px;
+    border: none;
+    text-decoration: none;
+    color: #000;
+    top: 15px;
+    position: relative;
+}
+
 /**
  * Corner Ribbon Component
  */

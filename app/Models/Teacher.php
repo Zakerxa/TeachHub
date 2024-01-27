@@ -46,7 +46,7 @@ class Teacher extends Model
     public function getEnvironmentMmAttribute($value)
     {
         if ($value == 1) return $value = 'နိုင်ငံတကာကျောင်း';
-        else if ($value == 2) return $value = 'အစိုးရကျောင်း';
+        else if ($value == 2) return $value = 'အစိုးရသင်ရိုး';
         else return $value = null;
     }
 

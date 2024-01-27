@@ -102,6 +102,7 @@ export default {
             // Get Paginate Page Query Before Fetch
             state.filtersQuery.page = payload;
             state.filtersQuery.per_page = state.perPage[0];
+            console.log("Getting Teacher");
             return new Promise((resolve, reject) => {
                 fetch('/api/teachers/search', {
                         method: 'post',

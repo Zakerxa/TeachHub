@@ -84,8 +84,6 @@ class TeacherController extends Controller
                 'extra' => 'required|string',
                 'time_table_1' => 'required|string',
                 'time_table_1_mm' => 'required|string',
-                'description' => 'required|string',
-                'description_mm' => 'required|string',
                 'online_or_local' => 'required|numeric'
             ]);
         } catch (ValidationException $th) {
@@ -194,8 +192,6 @@ class TeacherController extends Controller
                 'extra' => 'required',
                 'time_table_1' => 'required|string',
                 'time_table_1_mm' => 'required|string',
-                'description' => 'required|string',
-                'description_mm' => 'required|string',
                 'online_or_local' => 'required|numeric'
             ]);
         } catch (ValidationException $th) {

@@ -36,21 +36,23 @@
 
         <div v-if="teacher != null" class="row position-relative justify-content-center second-details-section"
             :style="{ top: dynamicTop }">
-            <div v-if="teacher != null && teacher.description" class="col-12 col-md-5" style="min-height:50px">
-                <div class="border-bottom pb-2 mb-3">
+            <div v-if="teacher != null" class="col-12 col-md-5" style="min-height:50px">
+                <div v-if="teacher.education_levels.length >= 1" class="border-bottom pb-2 mb-3">
                     <h4>{{ $t('details.education') }}</h4>
                     <p class="mb-1" v-for="edc in teacher.education_levels" :key="edc">
                         {{ edc.name }}
                     </p>
                 </div>
 
-                <h4>{{ $t('details.description') }}</h4>
-                <p>{{ description }}</p>
+                <div v-if="teacher.description">
+                    <h4>{{ $t('details.description') }}</h4>
+                    <p>{{ description }}</p>
+                </div>
             </div>
-            <div v-else class="">
+            <!-- <div v-else class="">
                 <h4>{{ $t('details.description') }}</h4>
                 <p>Loading . . . </p>
-            </div>
+            </div> -->
             <div class="col-12 col-md-5 mt-4 mt-md-0">
                 <div class="row justify-content-center">
                     <div class="col-11 col-md-11 col-lg-10">
@@ -206,7 +208,9 @@ export default {
             'lang',
         ]),
         dynamicTop() {
-            const maxLength = this.description.length;
+            let maxLength = '10px';
+
+            if(this.teacher.description) maxLength = this.description.length;
 
             if (maxLength < 80) return `-${60 + (maxLength / 2)}px`;
 
