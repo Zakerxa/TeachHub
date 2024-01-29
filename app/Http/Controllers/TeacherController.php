@@ -129,6 +129,8 @@ class TeacherController extends Controller
             $teacher['pic'] = '';
         }
 
+        $teacher['tel'] =  '0' . ltrim($request->tel ?? '');
+
         // Create the teacher
         $teacher = Teacher::create($teacher);
 
@@ -256,6 +258,9 @@ class TeacherController extends Controller
             $teacherUpdate['pic'] = $images;
             $teacherUpdate['token'] = $token;
         }
+
+        $teacherUpdate['tel'] = '0' . ltrim($request->tel ?? '');
+
 
         // Detach existing relationships
         $teacher->subjects()->detach();

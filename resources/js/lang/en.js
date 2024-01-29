@@ -35,6 +35,7 @@ const en = {
         salary: 'Salary Ranges'
     },
     btn: {
+        search: 'Search . . .',
         explore: 'Start Explore',
         review: 'Write a Review',
         contactUs: 'Contact Us',

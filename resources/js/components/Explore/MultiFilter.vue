@@ -7,7 +7,7 @@
                     <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                 </div>
 
-                <input v-model="name" v-on:keyup.enter="dispatchAction('explore')" type="text" placeholder="Search . . .">
+                <input v-model="name" v-on:keyup.enter="dispatchAction('explore')" type="text" :placeholder="$t('btn.search')">
 
                 <button @click="dispatchAction('explore')" class="explore-btn">
                     <span class="explore-btn-text fw-bold">{{ $t('btn.explore') }}</span>

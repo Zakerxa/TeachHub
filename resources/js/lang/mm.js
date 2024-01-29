@@ -35,6 +35,7 @@ const mm = {
         salary: 'လစာနှုန်းများ',
     },
     btn: {
+        search: 'ဆရာ နာမည်',
         explore: 'ရှာဖွေမည်',
         review: 'Reviewရေးမည်',
         contactUs: 'ဆက်သွယ်မည်',
