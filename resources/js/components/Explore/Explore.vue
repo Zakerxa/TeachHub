@@ -93,7 +93,7 @@ import MultiFilter from './MultiFilter.vue';
 export default {
     data() {
         return {
-            items: [12],
+            items: [36],
             style: {
                 color: 'rgb(106, 106, 114)',
                 activeColor: '#fff',

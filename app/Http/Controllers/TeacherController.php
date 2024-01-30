@@ -19,7 +19,7 @@ class TeacherController extends Controller
             $query = Teacher::orderByDesc('recommand');
             $teachers = $query->orderByDesc('experience')
                 ->OrderByDesc('id')
-                ->paginate($request->per_page ?? 12);
+                ->paginate($request->per_page ?? 36);
             return ['teachers' => $teachers, 'count' => $query->count()];
         });
         return response()->json($teachers);
@@ -57,7 +57,7 @@ class TeacherController extends Controller
         if ($request['name'] || $request['gender'] || $request['education'] || $request['subjects'] ||  $request['region'] || $request['capital'] || $request['townships'] || $request['status'] || $request['classType'] || $request['environment']) {
             $query = Teacher::with(['locations', 'subjects'])->filter(request(['name', 'gender', 'subjects', 'education', 'region', 'capital', 'townships', 'status', 'classType', 'environment']))->orderBy('id', 'ASC');
             $searchCount = $query->count();
-            $teacher = $query->paginate($request['per_page'] ?? 12, ['*'], '', $request['page']);
+            $teacher = $query->paginate($request['per_page'] ?? 36, ['*'], '', $request['page']);
             return response()->json(['teachers' => $teacher, 'searchCount' => $searchCount]);
         } else {
             return response()->json(['teachers' => 'no data']);

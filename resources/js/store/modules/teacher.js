@@ -1,7 +1,7 @@
 export default {
     state() {
         return {
-            perPage: 8,
+            perPage: 36,
             teachers: null,
             topTeachers: null,
             teacherCount: null,
