@@ -41,6 +41,7 @@ export default {
 
         }
     },
+    computed: mapGetters(['perPage']),
     methods: {
         ...mapActions(['defaultTeacher', 'getMetrics']),
         waitingDomContentLoaded() {
@@ -60,7 +61,7 @@ export default {
 
         await this.watingMetricsLoaded();
 
-        await this.defaultTeacher('?page=1&per_page=' + 12);
+        await this.defaultTeacher('?page=1&per_page=' + this.perPage);
 
         this.$nextTick(() => {
             console.log("Render has been loaded");
