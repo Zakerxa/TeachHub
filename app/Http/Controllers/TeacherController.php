@@ -74,6 +74,7 @@ class TeacherController extends Controller
                 'name_mm' => 'required|string',
                 'age' => 'required|numeric',
                 'pic.*' => ['mimes:jpg,png,jpeg,svg'],
+                'cert.*' => ['mimes:jpg,png,jpeg,svg'],
                 'region' => 'required',
                 'salary' => 'required',
                 'classType' => 'required',
@@ -84,7 +85,8 @@ class TeacherController extends Controller
                 'extra' => 'required|string',
                 'time_table_1' => 'required|string',
                 'time_table_1_mm' => 'required|string',
-                'online_or_local' => 'required|numeric'
+                'online_or_local' => 'required|numeric',
+                'user_id' => 'required'
             ]);
         } catch (ValidationException $th) {
             return $th->validator->errors();
@@ -112,6 +114,15 @@ class TeacherController extends Controller
             }
         }
 
+        $certImg = [];
+        if ($request->hasFile('cert')) {
+            foreach ($request->file('cert') as $image) {
+                $fileName = rand(1000, 9999) . '-' . $image->getClientOriginalName();
+                $image->move($imagepath, $fileName);
+                $certImg[] = $fileName;
+            }
+        }
+
         if ($request->environment == 'undefined') {
             $request['environment'] = 3;
             $request['environment_mm'] = 3;
@@ -119,7 +130,7 @@ class TeacherController extends Controller
 
         // Create the teacher without including 'pic' in the $request->only() call
         $teacher = $request->only([
-            'name', 'name_mm', 'age', 'extra', 'token','experience', 'time_table_1', 'time_table_1_mm', 'salary',
+            'user_id', 'name', 'name_mm', 'age', 'extra', 'token', 'experience', 'time_table_1', 'time_table_1_mm', 'salary',
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
@@ -128,6 +139,14 @@ class TeacherController extends Controller
         } else {
             $teacher['pic'] = '';
         }
+
+        if ($certImg) {
+            $teacher['certificate'] = implode(',', $certImg);
+        } else {
+            $teacher['certificate'] = '';
+        }
+
+        $teacher['status'] = $request['status'] ?? 1;
 
         $teacher['tel'] =  '0' . ltrim($request->tel ?? '');
 
@@ -184,6 +203,7 @@ class TeacherController extends Controller
                 'name_mm' => 'required|string',
                 'age' => 'required|numeric',
                 'pic.*' => ['mimes:jpg,png,jpeg,svg'],
+                'cert.*' => ['mimes:jpg,png,jpeg,svg'],
                 'region' => 'required',
                 'salary' => 'required',
                 'classType' => 'required',
@@ -201,8 +221,6 @@ class TeacherController extends Controller
         }
 
         $teacher = Teacher::findOrFail($request->id);
-
-        $token = $teacher->token;
 
         if (empty($request->time_table_2)) {
             $request['time_table_2'] = '';
@@ -222,28 +240,54 @@ class TeacherController extends Controller
             'time_table_2', 'time_table_2_mm', 'online_or_local', 'environment', 'environment_mm', 'description', 'description_mm'
         ]);
 
-        if ($request->hasFile('pic')) {
 
-            if (empty($token)) {
-                //  Random Token
-                $string     = 'QWERTYUIOPASDFGHJKLZXCVBNM0123456789';
-                $shuffle    = str_shuffle($string);
-                $token       = random_int(10000, 99999) . '-' . substr($shuffle, 0, 12) . '-' . rand(1000, 9999);
-            }
 
-            $imagepath  = public_path("/uploads/profile/$token");
-            // File Input System
-            if (!file_exists($imagepath)) {
-                if (!mkdir($imagepath, 0777, true)) die('Failed to create folders...');
-                else chmod("$imagepath", 0777);
-            }
+        $token = $teacher->token;
+        if (empty($token)) {
+            //  Random Token
+            $string     = 'QWERTYUIOPASDFGHJKLZXCVBNM0123456789';
+            $shuffle    = str_shuffle($string);
+            $token       = random_int(10000, 99999) . '-' . substr($shuffle, 0, 12) . '-' . rand(1000, 9999);
+            $teacherUpdate['token'] = $token;
+        }
 
-            // Get all files in the folder
-            $files = File::files($imagepath);
+        $imagepath  = public_path("/uploads/profile/$token");
 
-            // Delete each file
+        // File Input System
+        if (!file_exists($imagepath)) {
+            if (!mkdir($imagepath, 0777, true)) die('Failed to create folders...');
+            else chmod("$imagepath", 0777);
+        }
+
+
+        // Get all files in the folder
+        $files = File::files($imagepath);
+
+        if ($request->hasFile('cert')) {
+            // Delete each cert image file
             foreach ($files as $file) {
-                File::delete($file);
+                // Check if the file name contains the old value
+                if (strpos($file, $teacher->certificate) !== false) {
+                    File::delete($file);
+                }
+            }
+
+            $certImg = [];
+            foreach ($request->file('cert') as $image) {
+                $fileName = rand(1000, 9999) . '-' . $image->getClientOriginalName();
+                $image->move($imagepath, $fileName);
+                $certImg = $fileName;
+            }
+            $teacherUpdate['certificate'] = $certImg;
+        }
+
+        if ($request->hasFile('pic')) {
+            // Delete each pic file
+            foreach ($files as $file) {
+                // Check if the file name contains the old value
+                if (strpos($file, $teacher->pic) !== false) {
+                    File::delete($file);
+                }
             }
 
             $images = [];
@@ -256,10 +300,13 @@ class TeacherController extends Controller
             }
 
             $teacherUpdate['pic'] = $images;
-            $teacherUpdate['token'] = $token;
         }
 
-        $teacherUpdate['tel'] = '0' . ltrim($request->tel ?? '');
+        if($request->tel){
+            $teacherUpdate['tel'] = '0' . ltrim($request->tel ?? '');
+        }else {
+            $teacherUpdate['tel'] = '';
+        }
 
 
         // Detach existing relationships
