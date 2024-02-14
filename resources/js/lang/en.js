@@ -35,8 +35,10 @@ const en = {
         salary: 'Salary Ranges'
     },
     btn: {
+        home: 'Home',
+        explore: 'Explore',
         search: 'Search . . .',
-        explore: 'Start Explore',
+        startexplore: 'Start Explore',
         review: 'Write a Review',
         contactUs: 'Contact Us',
         login: 'Login',

@@ -3,7 +3,8 @@ export default {
     state() {
         return {
             lang: null,
-            items: null
+            items: null,
+            code: LanguageService.getLanguage(),
         }
     },
     getters: {
@@ -12,12 +13,16 @@ export default {
         },
         items(state) {
             return state.items;
+        },
+        code(state) {
+            return state.code;
         }
     },
     mutations: {
         updateLanguage(state, payload) {
             state.lang = payload.name;
             LanguageService.setLanguage(payload.code);
+            state.code = payload.code;
             payload.$i18n.locale = payload.code;
             state.items = [
                 { title: payload.$t('language.mm'), code: 'mm', name: 'Myanmar' },

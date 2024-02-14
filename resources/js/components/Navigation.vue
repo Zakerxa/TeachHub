@@ -19,7 +19,7 @@
                 <ul class="navbar-nav ml-auto my-2 my-md-0" style="--bs-scroll-height: 100px;">
                     <router-link v-for="(route, i) in router" :key="i" class="nav-link p-4 pt-3 pb-3 pt-md-2 pb-md-0"
                         active-class="active" aria-current="page" :to="route.path">
-                        {{ route.name }}
+                        {{ $t(`btn.${route.name}`) }}
                     </router-link>
 
                     <Language class="p-4 pt-3 pb-3 pt-md-1 pb-md-0" />
@@ -36,7 +36,7 @@
                         <router-link @click="closeCollapse" v-for="(route, i) in router" :key="i"
                             class="nav-link p-2 pt-3 pb-3 pt-md-1 pb-md-0" style="font-size: 18px;" active-class="active"
                             aria-current="page" :to="route.path">
-                            {{ route.name }}
+                            {{ $t(`btn.${route.name}`) }}
                         </router-link>
 
                         <Language @lang="langclick" class="p-2 pt-3 pb-3 pt-md-1 pb-md-0" />
@@ -88,15 +88,15 @@ export default {
             navCheck: false,
             bsOffcanvas: '',
             router: [{
-                name: "Home",
+                name: "home",
                 path: "/"
             },
             {
-                name: "Explore",
+                name: "explore",
                 path: "/explore"
             },
             {
-                name: "Contact Us",
+                name: "contactUs",
                 path: "/contact"
             }
             ]

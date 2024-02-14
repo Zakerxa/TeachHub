@@ -6,14 +6,14 @@
                 <v-btn class="lang-btn p-0" v-bind="props">
                     <div class="dropdown-toggle">
                         <span v-if="lang" class="fw-bold" style="font-size: 13px;" top=""><font-awesome-icon
-                                class="lang-icon" icon="fa-solid fa-globe" /> {{ lang }}</span>
+                                class="lang-icon" icon="fa-solid fa-globe" /> {{ $t(`language.${code}`) }}</span>
                     </div>
                 </v-btn>
             </template>
 
             <v-list :style="{ zIndex: 9999 }">
                 <v-list-item @click="setLanguage(item.code, item.name)" v-for="(item, i) in items" :key="i">
-                    <v-list-item-title>{{ item.name }}</v-list-item-title>
+                    <v-list-item-title>{{ $t(`language.${item.code}`) }}</v-list-item-title>
                 </v-list-item>
             </v-list>
         </v-menu>
@@ -22,7 +22,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 export default {
-    computed: mapGetters(['lang', 'items']),
+    computed: mapGetters(['lang', 'items','code']),
     methods: {
         ...mapMutations(['updateLanguage', 'checkLanguage', 'getLanguage']),
         setLanguage(code, name) {
