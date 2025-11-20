@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Subject;
 use App\Models\Teacher;
+use App\Models\Review;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Seeder;
 
@@ -754,5 +755,7 @@ class DatabaseSeeder extends Seeder
                 'township_mm' => $regionData['districts'][$di2]['townships'][$to2]['mm'],
             ]);
         }
+
+        Review::factory()->count(10)->create();
     }
 }
